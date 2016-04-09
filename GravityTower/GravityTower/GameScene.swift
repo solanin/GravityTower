@@ -112,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
   func lose() {
     if (currentLevel > 1) {
-      currentLevel--
+      currentLevel -= 1
     }
 
     playable = false
@@ -129,7 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
   func win() {
     if (currentLevel < 4) {
-      currentLevel++
+      currentLevel += 1
     }
 
     playable = false
