@@ -29,13 +29,10 @@ protocol InteractiveNode {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
   
-  var bedNode: BedNode!
   var catNode: CatNode!
   
   var playable = true
   var currentLevel: Int = 0
-  
-  var hookNode: HookNode?
   
   override func didMoveToView(view: SKView) {
     // Calculate playable margin
@@ -56,27 +53,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         customNode.didMoveToScene()
       }
     })
-    
-    bedNode = childNodeWithName("bed") as! BedNode
-    catNode = childNodeWithName("//cat_body") as! CatNode
-    
-//    bedNode.setScale(1.5)
-//    catNode.setScale(1.5)
 
-    SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
-    
-    hookNode = childNodeWithName("hookBase") as? HookNode
+    catNode = childNodeWithName("//cat_body") as! CatNode
+
+    // Add background music here
+    //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
   }
   
   func didBeginContact(contact: SKPhysicsContact) {
-    //chapter 10 challenge 1
     let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
     if collision == PhysicsCategory.Label | PhysicsCategory.Edge {
       
       let labelNode = (contact.bodyA.categoryBitMask == PhysicsCategory.Label) ?
-        contact.bodyA.node :
-        contact.bodyB.node
+        contact.bodyA.node : contact.bodyB.node
       
       if let message = labelNode as? MessageNode {
         message.didBounce()
@@ -93,10 +83,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     } else if collision == PhysicsCategory.Cat | PhysicsCategory.Edge {
       print("FAIL")
       lose()
-    }
-    
-    if collision == PhysicsCategory.Cat | PhysicsCategory.Hook && hookNode?.isHooked == false {
-      hookNode!.hookCat(catNode)
     }
   }
   
@@ -122,9 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     inGameMessage("Try again...")
     
-    performSelector("newGame", withObject: nil, afterDelay: 5)
-    
-    catNode.wakeUp()
+    performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
   }
 
   func win() {
@@ -137,18 +121,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     SKTAudio.sharedInstance().pauseBackgroundMusic()
     runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
     
-    inGameMessage("Nice job!")
-    
-    performSelector("newGame", withObject: nil, afterDelay: 3)
-    
-    catNode.curlAt(bedNode.position)
+    inGameMessage("Nice job!")    
+    performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
   }
 
   override func didSimulatePhysics() {
-    if playable && hookNode?.isHooked != true {
-      if fabs(catNode.parent!.zRotation) > CGFloat(25).degreesToRadians() {
-        lose()
-      }
+    if playable {
+        // if physics on tower make it fall, lose
+        
+//      if fabs(catNode.parent!.zRotation) > CGFloat(25).degreesToRadians() {
+//        lose()
+//      }
     }
     
   }
