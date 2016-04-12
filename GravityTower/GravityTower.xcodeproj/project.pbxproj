@@ -34,6 +34,8 @@
 		677A4F921CBD4A01008E5773 /* HowToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F911CBD4A01008E5773 /* HowToScene.swift */; };
 		677A4F941CBD4D1A008E5773 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F931CBD4D1A008E5773 /* CreditsScene.swift */; };
 		677A4F961CBD4F0D008E5773 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F951CBD4F0D008E5773 /* BaseNode.swift */; };
+		677A4F9A1CBD5AE6008E5773 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F991CBD5AE6008E5773 /* Player.swift */; };
+		677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */; };
 		9C7F97E81BD2474800C8E15B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */; };
 		9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */; };
 		9C7F97EA1BD2474800C8E15B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DE1BD2474800C8E15B /* CGVector+Extensions.swift */; };
@@ -77,6 +79,8 @@
 		677A4F911CBD4A01008E5773 /* HowToScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToScene.swift; sourceTree = "<group>"; };
 		677A4F931CBD4D1A008E5773 /* CreditsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 		677A4F951CBD4F0D008E5773 /* BaseNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNode.swift; sourceTree = "<group>"; };
+		677A4F991CBD5AE6008E5773 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBlockNode.swift; sourceTree = "<group>"; };
 		9C764A341BD237D80012640A /* GravityTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravityTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 		23595AF41CB9980C00C34D03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */,
+				677A4F991CBD5AE6008E5773 /* Player.swift */,
 				677A4F8F1CBD47F7008E5773 /* DefaultsManager.swift */,
 				675342FD1CB822BB0039C864 /* BlockNode.swift */,
 				6753430A1CB822BB0039C864 /* MessageNode.swift */,
@@ -300,10 +306,12 @@
 				9C7F97EF1BD2474800C8E15B /* SKNode+Extensions.swift in Sources */,
 				9C7F97F21BD2474800C8E15B /* SKTTimingFunctions.swift in Sources */,
 				675343181CB822BB0039C864 /* BlockNode.swift in Sources */,
+				677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */,
 				677A4F921CBD4A01008E5773 /* HowToScene.swift in Sources */,
 				9C7F97ED1BD2474800C8E15B /* SKAction+SpecialEffects.swift in Sources */,
 				23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */,
 				9C7F97EB1BD2474800C8E15B /* Int+Extensions.swift in Sources */,
+				677A4F9A1CBD5AE6008E5773 /* Player.swift in Sources */,
 				677A4F961CBD4F0D008E5773 /* BaseNode.swift in Sources */,
 				675343251CB822BB0039C864 /* MessageNode.swift in Sources */,
 				677A4F8B1CBD3D44008E5773 /* TWControl.swift in Sources */,

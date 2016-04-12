@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class BlockNode: SKSpriteNode {
+class FakeBlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
     
     var startPos:CGPoint
     var screen:CGRect
@@ -32,10 +32,9 @@ class BlockNode: SKSpriteNode {
         self.screen = screen
         super.position = startPos
         super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
-        super.physicsBody?.dynamic = true
-        super.physicsBody?.categoryBitMask = PhysicsCategory.Block
+        super.physicsBody?.dynamic = false
+        super.physicsBody?.categoryBitMask = PhysicsCategory.Base
         super.physicsBody?.contactTestBitMask = PhysicsCategory.None
-        super.physicsBody?.collisionBitMask = PhysicsCategory.Base
         super.physicsBody?.collisionBitMask = PhysicsCategory.Block
         super.physicsBody?.collisionBitMask = PhysicsCategory.Edge
         super.physicsBody?.allowsRotation = false
@@ -46,7 +45,6 @@ class BlockNode: SKSpriteNode {
         userInteractionEnabled = true
     }
     
-    /*
     func interact() {
         userInteractionEnabled = false
         
@@ -55,10 +53,23 @@ class BlockNode: SKSpriteNode {
             SKAction.scaleTo(0.8, duration: 0.1),
             SKAction.removeFromParent()
             ]))
+        
+        let newBlock = BlockNode(imageNamed: "block_Rect_Hor")
+        newBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+        addChild(newBlock)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    super.touchesEnded(touches, withEvent: event)
-    print("tapped block")
-    }*/
+        super.touchesEnded(touches, withEvent: event)
+        print("tapped block")
+        interact()
+    }
+    
+    func move(){
+        if (position.x > (screen.width - super.size.width - 40.0)) {
+            super.position.x++
+        } else if (position.x < (super.size.width + 40.0)) {
+            super.position.x--
+        }
+    }
 }
