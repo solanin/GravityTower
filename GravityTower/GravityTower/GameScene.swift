@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   override func didMoveToView(view: SKView) {
     // Calculate playable margin
     
-    let maxAspectRatio: CGFloat = 16.0/9.0 // iPhone 5
+    let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
     let maxAspectRatioHeight = size.width / maxAspectRatio
     let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
     
