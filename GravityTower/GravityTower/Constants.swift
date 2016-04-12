@@ -13,8 +13,8 @@ import SpriteKit
 
 struct Constants{
     struct Font {
-        static let Title = "Noteworthy-Light"
-        static let Main = "MarkerFelt-Thin"
+        static let Title = "Bebas"
+        static let Main = "Bebas"
         static let text = "Noteworthy-Bold"
     }
     

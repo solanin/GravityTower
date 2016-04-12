@@ -40,5 +40,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BEBAS___.TTF</string>
+	</array>
 </dict>
 </plist>

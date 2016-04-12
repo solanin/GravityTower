@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FD03711CBC16A100F44B4E /* MainMenuScene.swift */; };
+		23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 23FD03741CBD425300F44B4E /* BEBAS___.TTF */; };
 		675343131CB822BB0039C864 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675342F61CB822BB0039C864 /* AppDelegate.swift */; };
 		675343141CB822BB0039C864 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 675342F71CB822BB0039C864 /* Assets.xcassets */; };
 		675343151CB822BB0039C864 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 675342F81CB822BB0039C864 /* LaunchScreen.storyboard */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		23FD03711CBC16A100F44B4E /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		23FD03741CBD425300F44B4E /* BEBAS___.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BEBAS___.TTF"; sourceTree = "<group>"; };
 		675342F61CB822BB0039C864 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		675342F71CB822BB0039C864 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		675342F91CB822BB0039C864 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -113,9 +115,18 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
+		23FD03731CBD423B00F44B4E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				23FD03741CBD425300F44B4E /* BEBAS___.TTF */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		675342F51CB822BB0039C864 /* GravityTower */ = {
 			isa = PBXGroup;
 			children = (
+				23FD03731CBD423B00F44B4E /* Fonts */,
 				23595AF51CB9984F00C34D03 /* Scenes */,
 				23595AF41CB9980C00C34D03 /* Nodes */,
 				675342F61CB822BB0039C864 /* AppDelegate.swift */,
@@ -256,6 +267,7 @@
 				675343261CB822BB0039C864 /* backgroundMusic.mp3 in Resources */,
 				6753432A1CB822BB0039C864 /* win.mp3 in Resources */,
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
+				23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */,
 				675343271CB822BB0039C864 /* lose.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
