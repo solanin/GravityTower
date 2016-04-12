@@ -29,8 +29,6 @@ protocol InteractiveNode {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
   
-  var catNode: CatNode!
-  
   var playable = true
   var currentLevel: Int = 0
   
@@ -53,8 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         customNode.didMoveToScene()
       }
     })
-
-    catNode = childNodeWithName("//cat_body") as! CatNode
 
     // Add background music here
     //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
@@ -108,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     inGameMessage("Try again...")
     
-    performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
+    //performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
   }
 
   func win() {
@@ -122,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
     
     inGameMessage("Nice job!")    
-    performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
+    //performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
   }
 
   override func didSimulatePhysics() {

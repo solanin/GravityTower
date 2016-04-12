@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8150" systemVersion="15A204g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,8 +16,41 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ik5-PU-GUE">
+                                <rect key="frame" x="-468" y="-724" width="1536" height="2048"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="gravitytower_logo" translatesAutoresizingMaskIntoConstraints="NO" id="2be-8Y-un8">
+                                <rect key="frame" x="72" y="208" width="456" height="184"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Game by Jacob Westerback and Laura Silva" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0q0-Al-YC9">
+                                <rect key="frame" x="129" y="562" width="342" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ik5-PU-GUE" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="1Gh-EF-pdd"/>
+                            <constraint firstItem="2be-8Y-un8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8el-m8-bHh"/>
+                            <constraint firstItem="0q0-Al-YC9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="300" id="CEX-tn-4Wg"/>
+                            <constraint firstItem="2be-8Y-un8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ibl-FN-UIp"/>
+                            <constraint firstItem="2be-8Y-un8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="VIa-OD-36z"/>
+                            <constraint firstItem="0q0-Al-YC9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bQs-2k-EDI"/>
+                            <constraint firstItem="ik5-PU-GUE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gSV-eY-d0G"/>
+                            <constraint firstItem="0q0-Al-YC9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mBS-m8-Si3"/>
+                            <constraint firstItem="2be-8Y-un8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qdz-C6-XNV"/>
+                            <constraint firstItem="0q0-Al-YC9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tXF-M4-28o"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="8el-m8-bHh"/>
+                                <exclude reference="Ibl-FN-UIp"/>
+                                <exclude reference="mBS-m8-Si3"/>
+                                <exclude reference="tXF-M4-28o"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +58,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="1536" height="2048"/>
+        <image name="gravitytower_logo" width="456" height="184"/>
+    </resources>
 </document>
