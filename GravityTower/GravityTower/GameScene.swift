@@ -10,13 +10,10 @@ import SpriteKit
 
 struct PhysicsCategory {
   static let None:  UInt32 = 0
-  static let Cat:   UInt32 = 0b1 // 1
+  static let Edge:  UInt32 = 0b1 // 1
   static let Block: UInt32 = 0b10 // 2
-  static let Bed:   UInt32 = 0b100 // 4
-  static let Edge:  UInt32 = 0b1000 // 8
-  static let Label: UInt32 = 0b10000 // 16
-  static let Spring:UInt32 = 0b100000 // 32
-  static let Hook:  UInt32 = 0b1000000 // 64
+  static let Base:  UInt32 = 0b100 // 4
+  static let Label: UInt32 = 0b1000 // 8
 }
 
 protocol CustomNodeEvents {
@@ -59,24 +56,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   func didBeginContact(contact: SKPhysicsContact) {
     let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
-    if collision == PhysicsCategory.Label | PhysicsCategory.Edge {
-      
-      let labelNode = (contact.bodyA.categoryBitMask == PhysicsCategory.Label) ?
-        contact.bodyA.node : contact.bodyB.node
-      
-      if let message = labelNode as? MessageNode {
-        message.didBounce()
-      }
-    }
-
     if !playable {
       return
     }
     
-    if collision == PhysicsCategory.Cat | PhysicsCategory.Bed {
-      print("SUCCESS")
-      win()
-    } else if collision == PhysicsCategory.Cat | PhysicsCategory.Edge {
+    if collision == PhysicsCategory.Block | PhysicsCategory.Base {
+      print("Block landed")
+    } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
       print("FAIL")
       lose()
     }
