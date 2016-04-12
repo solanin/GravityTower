@@ -95,4 +95,18 @@ class GameViewController: UIViewController {
         skView.presentScene(scene)
         
     }
+    
+    func loadCreditsScene(){
+        let scene = CreditsScene(size:CGSize(width: 2048, height: 1536))
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        scene.scaleMode = scaleMode
+        
+        skView.presentScene(scene)
+        
+    }
 }

@@ -32,7 +32,7 @@ class MainMenuScene: SKScene {
         addChild(playBtn)
         
         let howToBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        howToBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-175.0))
+        howToBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-150.0))
         howToBtn.setNormalStateLabelText("How To")
         howToBtn.setNormalStateLabelFontColor(Constants.Color.White)
         howToBtn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -41,5 +41,16 @@ class MainMenuScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadInstructionsScene()
         })
         addChild(howToBtn)
+        
+        let creditsBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        creditsBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-250.0))
+        creditsBtn.setNormalStateLabelText("Credits")
+        creditsBtn.setNormalStateLabelFontColor(Constants.Color.White)
+        creditsBtn.setAllStatesLabelFontName(Constants.Font.Main)
+        creditsBtn.setAllStatesLabelFontSize(30.0)
+        creditsBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+            (self.view!.window!.rootViewController as! GameViewController).loadCreditsScene()
+        })
+        addChild(creditsBtn)
     }
 }
