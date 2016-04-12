@@ -82,15 +82,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
   }
   
-  func inGameMessage(text: String) {
-    let message = MessageNode(message: text)
-    message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
-    addChild(message)
-  }
-  
-  func newGame() {
-    view!.presentScene(GameScene.level(currentLevel))
-  }
+    func inGameMessage(text: String) {
+        let message = MessageNode(message: text)
+        message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        addChild(message)
+    }
+    
+    func newGame() {
+        view!.presentScene(GameScene.level(currentLevel))
+    }
 
   func lose() {
     if (currentLevel > 1) {
@@ -104,11 +104,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     inGameMessage("Try again...")
     
-    //performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
+    performSelector("newGame", withObject: nil, afterDelay: 5)
   }
 
   func win() {
-    if (currentLevel < 4) {
+    if (currentLevel < 1) {
       currentLevel += 1
     }
 
@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
     
     inGameMessage("Nice job!")    
-    //performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
+    performSelector("newGame", withObject: nil, afterDelay: 3)
   }
 
   override func didSimulatePhysics() {
@@ -132,11 +132,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
   }
   
-  class func level(levelNum: Int) -> GameScene? {
-    let scene = GameScene(fileNamed: "Level\(levelNum)")!
-    scene.currentLevel = levelNum
-    scene.scaleMode = .AspectFill
-    return scene
-  }
+    class func level(levelNum: Int) -> GameScene? {
+        let scene = GameScene(fileNamed: "Level\(levelNum)")!
+        scene.currentLevel = levelNum
+        scene.scaleMode = .AspectFill
+        return scene
+    }
 
 }

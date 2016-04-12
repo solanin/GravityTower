@@ -11,11 +11,7 @@ import SpriteKit
 
 class MainMenuScene: SKScene {
     
-    let button:SKLabelNode = SKLabelNode(fontNamed: Constants.Font.Main)
-    
     override func didMoveToView(view: SKView) {
-        backgroundColor = UIColor.grayColor()
-        
         let bg = SKSpriteNode(imageNamed: "background")
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)
@@ -24,15 +20,26 @@ class MainMenuScene: SKScene {
         logo.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+200.0))
         self.addChild(logo)
         
-        let control = TWButton(size: CGSize(width: 200, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        control.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        control.setNormalStateLabelText("Play")
-        control.setNormalStateLabelFontColor(Constants.Color.White)
-        control.setAllStatesLabelFontName(Constants.Font.Main)
-        control.setAllStatesLabelFontSize(30.0)
-        control.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+        let playBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-50.0))
+        playBtn.setNormalStateLabelText("Play")
+        playBtn.setNormalStateLabelFontColor(Constants.Color.White)
+        playBtn.setAllStatesLabelFontName(Constants.Font.Main)
+        playBtn.setAllStatesLabelFontSize(30.0)
+        playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
             (self.view!.window!.rootViewController as! GameViewController).loadGameScene()
         })
-        addChild(control)
+        addChild(playBtn)
+        
+        let howToBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        howToBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-175.0))
+        howToBtn.setNormalStateLabelText("How To")
+        howToBtn.setNormalStateLabelFontColor(Constants.Color.White)
+        howToBtn.setAllStatesLabelFontName(Constants.Font.Main)
+        howToBtn.setAllStatesLabelFontSize(30.0)
+        howToBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+            (self.view!.window!.rootViewController as! GameViewController).loadInstructionsScene()
+        })
+        addChild(howToBtn)
     }
 }

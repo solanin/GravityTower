@@ -30,6 +30,8 @@
 		677A4F8A1CBD3D44008E5773 /* TWControl+NestedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F851CBD3D44008E5773 /* TWControl+NestedTypes.swift */; };
 		677A4F8B1CBD3D44008E5773 /* TWControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F861CBD3D44008E5773 /* TWControl.swift */; };
 		677A4F8C1CBD3D44008E5773 /* TWSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F871CBD3D44008E5773 /* TWSwitch.swift */; };
+		677A4F901CBD47F7008E5773 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F8F1CBD47F7008E5773 /* DefaultsManager.swift */; };
+		677A4F921CBD4A01008E5773 /* HowToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F911CBD4A01008E5773 /* HowToScene.swift */; };
 		9C7F97E81BD2474800C8E15B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */; };
 		9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */; };
 		9C7F97EA1BD2474800C8E15B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DE1BD2474800C8E15B /* CGVector+Extensions.swift */; };
@@ -69,6 +71,8 @@
 		677A4F851CBD3D44008E5773 /* TWControl+NestedTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TWControl+NestedTypes.swift"; sourceTree = "<group>"; };
 		677A4F861CBD3D44008E5773 /* TWControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWControl.swift; sourceTree = "<group>"; };
 		677A4F871CBD3D44008E5773 /* TWSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWSwitch.swift; sourceTree = "<group>"; };
+		677A4F8F1CBD47F7008E5773 /* DefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
+		677A4F911CBD4A01008E5773 /* HowToScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowToScene.swift; sourceTree = "<group>"; };
 		9C764A341BD237D80012640A /* GravityTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravityTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -95,14 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23595AF41CB9980C00C34D03 /* Nodes */ = {
+		23595AF41CB9980C00C34D03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				677A4F8F1CBD47F7008E5773 /* DefaultsManager.swift */,
 				675342FD1CB822BB0039C864 /* BlockNode.swift */,
 				6753430A1CB822BB0039C864 /* MessageNode.swift */,
 				675343121CB822BB0039C864 /* StoneNode.swift */,
 			);
-			name = Nodes;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		23595AF51CB9984F00C34D03 /* Scenes */ = {
@@ -111,6 +116,7 @@
 				675343021CB822BB0039C864 /* GameScene.swift */,
 				675343061CB822BB0039C864 /* Level1.sks */,
 				23FD03711CBC16A100F44B4E /* MainMenuScene.swift */,
+				677A4F911CBD4A01008E5773 /* HowToScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -128,7 +134,7 @@
 			children = (
 				23FD03731CBD423B00F44B4E /* Fonts */,
 				23595AF51CB9984F00C34D03 /* Scenes */,
-				23595AF41CB9980C00C34D03 /* Nodes */,
+				23595AF41CB9980C00C34D03 /* Model */,
 				675342F61CB822BB0039C864 /* AppDelegate.swift */,
 				675342F71CB822BB0039C864 /* Assets.xcassets */,
 				675342F81CB822BB0039C864 /* LaunchScreen.storyboard */,
@@ -289,6 +295,7 @@
 				6753432C1CB822BB0039C864 /* StoneNode.swift in Sources */,
 				9C7F97F21BD2474800C8E15B /* SKTTimingFunctions.swift in Sources */,
 				675343181CB822BB0039C864 /* BlockNode.swift in Sources */,
+				677A4F921CBD4A01008E5773 /* HowToScene.swift in Sources */,
 				9C7F97ED1BD2474800C8E15B /* SKAction+SpecialEffects.swift in Sources */,
 				23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */,
 				9C7F97EB1BD2474800C8E15B /* Int+Extensions.swift in Sources */,
@@ -298,6 +305,7 @@
 				677A4F881CBD3D44008E5773 /* TWButton.swift in Sources */,
 				6753431D1CB822BB0039C864 /* GameScene.swift in Sources */,
 				675343131CB822BB0039C864 /* AppDelegate.swift in Sources */,
+				677A4F901CBD47F7008E5773 /* DefaultsManager.swift in Sources */,
 				677A4F811CBD3B45008E5773 /* Constants.swift in Sources */,
 				9C7F97EE1BD2474800C8E15B /* SKColor+Extensions.swift in Sources */,
 				677A4F8C1CBD3D44008E5773 /* TWSwitch.swift in Sources */,

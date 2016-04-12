@@ -67,4 +67,32 @@ class GameViewController: UIViewController {
         skView.presentScene(gameScene)
         
     }
+    
+    func loadInstructionsScene(){
+        let scene = HowToScene(size:CGSize(width: 2048, height: 1536))
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        scene.scaleMode = scaleMode
+        
+        skView.presentScene(scene)
+        
+    }
+    
+    func loadMainScene(){
+        let scene = MainMenuScene(size:CGSize(width: 2048, height: 1536))
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        scene.scaleMode = scaleMode
+        
+        skView.presentScene(scene)
+        
+    }
 }
