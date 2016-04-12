@@ -28,9 +28,9 @@ struct Constants{
     }
     
     struct Color {
-        static let Blue = SKColor(red: (20/255), green: (40/255), blue: (78/255), alpha: 0.0)
-        static let Red = SKColor(red: (190/255), green: (32/255), blue: (38/255), alpha: 0.0)
-        static let White = SKColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.0)
+        static let Blue = SKColor(red: (20/255), green: (40/255), blue: (78/255), alpha: 1.0)
+        static let Red = SKColor(red: (190/255), green: (32/255), blue: (38/255), alpha: 1.0)
+        static let White = SKColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
     }
 }
