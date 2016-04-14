@@ -17,6 +17,6 @@ class BedNode: SKSpriteNode, CustomNodeEvents {
         physicsBody!.dynamic = false
         
         physicsBody!.categoryBitMask = PhysicsCategory.Base
-        physicsBody!.collisionBitMask = PhysicsCategory.None
+        physicsBody!.collisionBitMask = PhysicsCategory.Block
     }
 }

@@ -30,13 +30,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
-    var block = SKSpriteNode(imageNamed:"block_Rect_Ver")
+    var blockNode: BlockNode!
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
         
-        block.position = CGPointMake(size.width/2, block.size.height + 100)
-        self.addChild(block)
+//        blockNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+500))
+//        self.addChild(blockNode)
         
         let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
         let maxAspectRatioHeight = size.width / maxAspectRatio
@@ -56,14 +56,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         })
         
         
-//         set up pan gesture recognizer
-        let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
-//        pan.minimumNumberOfTouches = 2
+        blockNode = childNodeWithName("block1") as! BlockNode
+        
+        
+        // set up pan gesture recognizer
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(GameScene.panDetected(_:)))
+        // pan.minimumNumberOfTouches = 2
         pan.delegate = self
         view.addGestureRecognizer(pan)
         
-//         set up rotate gesture recognizer
-        let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected:")
+        // set up rotate gesture recognizer
+        let rotate = UIRotationGestureRecognizer(target: self, action: #selector(GameScene.rotationDetected(_:)))
         rotate.delegate = self
         view.addGestureRecognizer(rotate)
         
@@ -74,11 +77,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func panDetected(sender:UIPanGestureRecognizer) {
         // retrieve pan movement along the x-axis of the view since the gesture began
         let currentPanX = sender.translationInView(view!).x
-        print("currentPanX since gesture began = \(currentPanX)")
+        //print("currentPanX since gesture began = \(currentPanX)")
         
         // calculate deltaX since last measurement
         let deltaX = currentPanX - previousPanX
-        block.position = CGPointMake(block.position.x + deltaX, block.position.y)
+        blockNode.position = CGPointMake(blockNode.position.x + deltaX, blockNode.position.y)
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -97,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaRotation since last measurement
         let deltaRotation = currentRotation - previousRotation
-        block.zRotation -= deltaRotation
+        blockNode.zRotation -= deltaRotation
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -118,7 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             print("Block landed")
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("FAIL")
-            lose()
         }
     }
     
@@ -144,7 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         inGameMessage("Try again...")
         
-        performSelector("newGame", withObject: nil, afterDelay: 5)
+        performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
     }
     
     func win() {
@@ -158,7 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
         
         inGameMessage("Nice job!")
-        performSelector("newGame", withObject: nil, afterDelay: 3)
+        performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
     }
     
     override func didSimulatePhysics() {
@@ -178,5 +180,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scene.scaleMode = .AspectFill
         return scene
     }
+    
     
 }

@@ -10,43 +10,32 @@ import SpriteKit
 
 class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
     
-    var dragTouchLocation: CGPoint?         //Location tapped for dragging
-    
     func didMoveToScene() {
         userInteractionEnabled = true
+        
+        physicsBody = SKPhysicsBody(rectangleOfSize: self.size)
+        physicsBody!.dynamic = false
+        
+        physicsBody!.categoryBitMask = PhysicsCategory.Block
+        physicsBody!.collisionBitMask = PhysicsCategory.Block | PhysicsCategory.Base | PhysicsCategory.Edge
     }
     
     func interact() {
         userInteractionEnabled = false
+        physicsBody!.dynamic = true
         
         runAction(SKAction.sequence([
             SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: false),
-            SKAction.scaleTo(0.8, duration: 0.1),
+            //SKAction.scaleTo(0.8, duration: 0.1),
             //SKAction.removeFromParent()
             ]))
         
         print("interact block node")
     }
     
-    
-    //Perform upon touch
-//    func sceneTouched(touchLocation:CGPoint)
-//    {
-//        //self.position = touchLocation
-//    }
-    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
-        print("destroy block")
+        print("touch ended")
         interact()
     }
-    
-    //Touch moved event
-//    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//        guard let touch = touches.first else {
-//            return
-//        }
-//        let touchLocation = touch.locationInNode(self)
-//        sceneTouched(touchLocation)
-//    }
 }
