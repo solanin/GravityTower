@@ -30,13 +30,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
-    var blockNode: BlockNode!
+    var blockNode1: BlockNode!
+    var blockNode2: BlockNode!
+    var blockNode3: BlockNode!
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
-        
-//        blockNode.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+500))
-//        self.addChild(blockNode)
         
         let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
         let maxAspectRatioHeight = size.width / maxAspectRatio
@@ -55,8 +54,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
+//        enumerateChildNodesWithName("block", usingBlock: {node, _ in
+//            if let activeBlock = node as? BlockNode {
+//                if activeBlock.isActive {
+//                    self.blockNode = activeBlock
+//                    return
+//                }
+//            }
+//        })
         
-        blockNode = childNodeWithName("block1") as! BlockNode
+        
+        blockNode1 = childNodeWithName("block1") as! BlockNode
+        blockNode2 = childNodeWithName("block2") as! BlockNode
+        blockNode3 = childNodeWithName("block3") as! BlockNode
         
         
         // set up pan gesture recognizer
@@ -81,7 +91,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaX since last measurement
         let deltaX = currentPanX - previousPanX
-        blockNode.position = CGPointMake(blockNode.position.x + deltaX, blockNode.position.y)
+        
+        if (blockNode1.userInteractionEnabled){
+            blockNode1.position = CGPointMake(blockNode1.position.x + deltaX, blockNode1.position.y)
+        }
+        
+        if (blockNode2.userInteractionEnabled){
+            blockNode2.position = CGPointMake(blockNode2.position.x + deltaX, blockNode2.position.y)
+        }
+        
+        if (blockNode3.userInteractionEnabled){
+            blockNode3.position = CGPointMake(blockNode3.position.x + deltaX, blockNode3.position.y)
+        }
+    
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -100,7 +122,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaRotation since last measurement
         let deltaRotation = currentRotation - previousRotation
-        blockNode.zRotation -= deltaRotation
+        
+        if (blockNode1.isActive){
+            blockNode1.zRotation -= deltaRotation
+        }
+        if (blockNode2.isActive){
+            blockNode2.zRotation -= deltaRotation
+        }
+        if (blockNode3.isActive){
+            blockNode3.zRotation -= deltaRotation
+        }
+        
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -150,9 +182,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func win() {
-        if (currentLevel < 1) {
-            currentLevel += 1
-        }
+//        if (currentLevel < 1) {
+//            currentLevel += 1
+//        }
         
         playable = false
         

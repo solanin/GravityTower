@@ -14,9 +14,10 @@ class BedNode: SKSpriteNode, CustomNodeEvents {
         
         let baseBodySize = CGSize(width: 300.0, height: 300.0)
         physicsBody = SKPhysicsBody(rectangleOfSize: baseBodySize)
-        physicsBody!.dynamic = false
+        //physicsBody!.dynamic = false
         
         physicsBody!.categoryBitMask = PhysicsCategory.Base
         physicsBody!.collisionBitMask = PhysicsCategory.Block
+        physicsBody!.mass = 100
     }
 }
