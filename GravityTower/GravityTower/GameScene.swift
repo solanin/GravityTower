@@ -16,6 +16,14 @@ struct PhysicsCategory {
     static let Label: UInt32 = 0b1000 // 8
 }
 
+struct SpriteLayer {
+    static let Background   : CGFloat = 0
+    static let PlayableRect : CGFloat = 1
+    static let HUD          : CGFloat = 2
+    static let Sprite       : CGFloat = 3
+    static let Message      : CGFloat = 4
+}
+
 protocol CustomNodeEvents {
     func didMoveToScene()
 }
@@ -30,9 +38,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
-    var blockNode1: BlockNode!
-    var blockNode2: BlockNode!
-    var blockNode3: BlockNode!
+    
+    var base:BaseNode = BaseNode()
+    var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
+    var allBlocks:[BlockNode] = []
+    
+    // Tocuhed Screen
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        print("tapped screen")
+    }
+    
+    func spawnBlock() {
+        
+        let newBlock = FakeBlockNode(imageNamed: "block_Rect_Hor")
+        newBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+        addChild(newBlock)
+
+        /*
+        currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
+        currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+        allBlocks.append(currentBlock)
+        addChild(currentBlock)
+        */
+    }
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
@@ -63,27 +92,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
 //            }
 //        })
         
-        
-        blockNode1 = childNodeWithName("block1") as! BlockNode
-        blockNode2 = childNodeWithName("block2") as! BlockNode
-        blockNode3 = childNodeWithName("block3") as! BlockNode
+        base.setup(CGPoint(x: CGRectGetMidX(self.frame), y: base.frame.height/2), screen: frame)
+        addChild(base)
+        spawnBlock()
         
         
         // set up pan gesture recognizer
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(GameScene.panDetected(_:)))
+        //let pan = UIPanGestureRecognizer(target: self, action: #selector(GameScene.panDetected(_:)))
         // pan.minimumNumberOfTouches = 2
-        pan.delegate = self
-        view.addGestureRecognizer(pan)
+        //pan.delegate = self
+        //view.addGestureRecognizer(pan)
         
         // set up rotate gesture recognizer
-        let rotate = UIRotationGestureRecognizer(target: self, action: #selector(GameScene.rotationDetected(_:)))
-        rotate.delegate = self
-        view.addGestureRecognizer(rotate)
+        //let rotate = UIRotationGestureRecognizer(target: self, action: #selector(GameScene.rotationDetected(_:)))
+        //rotate.delegate = self
+        //view.addGestureRecognizer(rotate)
         
         // Add background music here
         //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
     }
-    
+    /*
     func panDetected(sender:UIPanGestureRecognizer) {
         // retrieve pan movement along the x-axis of the view since the gesture began
         let currentPanX = sender.translationInView(view!).x
@@ -141,7 +169,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             previousRotation = currentRotation
         }
     }
-    
+    */
+
+
     func didBeginContact(contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
@@ -150,9 +180,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base {
+            print("Block landed on base")
+            //spawnBlock()
+        } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
             print("Block landed")
+            //spawnBlock()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("FAIL")
+            //lose()
         }
     }
     
@@ -177,14 +212,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         runAction(SKAction.playSoundFileNamed("lose.mp3", waitForCompletion: false))
         
         inGameMessage("Try again...")
-        
-        performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 5)
+        performSelector("newGame", withObject: nil, afterDelay: 5)
     }
     
+
+    
     func win() {
-//        if (currentLevel < 1) {
-//            currentLevel += 1
-//        }
+        if (currentLevel < 1) {
+            currentLevel += 1
+        }
         
         playable = false
         
@@ -192,7 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
         
         inGameMessage("Nice job!")
-        performSelector(#selector(GameScene.newGame), withObject: nil, afterDelay: 3)
+        performSelector("newGame", withObject: nil, afterDelay: 3)
     }
     
     override func didSimulatePhysics() {
@@ -212,6 +248,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scene.scaleMode = .AspectFill
         return scene
     }
-    
-    
 }

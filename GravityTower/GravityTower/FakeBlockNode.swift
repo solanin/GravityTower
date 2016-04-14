@@ -8,13 +8,7 @@
 
 import SpriteKit
 
-class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
-
-    var active: Bool = true
-
-    var isActive: Bool {
-        return active
-    }
+class FakeBlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
     
     var startPos:CGPoint
     var screen:CGRect
@@ -37,30 +31,38 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         self.startPos = startPos
         self.screen = screen
         super.position = startPos
-        super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
-        super.physicsBody?.dynamic = true
-        super.physicsBody?.mass = 20
-        super.physicsBody?.categoryBitMask = PhysicsCategory.Block
-        super.physicsBody?.contactTestBitMask = PhysicsCategory.None
-        super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.zPosition = SpriteLayer.Sprite
     }
     
     func didMoveToScene() {
-        userInteractionEnabled = true 
+        userInteractionEnabled = true
     }
     
     func interact() {
-        userInteractionEnabled = false
-        self.active = false
-        physicsBody!.dynamic = true
+        runAction(SKAction.sequence([
+            SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: false),
+            SKAction.scaleTo(0.8, duration: 0.1),
+            SKAction.removeFromParent()
+            ]))
         
-        print("interact block node")
+        let newBlock = BlockNode(imageNamed: "block_Rect_Hor")
+        newBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+        addChild(newBlock)
+        
+        print("interact fake block node")
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
-        print("touch ended")
+        print("tapped block")
         interact()
+    }
+    
+    func move(){
+        if (position.x > (screen.width - super.size.width - 40.0)) {
+            super.position.x++
+        } else if (position.x < (super.size.width + 40.0)) {
+            super.position.x--
+        }
     }
 }
