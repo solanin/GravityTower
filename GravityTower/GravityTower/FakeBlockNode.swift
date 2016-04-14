@@ -8,10 +8,11 @@
 
 import SpriteKit
 
-class FakeBlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
+class FakeBlockNode: SKSpriteNode, CustomNodeEvents {
     
     var startPos:CGPoint
     var screen:CGRect
+    var hasBeenSet = false
     
     init (imageNamed :String) {
         let texture = SKTexture(imageNamed: imageNamed)
@@ -32,37 +33,11 @@ class FakeBlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         self.screen = screen
         super.position = startPos
         super.zPosition = SpriteLayer.Sprite
+        
+        hasBeenSet = true
     }
     
     func didMoveToScene() {
         userInteractionEnabled = true
-    }
-    
-    func interact() {
-        runAction(SKAction.sequence([
-            SKAction.playSoundFileNamed("pop.mp3", waitForCompletion: false),
-            SKAction.scaleTo(0.8, duration: 0.1),
-            SKAction.removeFromParent()
-            ]))
-        
-        let newBlock = BlockNode(imageNamed: "block_Rect_Hor")
-        newBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
-        addChild(newBlock)
-        
-        print("interact fake block node")
-    }
-    
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
-        print("tapped block")
-        interact()
-    }
-    
-    func move(){
-        if (position.x > (screen.width - super.size.width - 40.0)) {
-            super.position.x++
-        } else if (position.x < (super.size.width + 40.0)) {
-            super.position.x--
-        }
     }
 }

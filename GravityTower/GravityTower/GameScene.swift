@@ -39,6 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
     
+    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor")
     var base:BaseNode = BaseNode()
     var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
     var allBlocks:[BlockNode] = []
@@ -47,20 +48,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         print("tapped screen")
+        
+        if (tempBlock.hasBeenSet) {
+            currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
+            currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+            allBlocks.append(currentBlock)
+            addChild(currentBlock)
+            tempBlock.removeFromParent()
+            tempBlock.hasBeenSet = false
+        }
     }
     
     func spawnBlock() {
-        
-        let newBlock = FakeBlockNode(imageNamed: "block_Rect_Hor")
-        newBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
-        addChild(newBlock)
-
-        /*
-        currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
-        currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
-        allBlocks.append(currentBlock)
-        addChild(currentBlock)
-        */
+        tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor")
+        tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+        addChild(tempBlock)
     }
     
     override func didMoveToView(view: SKView) {
@@ -98,20 +100,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         // set up pan gesture recognizer
-        //let pan = UIPanGestureRecognizer(target: self, action: #selector(GameScene.panDetected(_:)))
-        // pan.minimumNumberOfTouches = 2
-        //pan.delegate = self
-        //view.addGestureRecognizer(pan)
+        let pan = UIPanGestureRecognizer(target: self, action: "panDetected")
+        pan.minimumNumberOfTouches = 2
+        pan.delegate = self
+        view.addGestureRecognizer(pan)
         
         // set up rotate gesture recognizer
-        //let rotate = UIRotationGestureRecognizer(target: self, action: #selector(GameScene.rotationDetected(_:)))
-        //rotate.delegate = self
-        //view.addGestureRecognizer(rotate)
+        let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected")
+        rotate.delegate = self
+        view.addGestureRecognizer(rotate)
         
         // Add background music here
         //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
     }
-    /*
+    
     func panDetected(sender:UIPanGestureRecognizer) {
         // retrieve pan movement along the x-axis of the view since the gesture began
         let currentPanX = sender.translationInView(view!).x
@@ -119,19 +121,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaX since last measurement
         let deltaX = currentPanX - previousPanX
-        
-        if (blockNode1.userInteractionEnabled){
-            blockNode1.position = CGPointMake(blockNode1.position.x + deltaX, blockNode1.position.y)
-        }
-        
-        if (blockNode2.userInteractionEnabled){
-            blockNode2.position = CGPointMake(blockNode2.position.x + deltaX, blockNode2.position.y)
-        }
-        
-        if (blockNode3.userInteractionEnabled){
-            blockNode3.position = CGPointMake(blockNode3.position.x + deltaX, blockNode3.position.y)
-        }
     
+        tempBlock.position = CGPointMake(tempBlock.position.x + deltaX, tempBlock.position.y)
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -141,7 +132,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    
     func rotationDetected(sender:UIRotationGestureRecognizer){
         // retrieve rotation value since the gesture began
         let currentRotation = sender.rotation
@@ -150,17 +140,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaRotation since last measurement
         let deltaRotation = currentRotation - previousRotation
-        
-        if (blockNode1.isActive){
-            blockNode1.zRotation -= deltaRotation
-        }
-        if (blockNode2.isActive){
-            blockNode2.zRotation -= deltaRotation
-        }
-        if (blockNode3.isActive){
-            blockNode3.zRotation -= deltaRotation
-        }
-        
+    
+        tempBlock.zRotation -= deltaRotation
         
         // if the gesture has completed
         if sender.state == .Ended {
@@ -169,7 +150,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             previousRotation = currentRotation
         }
     }
-    */
+
 
 
     func didBeginContact(contact: SKPhysicsContact) {
@@ -181,13 +162,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base {
             print("Block landed on base")
-            //spawnBlock()
+            spawnBlock()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
             print("Block landed")
-            //spawnBlock()
+            spawnBlock()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("FAIL")
-            //lose()
+            lose()
         }
     }
     
