@@ -42,10 +42,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var readyForNext = true
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
-    var base:BaseNode = BaseNode()
     var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
     var allBlocks:[BlockNode] = []
-    var goal: GoalNode = GoalNode(imageNamed: "line")
+    var goal: GoalNode!
     
     // Touched Screen
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -61,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tempBlock.hasBeenSet = false
             tempBlock.removeFromParent()
         }
-        else {
+        else if playable {
             checkFinished()
         }
     }
@@ -94,13 +93,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
-        base.setup(CGPoint(x: CGRectGetMidX(self.frame), y: base.frame.height/2), screen: frame)
-        addChild(base)
+        
         spawnBlock()
-        
-        goal.setup(CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)), screen: frame)
-        addChild(goal)
-        
+        goal = childNodeWithName("//Goal") as! GoalNode
         
         // set up pan gesture recognizer
         let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
