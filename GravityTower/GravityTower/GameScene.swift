@@ -187,9 +187,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func checkFinished() {
-        print("Velocity \(currentBlock.physicsBody?.velocity)")
-        if (currentBlock.physicsBody?.velocity.dy < 0.0000001 ||
-            currentBlock.physicsBody?.velocity.dy > -0.0000001 ){
+        print("Velocity \(currentBlock.physicsBody?.velocity.dy)")
+        if (currentBlock.physicsBody?.velocity.dy < 15 &&
+            currentBlock.physicsBody?.velocity.dy > -15 ){
             if currentBlock.position.y >= goal.position.y {
                 win()
             } else {
