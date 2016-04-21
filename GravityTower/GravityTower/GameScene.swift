@@ -55,7 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if (tempBlock.hasBeenSet) {
             print("spawn real block")
             currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
-            currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), tempBlock.zRotation, screen: frame)
+            currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
             tempBlock.hasBeenSet = false
