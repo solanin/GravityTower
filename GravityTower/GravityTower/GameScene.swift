@@ -61,6 +61,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tempBlock.hasBeenSet = false
             tempBlock.removeFromParent()
         }
+        else {
+            checkFinished()
+        }
     }
     
     func spawnBlock() {
