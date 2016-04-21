@@ -12,13 +12,7 @@ import SpriteKit
 class HowToScene: SKScene {
     
     override func didMoveToView(view: SKView) {
-        let bg = SKSpriteNode(imageNamed: "background")
-        bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        self.addChild(bg)
-        
-        
-        
-        let playBtn = TWButton(size: CGSize(width: 150, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
         playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (200.0))
         playBtn.setNormalStateLabelText("Play")
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
@@ -29,8 +23,8 @@ class HowToScene: SKScene {
         })
         addChild(playBtn)
         
-        let backBtn = TWButton(size: CGSize(width: 150, height: 100), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
-        backBtn.position = CGPoint(x: 600.0, y:self.frame.height - 150.0)
+        let backBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
+        backBtn.position = CGPoint(x: 200.0, y:self.frame.height - 150.0)
         backBtn.setNormalStateLabelText("Back")
         backBtn.setNormalStateLabelFontColor(Constants.Color.White)
         backBtn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -39,5 +33,11 @@ class HowToScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })
         addChild(backBtn)
+    }
+    
+    class func loadSKSFile() -> HowToScene? {
+        let scene = HowToScene(fileNamed: "HowToSceneContents")!
+        scene.scaleMode = .AspectFill
+        return scene
     }
 }

@@ -50,7 +50,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // Touched Screen
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
-        print("tapped screen")
+        //print("tapped screen")
         
         if (tempBlock.hasBeenSet) {
             print("spawn real block")
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func endGame() {
         print("Finished Game")
-        view!.presentScene(GameScene.level(currentLevel))
+        //GameViewController.loadGameOver()
         msgHasSpawned = false
     }
     

@@ -11,13 +11,9 @@ import SpriteKit
 
 class CreditsScene: SKScene {
     
-    override func didMoveToView(view: SKView) {
-        let bg = SKSpriteNode(imageNamed: "background")
-        bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        self.addChild(bg)
-        
-        let backBtn = TWButton(size: CGSize(width: 150, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
-        backBtn.position = CGPoint(x: 600.0, y:self.frame.height - 150.0)
+    override func didMoveToView(view: SKView) {    
+        let backBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
+        backBtn.position = CGPoint(x: 200.0, y:self.frame.height - 150.0)
         backBtn.setNormalStateLabelText("Back")
         backBtn.setNormalStateLabelFontColor(Constants.Color.White)
         backBtn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -26,5 +22,11 @@ class CreditsScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })
         addChild(backBtn)
+    }
+    
+    class func loadSKSFile() -> CreditsScene? {
+        let scene = CreditsScene(fileNamed: "CreditsSceneContents")!
+        scene.scaleMode = .AspectFill
+        return scene
     }
 }

@@ -39,6 +39,8 @@
 		677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */; };
 		67C444FB1CC931FF0079EBA1 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FA1CC931FF0079EBA1 /* Level2.sks */; };
 		67C444FD1CC933060079EBA1 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FC1CC933060079EBA1 /* Level3.sks */; };
+		67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */; };
+		67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */; };
 		9C7F97E81BD2474800C8E15B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */; };
 		9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */; };
 		9C7F97EA1BD2474800C8E15B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DE1BD2474800C8E15B /* CGVector+Extensions.swift */; };
@@ -87,6 +89,8 @@
 		677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBlockNode.swift; sourceTree = "<group>"; };
 		67C444FA1CC931FF0079EBA1 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Level2.sks; path = ../Level2.sks; sourceTree = "<group>"; };
 		67C444FC1CC933060079EBA1 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
+		67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HowToSceneContents.sks; sourceTree = "<group>"; };
+		67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsSceneContents.sks; sourceTree = "<group>"; };
 		9C764A341BD237D80012640A /* GravityTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravityTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 				67152EFF1CBFDF050026CC89 /* Level1.sks */,
 				67C444FA1CC931FF0079EBA1 /* Level2.sks */,
 				67C444FC1CC933060079EBA1 /* Level3.sks */,
+				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
+				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -288,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				675343151CB822BB0039C864 /* LaunchScreen.storyboard in Resources */,
+				67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */,
 				675343291CB822BB0039C864 /* pop.mp3 in Resources */,
 				675343141CB822BB0039C864 /* Assets.xcassets in Resources */,
 				675343281CB822BB0039C864 /* mrreow.mp3 in Resources */,
@@ -297,6 +304,7 @@
 				6753432A1CB822BB0039C864 /* win.mp3 in Resources */,
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
 				67C444FD1CC933060079EBA1 /* Level3.sks in Resources */,
+				67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */,
 				23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */,
 				675343271CB822BB0039C864 /* lose.mp3 in Resources */,
 			);

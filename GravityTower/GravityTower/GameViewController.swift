@@ -102,14 +102,13 @@ class GameViewController: UIViewController {
     }
     
     func loadInstructionsScene(){
-        let scene = HowToScene(size:CGSize(width: 2048, height: 1536))
+        let scene = HowToScene.loadSKSFile()
         
         let skView = self.view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
-        scene.scaleMode = scaleMode
         skView.presentScene(scene)
         
     }
@@ -141,14 +140,13 @@ class GameViewController: UIViewController {
     }
     
     func loadCreditsScene(){
-        let scene = CreditsScene(size:CGSize(width: 2048, height: 1536))
+        let scene = CreditsScene.loadSKSFile()
         
         let skView = self.view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
         skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
-        scene.scaleMode = scaleMode
         
         skView.presentScene(scene)
     }
