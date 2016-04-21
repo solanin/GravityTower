@@ -1,51 +1,47 @@
 //
-//  BaseNode.swift
+//  GoalNode.swift
 //  GravityTower
 //
-//  Created by igmstudent on 4/12/16.
+//  Created by Laura Silva on 4/20/16.
 //  Copyright © 2016 Razeware LLC. All rights reserved.
 //
 
 import SpriteKit
 
-class BaseNode: SKSpriteNode {
+class GoalNode: SKSpriteNode {
+    var met: Bool = false
+    
+    // check if the goal has been met/reached
+    var isMet: Bool {
+        return false
+    }
     
     var startPos:CGPoint
     var screen:CGRect
     
-    init (imageNamed :String) {
+    init (imageNamed: String) {
         let texture = SKTexture(imageNamed: imageNamed)
+        
         startPos = CGPoint(x: 0.0, y: 0.0)
         screen = CGRect(x: 1, y: 1, width: 1, height: 1)
         
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        super.init(texture: texture, color: UIColor.blackColor(), size: texture.size())
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init() {
-        self.init(imageNamed: "base")
-    }
-    
     // MARK: - Methods -
-    
     func setup(startPos:CGPoint, screen:CGRect) {
         self.startPos = startPos
         self.screen = screen
         super.position = startPos
         super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
         super.physicsBody?.dynamic = false
-        super.physicsBody?.categoryBitMask = PhysicsCategory.Base
+        super.physicsBody?.categoryBitMask = PhysicsCategory.Goal
         super.physicsBody?.contactTestBitMask = PhysicsCategory.Block
-        super.physicsBody?.collisionBitMask = PhysicsCategory.Block | PhysicsCategory.Edge
-        super.physicsBody?.allowsRotation = false
+        super.physicsBody?.collisionBitMask = PhysicsCategory.Edge
         super.zPosition = SpriteLayer.Sprite
-    }
-    
-    func didMoveToScene() {
-        print("base added to scene")
-        physicsBody!.mass = 100
     }
 }

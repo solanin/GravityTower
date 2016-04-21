@@ -1,6 +1,6 @@
 //
 //  Player.swift
-//  FruitFlies
+//
 //
 //  Created by igmstudent on 3/17/16.
 //  Copyright © 2016 igmstudent. All rights reserved.

@@ -41,7 +41,7 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         super.physicsBody?.dynamic = true
         super.physicsBody?.mass = 20
         super.physicsBody?.categoryBitMask = PhysicsCategory.Block
-        super.physicsBody?.contactTestBitMask = PhysicsCategory.None
+        super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.zPosition = SpriteLayer.Sprite
     }

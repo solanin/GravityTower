@@ -63,7 +63,6 @@ class GameViewController: UIViewController {
         skView.showsNodeCount = true
         skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
-        
         skView.presentScene(gameScene)
         
     }
@@ -77,7 +76,6 @@ class GameViewController: UIViewController {
         skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         scene.scaleMode = scaleMode
-        
         skView.presentScene(scene)
         
     }
@@ -93,7 +91,6 @@ class GameViewController: UIViewController {
         scene.scaleMode = scaleMode
         
         skView.presentScene(scene)
-        
     }
     
     func loadGameOver(){
@@ -107,7 +104,6 @@ class GameViewController: UIViewController {
         scene.scaleMode = scaleMode
         
         skView.presentScene(scene)
-        
     }
     
     func loadCreditsScene(){
@@ -121,6 +117,5 @@ class GameViewController: UIViewController {
         scene.scaleMode = scaleMode
         
         skView.presentScene(scene)
-        
     }
 }

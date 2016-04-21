@@ -1,6 +1,6 @@
 //
 //  GameScene.swift
-//  CatNap
+//  
 //
 //  Created by Marin Todorov on 10/17/15.
 //  Copyright (c) 2015 Razeware LLC. All rights reserved.
@@ -14,6 +14,7 @@ struct PhysicsCategory {
     static let Block: UInt32 = 0b10 // 2
     static let Base:  UInt32 = 0b100 // 4
     static let Label: UInt32 = 0b1000 // 8
+    static let Goal:  UInt32 = 0b10000 // 16
 }
 
 struct SpriteLayer {
@@ -43,13 +44,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var base:BaseNode = BaseNode()
     var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
     var allBlocks:[BlockNode] = []
+    var goal: GoalNode = GoalNode(imageNamed: "line")
     
-    // Tocuhed Screen
+    // Touched Screen
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         print("tapped screen")
+        spawnBlock()
         
         if (tempBlock.hasBeenSet) {
+            print("tempBlock hasBeenSet")
+            
             currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
             currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
             allBlocks.append(currentBlock)
@@ -60,6 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func spawnBlock() {
+        print ("spawn block")
         tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor")
         tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
         addChild(tempBlock)
@@ -85,30 +91,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
-//        enumerateChildNodesWithName("block", usingBlock: {node, _ in
-//            if let activeBlock = node as? BlockNode {
-//                if activeBlock.isActive {
-//                    self.blockNode = activeBlock
-//                    return
-//                }
-//            }
-//        })
-        
         base.setup(CGPoint(x: CGRectGetMidX(self.frame), y: base.frame.height/2), screen: frame)
         addChild(base)
-        spawnBlock()
+        //spawnBlock()
+        
+        goal.setup(CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)), screen: frame)
+        addChild(goal)
         
         
         // set up pan gesture recognizer
         let pan = UIPanGestureRecognizer(target: self, action: "panDetected")
         pan.minimumNumberOfTouches = 2
         pan.delegate = self
-        view.addGestureRecognizer(pan)
+        //view.addGestureRecognizer(pan)
         
         // set up rotate gesture recognizer
         let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected")
         rotate.delegate = self
-        view.addGestureRecognizer(rotate)
+        //view.addGestureRecognizer(rotate)
+        
         
         // Add background music here
         //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
@@ -162,13 +163,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base {
             print("Block landed on base")
-            spawnBlock()
+            //spawnBlock()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
             print("Block landed")
-            spawnBlock()
+            //spawnBlock()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("FAIL")
             lose()
+        }
+        else if collision == PhysicsCategory.Block | PhysicsCategory.Goal {
+            print("Goal line")
         }
     }
     
