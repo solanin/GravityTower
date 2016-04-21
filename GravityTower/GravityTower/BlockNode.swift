@@ -33,7 +33,7 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
     
     // MARK: - Methods -
     
-    func setup(startPos:CGPoint, screen:CGRect) {
+    func setup(startPos:CGPoint, rotation:CGFloat, screen:CGRect) {
         self.startPos = startPos
         self.screen = screen
         super.position = startPos
@@ -43,6 +43,7 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         super.physicsBody?.categoryBitMask = PhysicsCategory.Block
         super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
+        super.zRotation = rotation
         super.zPosition = SpriteLayer.Sprite
     }
     

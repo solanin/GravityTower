@@ -55,7 +55,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if (tempBlock.hasBeenSet) {
             print("spawn real block")
             currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
-            currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+            currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
             tempBlock.hasBeenSet = false
@@ -188,8 +188,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func checkFinished() {
         print("Velocity \(currentBlock.physicsBody?.velocity)")
-        if (currentBlock.physicsBody?.velocity.dy < 0.1 ||
-            currentBlock.physicsBody?.velocity.dy > -0.1 ){
+        if (currentBlock.physicsBody?.velocity.dy < 0.0000001 ||
+            currentBlock.physicsBody?.velocity.dy > -0.0000001 ){
             if currentBlock.position.y >= goal.position.y {
                 win()
             } else {
