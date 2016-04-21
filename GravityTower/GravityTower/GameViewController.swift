@@ -22,7 +22,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupNotifications()
+        
         let scene = MainMenuScene(size:CGSize(width: 2048, height: 1536))
 
         //if let scene = GameScene.level(1) {
@@ -54,6 +55,39 @@ class GameViewController: UIViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    // MARK: - Notifications -
+    func setupNotifications(){
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("willResignActive:"),
+            name: UIApplicationWillResignActiveNotification,
+            object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("didBecomeActive:"),
+            name: UIApplicationDidBecomeActiveNotification,
+            object: nil)
+    }
+    
+    func willResignActive(n:NSNotification){
+        print("willResignActive notification")
+        gameScene?.gameLoopPaused = true
+        
+    }
+    
+    func didBecomeActive(n:NSNotification){
+        print("didBecomeActive notification")
+        gameScene?.gameLoopPaused = false
+    }
+    
+    func teardownNotifications(){
+        NSNotificationCenter.defaultCenter().removeObserver(
+            self)
+    }
+    
+    // MARK: - Scene Loading -
     
     func loadGameScene(){
         gameScene = GameScene.level(1)

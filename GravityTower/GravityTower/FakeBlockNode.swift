@@ -19,6 +19,7 @@ class FakeBlockNode: SKSpriteNode, CustomNodeEvents {
         screen = CGRect(x: 1, y: 1, width: 1, height: 1)
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        hasBeenSet = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,8 +34,8 @@ class FakeBlockNode: SKSpriteNode, CustomNodeEvents {
         super.position = startPos
         super.zPosition = SpriteLayer.Sprite
         super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
-        super.physicsBody?.dynamic = true
-        super.physicsBody?.mass = 20
+        super.physicsBody?.dynamic = false
+        super.physicsBody?.mass = 0
         super.physicsBody?.categoryBitMask = PhysicsCategory.Block
         super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge

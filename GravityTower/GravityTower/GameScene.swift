@@ -39,8 +39,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
+    var readyForNext = true
     
-    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor")
+    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
     var base:BaseNode = BaseNode()
     var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
     var allBlocks:[BlockNode] = []
@@ -50,23 +51,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         print("tapped screen")
-        spawnBlock()
         
         if (tempBlock.hasBeenSet) {
-            print("tempBlock hasBeenSet")
-            
+            print("spawn real block")
             currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
             currentBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
-            tempBlock.removeFromParent()
             tempBlock.hasBeenSet = false
+            tempBlock.removeFromParent()
         }
     }
     
     func spawnBlock() {
-        print ("spawn block")
-        tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor")
+        readyForNext = false
+        print ("spawn temp block")
+        tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
         tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
         addChild(tempBlock)
     }
@@ -93,26 +93,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         base.setup(CGPoint(x: CGRectGetMidX(self.frame), y: base.frame.height/2), screen: frame)
         addChild(base)
-        //spawnBlock()
+        spawnBlock()
         
         goal.setup(CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)), screen: frame)
         addChild(goal)
         
         
         // set up pan gesture recognizer
-        let pan = UIPanGestureRecognizer(target: self, action: "panDetected")
+        let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
         pan.minimumNumberOfTouches = 2
         pan.delegate = self
         //view.addGestureRecognizer(pan)
         
         // set up rotate gesture recognizer
-        let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected")
+        let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected:")
         rotate.delegate = self
         //view.addGestureRecognizer(rotate)
         
         
         // Add background music here
         //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
+        
+        gameLoopPaused = true
+        gameLoopPaused = false
     }
     
     func panDetected(sender:UIPanGestureRecognizer) {
@@ -163,16 +166,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base {
             print("Block landed on base")
-            //spawnBlock()
+            checkFinished()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
             print("Block landed")
-            //spawnBlock()
+            checkFinished()
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
-            print("FAIL")
+            print("Block Fell")
             lose()
-        }
-        else if collision == PhysicsCategory.Block | PhysicsCategory.Goal {
-            print("Goal line")
         }
     }
     
@@ -184,6 +184,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func newGame() {
         view!.presentScene(GameScene.level(currentLevel))
+    }
+    
+    func checkFinished() {
+        print("Velocity \(currentBlock.physicsBody?.velocity)")
+        if (currentBlock.physicsBody?.velocity.dy < 0.1 ||
+            currentBlock.physicsBody?.velocity.dy > -0.1 ){
+            if currentBlock.position.y >= goal.position.y {
+                win()
+            } else {
+                spawnBlock()
+            }
+        }
     }
     
     func lose() {
@@ -199,8 +211,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         inGameMessage("Try again...")
         performSelector("newGame", withObject: nil, afterDelay: 5)
     }
-    
-
     
     func win() {
         if (currentLevel < 1) {
@@ -232,5 +242,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scene.currentLevel = levelNum
         scene.scaleMode = .AspectFill
         return scene
+    }
+    
+    var gameLoopPaused:Bool = true {
+        didSet{
+            print("gameLoopPaused=\(gameLoopPaused)")
+            if gameLoopPaused {
+                runPauseAction()
+            } else {
+                runUnpauseAction()
+            }
+        }
+    }
+    
+    func runUnpauseAction() {
+        self.view?.paused = false
+        let unPauseAction = SKAction.sequence([
+            SKAction.fadeInWithDuration(1.5),
+            SKAction.runBlock({
+                self.physicsWorld.speed = 1.0
+            })
+        ])
+        unPauseAction.timingMode = .EaseIn
+        runAction(unPauseAction)
+    }
+    
+    func runPauseAction(){
+        scene?.alpha = 0.50
+        physicsWorld.speed = 0.0
+        self.view?.paused = true
     }
 }
