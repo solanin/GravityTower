@@ -192,7 +192,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func endGame() {
         print("Finished Game")
-        //GameViewController.loadGameOver()
+        let gameOverScene = GameOverScene(size: self.size)
+        self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
     
