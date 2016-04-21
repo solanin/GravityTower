@@ -39,7 +39,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
-    var readyForNext = true
+    var tempHasSpawned = false
+    var msgHasSpawned = false
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
     var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
@@ -58,19 +59,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             allBlocks.append(currentBlock)
             addChild(currentBlock)
             tempBlock.hasBeenSet = false
+            tempHasSpawned = false
             tempBlock.removeFromParent()
         }
-        else if playable {
+        else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
         }
     }
     
     func spawnBlock() {
-        readyForNext = false
-        print ("spawn temp block")
-        tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
-        tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
-        addChild(tempBlock)
+        if !tempHasSpawned {
+            tempHasSpawned = true
+            print ("spawn temp block")
+            tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
+            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+            addChild(tempBlock)
+        }
     }
     
     override func didMoveToView(view: SKView) {
@@ -164,10 +168,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base {
             print("Block landed on base")
-            checkFinished()
+            performSelector("checkFinished", withObject: nil, afterDelay: 1)
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
             print("Block landed")
-            checkFinished()
+            performSelector("checkFinished", withObject: nil, afterDelay: 1)
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("Block Fell")
             lose()
@@ -182,12 +186,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func newGame() {
         view!.presentScene(GameScene.level(currentLevel))
+        print("Level \(currentLevel)")
+        msgHasSpawned = false
+    }
+    
+    func endGame() {
+        print("Finished Game")
+        view!.presentScene(GameScene.level(currentLevel))
+        msgHasSpawned = false
     }
     
     func checkFinished() {
-        print("Velocity \(currentBlock.physicsBody?.velocity.dy)")
-        if (currentBlock.physicsBody?.velocity.dy < 15 &&
-            currentBlock.physicsBody?.velocity.dy > -15 ){
+        //print("Velocity \(currentBlock.physicsBody?.velocity.dy)")
+        if (currentBlock.physicsBody?.velocity.dy < 1 &&
+            currentBlock.physicsBody?.velocity.dy > -1 ){
             if currentBlock.position.y >= goal.position.y {
                 win()
             } else {
@@ -211,17 +223,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func win() {
-        if (currentLevel < 1) {
-            currentLevel += 1
+        if !msgHasSpawned {
+            msgHasSpawned = true
+            if (currentLevel < 3) {
+                currentLevel += 1
+            }
+        
+            playable = false
+        
+            SKTAudio.sharedInstance().pauseBackgroundMusic()
+            runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
+        
+            inGameMessage("Nice job!")
+        
+            if (currentLevel < 3) {
+                performSelector("newGame", withObject: nil, afterDelay: 3)
+            } else {
+                performSelector("endGame", withObject: nil, afterDelay: 3)
+            }
         }
-        
-        playable = false
-        
-        SKTAudio.sharedInstance().pauseBackgroundMusic()
-        runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
-        
-        inGameMessage("Nice job!")
-        performSelector("newGame", withObject: nil, afterDelay: 3)
     }
     
     override func didSimulatePhysics() {
