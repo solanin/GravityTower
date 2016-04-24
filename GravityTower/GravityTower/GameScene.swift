@@ -42,8 +42,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var tempHasSpawned = false
     var msgHasSpawned = false
     
-    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
-    var currentBlock:BlockNode = BlockNode(imageNamed: "block_Rect_Hor")
+    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
+    var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     var goal: GoalNode!
     
@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if (tempBlock.hasBeenSet) {
             print("spawn real block")
-            currentBlock = BlockNode(imageNamed: "block_Rect_Hor")
+            currentBlock = BlockNode(imageNamed: "rectangle")
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !tempHasSpawned {
             tempHasSpawned = true
             print ("spawn temp block")
-            tempBlock = FakeBlockNode(imageNamed: "block_Rect_Hor_Temp")
+            tempBlock = FakeBlockNode(imageNamed: "rectangle-fake")
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
             addChild(tempBlock)
         }
@@ -105,12 +105,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
         pan.minimumNumberOfTouches = 2
         pan.delegate = self
-        //view.addGestureRecognizer(pan)
+        view.addGestureRecognizer(pan)
         
         // set up rotate gesture recognizer
         let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected:")
         rotate.delegate = self
-        //view.addGestureRecognizer(rotate)
+        view.addGestureRecognizer(rotate)
         
         
         // Add background music here
