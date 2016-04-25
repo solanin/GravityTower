@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2348EDCF1CCE900B00A0C2D7 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2348EDCE1CCE900B00A0C2D7 /* backgroundMusic.mp3 */; };
+		2348EDD11CCE905A00A0C2D7 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2348EDD01CCE905A00A0C2D7 /* lose.wav */; };
 		238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238DA2911CC8772F00893D9C /* GoalNode.swift */; };
 		23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF131CCE6D9B0047ECCD /* drop.wav */; };
 		23B8BF161CCE742F0047ECCD /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF151CCE742F0047ECCD /* fall.wav */; };
@@ -22,9 +24,6 @@
 		6753431D1CB822BB0039C864 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675343021CB822BB0039C864 /* GameScene.swift */; };
 		6753431E1CB822BB0039C864 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675343031CB822BB0039C864 /* GameViewController.swift */; };
 		675343251CB822BB0039C864 /* MessageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753430A1CB822BB0039C864 /* MessageNode.swift */; };
-		675343261CB822BB0039C864 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6753430C1CB822BB0039C864 /* backgroundMusic.mp3 */; };
-		675343271CB822BB0039C864 /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6753430D1CB822BB0039C864 /* lose.mp3 */; };
-		675343281CB822BB0039C864 /* mrreow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6753430E1CB822BB0039C864 /* mrreow.mp3 */; };
 		675343291CB822BB0039C864 /* pop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6753430F1CB822BB0039C864 /* pop.mp3 */; };
 		6753432A1CB822BB0039C864 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 675343101CB822BB0039C864 /* win.mp3 */; };
 		677A4F811CBD3B45008E5773 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F801CBD3B45008E5773 /* Constants.swift */; };
@@ -58,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2348EDCE1CCE900B00A0C2D7 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
+		2348EDD01CCE905A00A0C2D7 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		238DA2911CC8772F00893D9C /* GoalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
 		23B8BF131CCE6D9B0047ECCD /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
 		23B8BF151CCE742F0047ECCD /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fall.wav; sourceTree = "<group>"; };
@@ -74,9 +75,6 @@
 		675343031CB822BB0039C864 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		675343051CB822BB0039C864 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753430A1CB822BB0039C864 /* MessageNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNode.swift; sourceTree = "<group>"; };
-		6753430C1CB822BB0039C864 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
-		6753430D1CB822BB0039C864 /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
-		6753430E1CB822BB0039C864 /* mrreow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mrreow.mp3; sourceTree = "<group>"; };
 		6753430F1CB822BB0039C864 /* pop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pop.mp3; sourceTree = "<group>"; };
 		675343101CB822BB0039C864 /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		677A4F801CBD3B45008E5773 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -181,9 +179,8 @@
 		6753430B1CB822BB0039C864 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				6753430C1CB822BB0039C864 /* backgroundMusic.mp3 */,
-				6753430D1CB822BB0039C864 /* lose.mp3 */,
-				6753430E1CB822BB0039C864 /* mrreow.mp3 */,
+				2348EDCE1CCE900B00A0C2D7 /* backgroundMusic.mp3 */,
+				2348EDD01CCE905A00A0C2D7 /* lose.wav */,
 				6753430F1CB822BB0039C864 /* pop.mp3 */,
 				675343101CB822BB0039C864 /* win.mp3 */,
 				23B8BF131CCE6D9B0047ECCD /* drop.wav */,
@@ -299,22 +296,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2348EDD11CCE905A00A0C2D7 /* lose.wav in Resources */,
 				675343151CB822BB0039C864 /* LaunchScreen.storyboard in Resources */,
 				67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */,
 				675343291CB822BB0039C864 /* pop.mp3 in Resources */,
 				675343141CB822BB0039C864 /* Assets.xcassets in Resources */,
 				23B8BF161CCE742F0047ECCD /* fall.wav in Resources */,
-				675343281CB822BB0039C864 /* mrreow.mp3 in Resources */,
+				2348EDCF1CCE900B00A0C2D7 /* backgroundMusic.mp3 in Resources */,
 				67C444FB1CC931FF0079EBA1 /* Level2.sks in Resources */,
 				67152F001CBFDF050026CC89 /* Level1.sks in Resources */,
-				675343261CB822BB0039C864 /* backgroundMusic.mp3 in Resources */,
 				6753432A1CB822BB0039C864 /* win.mp3 in Resources */,
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
 				67C444FD1CC933060079EBA1 /* Level3.sks in Resources */,
 				23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */,
 				67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */,
 				23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */,
-				675343271CB822BB0039C864 /* lose.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

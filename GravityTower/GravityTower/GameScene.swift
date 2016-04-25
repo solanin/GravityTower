@@ -149,8 +149,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         view.addGestureRecognizer(rotate)
         
         
-        // Add background music here
-        //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
+        // Background music
+        SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
         
         //gameLoopPaused = true
         gameLoopPaused = false
@@ -201,7 +201,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base || collision == PhysicsCategory.Block | PhysicsCategory.Block{
-            print("Block landed on base")
+            print("Block landed")
             runAction(SKAction.sequence([
                 SKAction.playSoundFileNamed("drop.wav", waitForCompletion: false)
                 ]))
@@ -255,7 +255,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         counter = 0
         
         SKTAudio.sharedInstance().pauseBackgroundMusic()
-        runAction(SKAction.playSoundFileNamed("lose.mp3", waitForCompletion: false))
+        runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         
         inGameMessage("Try again...")
         performSelector("newGame", withObject: nil, afterDelay: 5)
