@@ -150,9 +150,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         // Background music
-        SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
-        
-        //gameLoopPaused = true
+        //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
+    
         gameLoopPaused = false
     }
     
@@ -217,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func inGameMessage(text: String) {
         let message = MessageNode(message: text)
-        message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame)-500)
         addChild(message)
     }
     

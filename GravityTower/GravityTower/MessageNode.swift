@@ -15,20 +15,20 @@ class MessageNode: SKLabelNode {
     self.init(fontNamed: Constants.Font.Main)
     
     text = message
-    fontSize = 256.0
+    fontSize = 200
     fontColor = SKColor.grayColor()
     zPosition = 100
     
     let front = SKLabelNode(fontNamed: Constants.Font.Main)
     front.text = message
-    front.fontSize = 256.0
+    front.fontSize = 200
     front.fontColor = SKColor.whiteColor()
     front.position = CGPoint(x: -2, y: -2)
     addChild(front)
    
     physicsBody = SKPhysicsBody(circleOfRadius: 10)
-    physicsBody!.collisionBitMask = PhysicsCategory.Edge
-    physicsBody!.contactTestBitMask = PhysicsCategory.Edge
+    physicsBody!.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.Goal
+    physicsBody!.contactTestBitMask = PhysicsCategory.Edge | PhysicsCategory.Goal
     physicsBody!.categoryBitMask = PhysicsCategory.Label
     physicsBody!.restitution = 0.7
   }
