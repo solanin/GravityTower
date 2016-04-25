@@ -13,7 +13,7 @@ class BaseNode: SKSpriteNode {
     func didMoveToScene() {
         print("base added to scene")
         
-        let baseBodySize = CGSize(width: 300.0, height: 300.0)
+        let baseBodySize = CGSize(width: 295.0, height: 295.0)
         physicsBody! = SKPhysicsBody(rectangleOfSize: baseBodySize)
         
         physicsBody!.dynamic = false

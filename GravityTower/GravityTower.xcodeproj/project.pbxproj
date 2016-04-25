@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238DA2911CC8772F00893D9C /* GoalNode.swift */; };
+		23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF131CCE6D9B0047ECCD /* drop.wav */; };
+		23B8BF161CCE742F0047ECCD /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF151CCE742F0047ECCD /* fall.wav */; };
 		23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FD03711CBC16A100F44B4E /* MainMenuScene.swift */; };
 		23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 23FD03741CBD425300F44B4E /* BEBAS___.TTF */; };
 		23FD037B1CBD53D400F44B4E /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FD037A1CBD53D400F44B4E /* GameOverScene.swift */; };
@@ -57,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		238DA2911CC8772F00893D9C /* GoalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
+		23B8BF131CCE6D9B0047ECCD /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
+		23B8BF151CCE742F0047ECCD /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fall.wav; sourceTree = "<group>"; };
 		23FD03711CBC16A100F44B4E /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		23FD03741CBD425300F44B4E /* BEBAS___.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BEBAS___.TTF"; sourceTree = "<group>"; };
 		23FD037A1CBD53D400F44B4E /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 				6753430E1CB822BB0039C864 /* mrreow.mp3 */,
 				6753430F1CB822BB0039C864 /* pop.mp3 */,
 				675343101CB822BB0039C864 /* win.mp3 */,
+				23B8BF131CCE6D9B0047ECCD /* drop.wav */,
+				23B8BF151CCE742F0047ECCD /* fall.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 				67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */,
 				675343291CB822BB0039C864 /* pop.mp3 in Resources */,
 				675343141CB822BB0039C864 /* Assets.xcassets in Resources */,
+				23B8BF161CCE742F0047ECCD /* fall.wav in Resources */,
 				675343281CB822BB0039C864 /* mrreow.mp3 in Resources */,
 				67C444FB1CC931FF0079EBA1 /* Level2.sks in Resources */,
 				67152F001CBFDF050026CC89 /* Level1.sks in Resources */,
@@ -304,6 +311,7 @@
 				6753432A1CB822BB0039C864 /* win.mp3 in Resources */,
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
 				67C444FD1CC933060079EBA1 /* Level3.sks in Resources */,
+				23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */,
 				67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */,
 				23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */,
 				675343271CB822BB0039C864 /* lose.mp3 in Resources */,

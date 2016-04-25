@@ -134,6 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         spawnBlock()
+        
         goal = childNodeWithName("//Goal") as! GoalNode
         
         // set up pan gesture recognizer
@@ -176,8 +177,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func rotationDetected(sender:UIRotationGestureRecognizer){
         // retrieve rotation value since the gesture began
         let currentRotation = sender.rotation
-        print("currentRotation (in radians) since gesture began = \(currentRotation)")
-        print("velocity = \(sender.velocity)")
         
         // calculate deltaRotation since last measurement
         let deltaRotation = currentRotation - previousRotation
@@ -201,14 +200,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             return
         }
         
-        if collision == PhysicsCategory.Block | PhysicsCategory.Base {
+        if collision == PhysicsCategory.Block | PhysicsCategory.Base || collision == PhysicsCategory.Block | PhysicsCategory.Block{
             print("Block landed on base")
-            performSelector("checkFinished", withObject: nil, afterDelay: 1)
-        } else if collision == PhysicsCategory.Block | PhysicsCategory.Block {
-            print("Block landed")
+            runAction(SKAction.sequence([
+                SKAction.playSoundFileNamed("drop.wav", waitForCompletion: false)
+                ]))
             performSelector("checkFinished", withObject: nil, afterDelay: 1)
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
             print("Block Fell")
+            runAction(SKAction.sequence([
+                SKAction.playSoundFileNamed("fall.wav", waitForCompletion: false)
+                ]))
             lose()
         }
     }
