@@ -19,7 +19,7 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
     var startPos:CGPoint
     var screen:CGRect
     
-    init (imageNamed :String) {
+    init (imageNamed: String) {
         let texture = SKTexture(imageNamed: imageNamed)
         startPos = CGPoint(x: 0.0, y: 0.0)
         screen = CGRect(x: 1, y: 1, width: 1, height: 1)
@@ -39,7 +39,6 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         super.position = startPos
         super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
         super.physicsBody?.dynamic = true
-        super.physicsBody?.mass = 20
         super.physicsBody?.categoryBitMask = PhysicsCategory.Block
         super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge

@@ -12,14 +12,14 @@ class MessageNode: SKLabelNode {
   
   convenience init(message: String) {
     
-    self.init(fontNamed: "AvenirNext-Regular")
+    self.init(fontNamed: Constants.Font.Main)
     
     text = message
     fontSize = 256.0
     fontColor = SKColor.grayColor()
     zPosition = 100
     
-    let front = SKLabelNode(fontNamed: "AvenirNext-Regular")
+    let front = SKLabelNode(fontNamed: Constants.Font.Main)
     front.text = message
     front.fontSize = 256.0
     front.fontColor = SKColor.whiteColor()

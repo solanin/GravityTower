@@ -47,6 +47,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var allBlocks:[BlockNode] = []
     var goal: GoalNode!
     
+    //Levels
+    let level1: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
+    let level1Fake: [String] = ["rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    
+    let level2: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
+    let level2Fake: [String] = ["square-fake", "rectangle-fake", "triangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    
+    let level3: [String] = ["triangle", "rectangle", "square", "square", "triangle", "triangle", "square", "rectangle", "rectangle", "square", "square", "rectangle", "triangle"]
+    let level3Fake: [String] = ["triangle-fake", "rectangle-fake", "square-fake", "square-fake", "triangle-fake", "triangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake"]
+    
+    var counter = 0         // Keep track of the index on level array
+    
+    
     // Touched Screen
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
@@ -54,13 +67,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if (tempBlock.hasBeenSet) {
             print("spawn real block")
-            currentBlock = BlockNode(imageNamed: "rectangle")
+
+            if (currentLevel == 1){
+                currentBlock = BlockNode(imageNamed: level1[counter])
+            }
+            if (currentLevel == 2){
+                currentBlock = BlockNode(imageNamed: level2[counter])
+            }
+            if (currentLevel == 3){
+                currentBlock = BlockNode(imageNamed: level3[counter])
+            }
+            
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
+            
+            counter += 1
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -71,15 +96,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !tempHasSpawned {
             tempHasSpawned = true
             print ("spawn temp block")
-            tempBlock = FakeBlockNode(imageNamed: "rectangle-fake")
-            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 200.0)), screen: frame)
+            
+            if (currentLevel == 1){
+                tempBlock = FakeBlockNode(imageNamed: level1Fake[counter])
+            }
+            if (currentLevel == 2){
+                tempBlock = FakeBlockNode(imageNamed: level2Fake[counter])
+            }
+            if (currentLevel == 3){
+                tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
+            }
+            
+            tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
+            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
         }
     }
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
-        
         let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
         let maxAspectRatioHeight = size.width / maxAspectRatio
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
@@ -116,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         // Add background music here
         //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
         
-        gameLoopPaused = true
+        //gameLoopPaused = true
         gameLoopPaused = false
     }
     
@@ -215,6 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         playable = false
+        counter = 0
         
         SKTAudio.sharedInstance().pauseBackgroundMusic()
         runAction(SKAction.playSoundFileNamed("lose.mp3", waitForCompletion: false))
@@ -231,6 +267,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         
             playable = false
+            counter = 0
         
             SKTAudio.sharedInstance().pauseBackgroundMusic()
             runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))

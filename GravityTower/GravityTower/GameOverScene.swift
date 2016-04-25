@@ -16,27 +16,29 @@ class GameOverScene: SKScene {
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)
         
-        let logo = SKSpriteNode(imageNamed: "gravitytower_logo")
-        logo.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+200.0))
-        self.addChild(logo)
+        let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        gameOverLabel.text = "Game Over"
+        gameOverLabel.fontSize = 250
+        gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        self.addChild(gameOverLabel)
         
-        let playBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-50.0))
+        let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)))
         playBtn.setNormalStateLabelText("Try Again")
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
-        playBtn.setAllStatesLabelFontSize(30.0)
+        playBtn.setAllStatesLabelFontSize(40.0)
         playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
             (self.view!.window!.rootViewController as! GameViewController).loadGameScene()
         })
         addChild(playBtn)
         
-        let mainMenuBtn = TWButton(size: CGSize(width: 150, height: 75), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        mainMenuBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-150.0))
+        let mainMenuBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
+        mainMenuBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-300.0))
         mainMenuBtn.setNormalStateLabelText("Main Menu")
         mainMenuBtn.setNormalStateLabelFontColor(Constants.Color.White)
         mainMenuBtn.setAllStatesLabelFontName(Constants.Font.Main)
-        mainMenuBtn.setAllStatesLabelFontSize(30.0)
+        mainMenuBtn.setAllStatesLabelFontSize(40.0)
         mainMenuBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })

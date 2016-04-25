@@ -12,12 +12,12 @@ import SpriteKit
 class HowToScene: SKScene {
     
     override func didMoveToView(view: SKView) {
-        let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        let playBtn = TWButton(size: CGSize(width: 250, height: 150), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
         playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (200.0))
         playBtn.setNormalStateLabelText("Play")
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
-        playBtn.setAllStatesLabelFontSize(40.0)
+        playBtn.setAllStatesLabelFontSize(60.0)
         playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
             (self.view!.window!.rootViewController as! GameViewController).loadGameScene()
         })
