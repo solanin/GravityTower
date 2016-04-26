@@ -59,14 +59,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     var counter = 0         // Keep track of the index on level array
     
-    
     // Touched Screen
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         //print("tapped screen")
         
         if (tempBlock.hasBeenSet) {
-            print("spawn real block")
+            //print("spawn real block")
 
             if (currentLevel == 1){
                 currentBlock = BlockNode(imageNamed: level1[counter])
@@ -86,6 +85,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tempBlock.removeFromParent()
             
             counter += 1
+            
+            if (currentLevel == 1 && counter >= level1.count){
+                counter = 0
+            }
+            if (currentLevel == 2 && counter >= level2.count){
+                counter = 0
+            }
+            if (currentLevel == 3 && counter >= level3.count){
+                counter = 0
+            }
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -95,19 +104,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func spawnBlock() {
         if !tempHasSpawned {
             tempHasSpawned = true
-            print ("spawn temp block")
+            //print ("spawn temp block")
             
             if (currentLevel == 1){
                 tempBlock = FakeBlockNode(imageNamed: level1Fake[counter])
             }
-            if (currentLevel == 2){
+            else if (currentLevel == 2){
                 tempBlock = FakeBlockNode(imageNamed: level2Fake[counter])
             }
-            if (currentLevel == 3){
+            else { // (currentLevel == 3){
                 tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
             }
             
-            tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
+            //tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
         }
@@ -136,7 +145,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
+        // UI
+        let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
+        quitBtn.position = CGPoint(x: 200, y: 100)
+        quitBtn.setNormalStateLabelText("Quit")
+        quitBtn.setNormalStateLabelFontColor(Constants.Color.White)
+        quitBtn.setAllStatesLabelFontName(Constants.Font.Main)
+        quitBtn.setAllStatesLabelFontSize(50.0)
+        quitBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+            (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
+        })
+        addChild(quitBtn)
         
+        // Game Objects
         spawnBlock()
         
         goal = childNodeWithName("//Goal") as! GoalNode
@@ -204,13 +225,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base || collision == PhysicsCategory.Block | PhysicsCategory.Block{
-            print("Block landed")
+            //print("Block landed")
             runAction(SKAction.sequence([
                 SKAction.playSoundFileNamed("drop.wav", waitForCompletion: false)
                 ]))
             performSelector("checkFinished", withObject: nil, afterDelay: 1)
         } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
-            print("Block Fell")
+            //print("Block Fell")
             runAction(SKAction.sequence([
                 SKAction.playSoundFileNamed("fall.wav", waitForCompletion: false)
                 ]))
@@ -250,10 +271,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func lose() {
-        if (currentLevel > 1) {
-            currentLevel -= 1
-        }
-        
         playable = false
         counter = 0
         
