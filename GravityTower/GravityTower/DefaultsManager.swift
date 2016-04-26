@@ -45,19 +45,23 @@ class DefaultsManager{
     }
     
     func setLvlUnlock(lvl:Int){
-        defaults.setInteger(lvl, forKey: HIGHEST_LEVEL_UNLOCKED)
-        defaults.synchronize()
-        print("setting value for lvlUnlock = \(lvl)")
+        if (getLvlUnlcok() < lvl) {
+            defaults.setInteger(lvl, forKey: HIGHEST_LEVEL_UNLOCKED)
+            defaults.synchronize()
+            print("setting value for lvlUnlock = \(lvl)")
+        }
     }
     
     func setStars(stars:Int, lvl:Int){
-        var KEY = LVL_1_STARS
-        if (lvl == 2) {KEY = LVL_2_STARS}
-        if (lvl == 3) {KEY = LVL_3_STARS}
+        if (getStarsForLevel(lvl) < stars) {
+            var KEY = LVL_1_STARS
+            if (lvl == 2) {KEY = LVL_2_STARS}
+            if (lvl == 3) {KEY = LVL_3_STARS}
         
-        defaults.setInteger(stars, forKey: KEY)
-        defaults.synchronize()
-        print("setting value for \(KEY)) = \(stars)")
+            defaults.setInteger(stars, forKey: KEY)
+            defaults.synchronize()
+            print("setting value for \(KEY)) = \(stars)")
+        }
     }
     
 }
