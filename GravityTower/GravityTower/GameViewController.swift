@@ -89,7 +89,7 @@ class GameViewController: UIViewController {
     
     // MARK: - Scene Loading -
     
-    func loadGameScene(){
+    func loadGameSceneOne(){
         gameScene = GameScene.level(1)
         
         let skView = self.view as! SKView
@@ -98,6 +98,42 @@ class GameViewController: UIViewController {
         skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(gameScene)
+        
+    }
+    
+    func loadGameSceneTwo(){
+        gameScene = GameScene.level(2)
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(gameScene)
+        
+    }
+    
+    func loadGameSceneThree(){
+        gameScene = GameScene.level(3)
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(gameScene)
+        
+    }
+    
+    func loadLevelSelectScene(){
+        let scene = LevelSelect.loadSKSFile()
+        
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(scene)
         
     }
     
@@ -149,5 +185,7 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = false
         
         skView.presentScene(scene)
+    
+    
     }
 }

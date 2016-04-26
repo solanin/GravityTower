@@ -39,6 +39,8 @@
 		677A4F9A1CBD5AE6008E5773 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F991CBD5AE6008E5773 /* Player.swift */; };
 		677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */; };
 		67B676481CCEEFE500441286 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B676471CCEEFE500441286 /* Level2.sks */; };
+		67B6764A1CCEFA2100441286 /* LevelSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B676491CCEFA2100441286 /* LevelSelect.swift */; };
+		67B6764C1CCEFA3F00441286 /* LevelSelectContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */; };
 		67C444FD1CC933060079EBA1 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FC1CC933060079EBA1 /* Level3.sks */; };
 		67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */; };
 		67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */; };
@@ -90,6 +92,8 @@
 		677A4F991CBD5AE6008E5773 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeBlockNode.swift; sourceTree = "<group>"; };
 		67B676471CCEEFE500441286 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
+		67B676491CCEFA2100441286 /* LevelSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelect.swift; sourceTree = "<group>"; };
+		67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelSelectContents.sks; sourceTree = "<group>"; };
 		67C444FC1CC933060079EBA1 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HowToSceneContents.sks; sourceTree = "<group>"; };
 		67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsSceneContents.sks; sourceTree = "<group>"; };
@@ -141,10 +145,12 @@
 				23FD03711CBC16A100F44B4E /* MainMenuScene.swift */,
 				677A4F911CBD4A01008E5773 /* HowToScene.swift */,
 				677A4F931CBD4D1A008E5773 /* CreditsScene.swift */,
+				67B676491CCEFA2100441286 /* LevelSelect.swift */,
 				67152EFF1CBFDF050026CC89 /* Level1.sks */,
 				67B676471CCEEFE500441286 /* Level2.sks */,
 				67C444FC1CC933060079EBA1 /* Level3.sks */,
 				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
+				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
 				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
 			);
 			name = Scenes;
@@ -302,6 +308,7 @@
 				67B676481CCEEFE500441286 /* Level2.sks in Resources */,
 				675343291CB822BB0039C864 /* pop.mp3 in Resources */,
 				675343141CB822BB0039C864 /* Assets.xcassets in Resources */,
+				67B6764C1CCEFA3F00441286 /* LevelSelectContents.sks in Resources */,
 				23B8BF161CCE742F0047ECCD /* fall.wav in Resources */,
 				2348EDCF1CCE900B00A0C2D7 /* backgroundMusic.mp3 in Resources */,
 				67152F001CBFDF050026CC89 /* Level1.sks in Resources */,
@@ -330,6 +337,7 @@
 				9C7F97EF1BD2474800C8E15B /* SKNode+Extensions.swift in Sources */,
 				9C7F97F21BD2474800C8E15B /* SKTTimingFunctions.swift in Sources */,
 				675343181CB822BB0039C864 /* BlockNode.swift in Sources */,
+				67B6764A1CCEFA2100441286 /* LevelSelect.swift in Sources */,
 				677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */,
 				677A4F921CBD4A01008E5773 /* HowToScene.swift in Sources */,
 				9C7F97ED1BD2474800C8E15B /* SKAction+SpecialEffects.swift in Sources */,

@@ -29,7 +29,7 @@ class GameOverScene: SKScene {
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
         playBtn.setAllStatesLabelFontSize(40.0)
         playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-            (self.view!.window!.rootViewController as! GameViewController).loadGameScene()
+            (self.view!.window!.rootViewController as! GameViewController).loadLevelSelectScene()
         })
         addChild(playBtn)
         
