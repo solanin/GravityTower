@@ -41,6 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
+    var stars = 0
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -86,13 +87,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             counter += 1
             
-            if (currentLevel == 1 && counter >= level1.count){
-                counter = 0
-            }
-            if (currentLevel == 2 && counter >= level2.count){
-                counter = 0
-            }
-            if (currentLevel == 3 && counter >= level3.count){
+            if (currentLevel == 1 && counter >= level1.count ||
+                currentLevel == 2 && counter >= level2.count ||
+                currentLevel == 3 && counter >= level3.count){
                 counter = 0
             }
         }
@@ -286,20 +283,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func win() {
         if !msgHasSpawned {
             msgHasSpawned = true
-            if (currentLevel < 3) {
-                currentLevel += 1
+            
+            stars++
+            
+            if (currentLevel == 1 && allBlocks.count <= 3 ||
+                currentLevel == 2 && allBlocks.count <= 7 ||
+                currentLevel == 3 && allBlocks.count <= 7) {
+                    stars++
             }
-        
+            
+            if (currentLevel == 1 && true ||
+                currentLevel == 2 && true ||
+                currentLevel == 3 && true) {
+                    stars++
+            }
+            
+            var msg = ""
+            if stars < 1 {msg = "···"}
+            else if stars == 1 {msg = "★··"}
+            else if stars == 2 {msg = "★★·"}
+            else {msg = "★★★"}
+            
             playable = false
             counter = 0
             
-            DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
-        
+            DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
+            DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
+            
+            if (currentLevel < 3) {
+                currentLevel += 1
+            }
+            
             SKTAudio.sharedInstance().pauseBackgroundMusic()
             runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))
-        
-            inGameMessage("Nice job!")
-        
+            
+            inGameMessage(msg)
+            //inGameMessage("Nice job!")
+            
             if (currentLevel < 3) {
                 performSelector("newGame", withObject: nil, afterDelay: 3)
             } else {
