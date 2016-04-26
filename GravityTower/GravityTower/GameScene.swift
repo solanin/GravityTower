@@ -1,6 +1,6 @@
 //
 //  GameScene.swift
-//  
+//
 //
 //  Created by Marin Todorov on 10/17/15.
 //  Copyright (c) 2015 Razeware LLC. All rights reserved.
@@ -42,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var tempHasSpawned = false
     var msgHasSpawned = false
     var stars = 0
-    var audio = true    // audio on by default
+    let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -61,13 +61,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     var counter = 0         // Keep track of the index on level array
     
-    // Touched Screen
+    //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         
-        // Spawn real block
+        if !playable{
+            return
+        }
+        
         if (tempBlock.hasBeenSet) {
-
+            
             if (currentLevel == 1){
                 currentBlock = BlockNode(imageNamed: level1[counter])
             }
@@ -98,7 +101,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
+    //MARK: Set up temporary block in stage mode
     func spawnBlock() {
+        if !playable{
+            return
+        }
+        
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
@@ -112,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
             }
             
-            tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
+            tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
         }
@@ -154,35 +162,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         })
         addChild(quitBtn)
         
-        let muteBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Orange, highlightedColor: Constants.Color.Blue)
-        muteBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+200, y: CGRectGetMaxY(self.frame)-250)
-        muteBtn.setNormalStateLabelFontColor(Constants.Color.White)
-        muteBtn.setAllStatesLabelFontName(Constants.Font.Main)
-        muteBtn.setAllStatesLabelFontSize(50.0)
-        muteBtn.setNormalStateLabelText("Mute")
-        
-        muteBtn.addClosure(.TouchUpInside, target: self) { (scene, control) -> () in
-            if self.audio {
-                self.audio = false
-                SKTAudio.sharedInstance().pauseBackgroundMusic()
-                muteBtn.setAllStatesLabelFontName(Constants.Font.Main)
-                muteBtn.setAllStatesLabelFontSize(50.0)
-                muteBtn.setNormalStateLabelText("Unmute")
-            }
-            else {
-                self.audio = true
-                SKTAudio.sharedInstance().resumeBackgroundMusic()
-                muteBtn.setAllStatesLabelFontName(Constants.Font.Main)
-                muteBtn.setAllStatesLabelFontSize(50.0)
-                muteBtn.setNormalStateLabelText("Mute")
-            }
-        }
-        addChild(muteBtn)
+        //Level label
+        levelLabel.text = "Level \(self.currentLevel)"
+        levelLabel.fontSize = 80
+        levelLabel.verticalAlignmentMode = .Center
+        levelLabel.horizontalAlignmentMode = .Right
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-100)
+        self.addChild(levelLabel)
         
         
         // Game Objects
         spawnBlock()
         
+        // set up goal line
         goal = childNodeWithName("//Goal") as! GoalNode
         
         // set up pan gesture recognizer
@@ -198,9 +190,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         // Background music
-        if audio {
-            SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
-        }
+        SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
         
         gameLoopPaused = false
     }
@@ -211,7 +201,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaX since last measurement
         let deltaX = currentPanX - previousPanX
-    
+        
         tempBlock.position = CGPointMake(tempBlock.position.x + deltaX, tempBlock.position.y)
         
         // if the gesture has completed
@@ -228,7 +218,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // calculate deltaRotation since last measurement
         let deltaRotation = currentRotation - previousRotation
-    
+        
         tempBlock.zRotation -= deltaRotation
         
         // if the gesture has completed
@@ -238,8 +228,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             previousRotation = currentRotation
         }
     }
-
-
+    
+    
     func didBeginContact(contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
@@ -271,6 +261,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func newGame() {
         view?.presentScene(GameScene.level(currentLevel))
         //print("Level \(currentLevel)")
+        self.levelLabel.text = "Level \(self.currentLevel)"
         msgHasSpawned = false
     }
     
@@ -278,7 +269,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         //print("Finished Game")
         let gameOverScene = GameOverScene(size: self.size)
         self.view?.presentScene(gameOverScene)
-        audio = false
         msgHasSpawned = false
     }
     
@@ -293,22 +283,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
+    //MARK: Lose conditions
     func lose() {
         playable = false
         counter = 0
         
         DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
         
-        SKTAudio.sharedInstance().pauseBackgroundMusic()
-        
         SKTAudio.sharedInstance().playSoundEffect("lose.wav")
-        
-        SKTAudio.sharedInstance().resumeBackgroundMusic()
         
         inGameMessage("Try again...")
         performSelector("newGame", withObject: nil, afterDelay: 5)
     }
     
+    //MARK: Win conditions
     func win() {
         if !msgHasSpawned {
             msgHasSpawned = true
@@ -318,13 +306,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (currentLevel == 1 && allBlocks.count <= 3 ||
                 currentLevel == 2 && allBlocks.count <= 7 ||
                 currentLevel == 3 && allBlocks.count <= 6) {
-                    stars += 1
+                stars += 1
             }
             
             if (currentLevel == 1 && true ||
                 currentLevel == 2 && true ||
                 currentLevel == 3 && true) {
-                    stars += 1
+                stars += 1
             }
             
             var msg = ""
@@ -343,9 +331,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 currentLevel += 1
             }
             
-            SKTAudio.sharedInstance().pauseBackgroundMusic()
             runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
-            SKTAudio.sharedInstance().resumeBackgroundMusic()
             
             inGameMessage(msg)
             
@@ -356,7 +342,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
     }
-
+    
     
     class func level(levelNum: Int) -> GameScene? {
         let scene = GameScene(fileNamed: "Level\(levelNum)")!
@@ -365,7 +351,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         return scene
     }
     
-    // Pause Actions
+    //MARK: Pause Actions
     var gameLoopPaused:Bool = true {
         didSet{
             //print("gameLoopPaused=\(gameLoopPaused)")
@@ -384,7 +370,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             SKAction.runBlock({
                 self.physicsWorld.speed = 1.0
             })
-        ])
+            ])
         unPauseAction.timingMode = .EaseIn
         runAction(unPauseAction)
     }

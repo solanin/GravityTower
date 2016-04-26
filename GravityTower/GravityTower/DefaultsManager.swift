@@ -22,10 +22,10 @@ class DefaultsManager{
     
     func getLvlUnlcok()->Int{
         if let lvlUnlock:Int? = defaults.integerForKey(HIGHEST_LEVEL_UNLOCKED){
-            print("value for lvlUnlock found = \(lvlUnlock)")
+            //print("value for lvlUnlock found = \(lvlUnlock)")
             return lvlUnlock!
         }else{
-            print("no value for lvlUnlock found")
+            //print("no value for lvlUnlock found")
             return 0
         }
     }
@@ -36,10 +36,10 @@ class DefaultsManager{
         if (lvl == 3) {KEY = LVL_3_STARS}
 
         if let stars:Int? = defaults.integerForKey(KEY){
-            print("value for \(KEY) found = \(stars)")
+            //print("value for \(KEY) found = \(stars)")
             return stars!
         }else{
-            print("no value for \(KEY) found")
+            //print("no value for \(KEY) found")
             return 0
         }
     }
@@ -48,7 +48,7 @@ class DefaultsManager{
         if (getLvlUnlcok() < lvl) {
             defaults.setInteger(lvl, forKey: HIGHEST_LEVEL_UNLOCKED)
             defaults.synchronize()
-            print("setting value for lvlUnlock = \(lvl)")
+            //print("setting value for lvlUnlock = \(lvl)")
         }
     }
     
@@ -60,7 +60,7 @@ class DefaultsManager{
         
             defaults.setInteger(stars, forKey: KEY)
             defaults.synchronize()
-            print("setting value for \(KEY)) = \(stars)")
+            //print("setting value for \(KEY)) = \(stars)")
         }
     }
     

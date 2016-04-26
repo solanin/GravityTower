@@ -12,6 +12,9 @@ import SpriteKit
 class MainMenuScene: SKScene {
     
     override func didMoveToView(view: SKView) {
+        
+        SKTAudio.sharedInstance().pauseBackgroundMusic()
+        
         let bg = SKSpriteNode(imageNamed: "background")
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)

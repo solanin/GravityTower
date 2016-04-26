@@ -17,14 +17,14 @@ class GameOverScene: SKScene {
         self.addChild(bg)
         
         let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        gameOverLabel.text = "Game Over"
+        gameOverLabel.text = "You Win!"
         gameOverLabel.fontSize = 250
         gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
         self.addChild(gameOverLabel)
         
         let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
         playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame) - 100))
-        playBtn.setNormalStateLabelText("Try Again")
+        playBtn.setNormalStateLabelText("Play Again")
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
         playBtn.setAllStatesLabelFontSize(40.0)
