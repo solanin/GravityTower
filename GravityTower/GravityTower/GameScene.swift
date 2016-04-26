@@ -274,6 +274,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         playable = false
         counter = 0
         
+        DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
+        
         SKTAudio.sharedInstance().pauseBackgroundMusic()
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         
@@ -290,6 +292,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
             playable = false
             counter = 0
+            
+            DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
         
             SKTAudio.sharedInstance().pauseBackgroundMusic()
             runAction(SKAction.playSoundFileNamed("win.mp3", waitForCompletion: false))

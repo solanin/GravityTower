@@ -34,6 +34,8 @@ class LevelSelect: SKScene {
         })
         addChild(lvl1Btn)
         
+        if (DefaultsManager.sharedDefaultsManager.getLvlUnlcok() > 1) {
+        
         let lvl2Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Orange, highlightedColor: Constants.Color.Blue)
         lvl2Btn.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         lvl2Btn.setNormalStateLabelText("2")
@@ -45,6 +47,9 @@ class LevelSelect: SKScene {
         })
         addChild(lvl2Btn)
         
+        }
+        if (DefaultsManager.sharedDefaultsManager.getLvlUnlcok() > 2) {
+            
         let lvl3Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
         lvl3Btn.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-300)
         lvl3Btn.setNormalStateLabelText("3")
@@ -55,6 +60,7 @@ class LevelSelect: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadGameSceneThree()
         })
         addChild(lvl3Btn)
+        }
         
         
     }
