@@ -23,7 +23,7 @@ class GameOverScene: SKScene {
         self.addChild(gameOverLabel)
         
         let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)))
+        playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame) - 100))
         playBtn.setNormalStateLabelText("Try Again")
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -43,6 +43,10 @@ class GameOverScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })
         addChild(mainMenuBtn)
+        
+        let emitterNode = SKEmitterNode(fileNamed: "MyParticle")!
+        emitterNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)+400))
+        addChild(emitterNode)
         
     }
 }

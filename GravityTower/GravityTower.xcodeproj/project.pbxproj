@@ -41,6 +41,8 @@
 		67B676481CCEEFE500441286 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B676471CCEEFE500441286 /* Level2.sks */; };
 		67B6764A1CCEFA2100441286 /* LevelSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B676491CCEFA2100441286 /* LevelSelect.swift */; };
 		67B6764C1CCEFA3F00441286 /* LevelSelectContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */; };
+		67B676531CCEFD6B00441286 /* MyParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B676511CCEFD6B00441286 /* MyParticle.sks */; };
+		67B676541CCEFD6B00441286 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 67B676521CCEFD6B00441286 /* spark.png */; };
 		67C444FD1CC933060079EBA1 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FC1CC933060079EBA1 /* Level3.sks */; };
 		67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */; };
 		67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */; };
@@ -94,6 +96,8 @@
 		67B676471CCEEFE500441286 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
 		67B676491CCEFA2100441286 /* LevelSelect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelect.swift; sourceTree = "<group>"; };
 		67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelSelectContents.sks; sourceTree = "<group>"; };
+		67B676511CCEFD6B00441286 /* MyParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MyParticle.sks; path = ../MyParticle.sks; sourceTree = "<group>"; };
+		67B676521CCEFD6B00441286 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = ../spark.png; sourceTree = "<group>"; };
 		67C444FC1CC933060079EBA1 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HowToSceneContents.sks; sourceTree = "<group>"; };
 		67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsSceneContents.sks; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				675342FA1CB822BB0039C864 /* Main.storyboard */,
 				675343031CB822BB0039C864 /* GameViewController.swift */,
 				677A4F801CBD3B45008E5773 /* Constants.swift */,
+				67B676511CCEFD6B00441286 /* MyParticle.sks */,
+				67B676521CCEFD6B00441286 /* spark.png */,
 				675343051CB822BB0039C864 /* Info.plist */,
 			);
 			path = GravityTower;
@@ -303,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2348EDD11CCE905A00A0C2D7 /* lose.wav in Resources */,
+				67B676541CCEFD6B00441286 /* spark.png in Resources */,
 				675343151CB822BB0039C864 /* LaunchScreen.storyboard in Resources */,
 				67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */,
 				67B676481CCEEFE500441286 /* Level2.sks in Resources */,
@@ -312,6 +319,7 @@
 				23B8BF161CCE742F0047ECCD /* fall.wav in Resources */,
 				2348EDCF1CCE900B00A0C2D7 /* backgroundMusic.mp3 in Resources */,
 				67152F001CBFDF050026CC89 /* Level1.sks in Resources */,
+				67B676531CCEFD6B00441286 /* MyParticle.sks in Resources */,
 				6753432A1CB822BB0039C864 /* win.mp3 in Resources */,
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
 				67C444FD1CC933060079EBA1 /* Level3.sks in Resources */,
