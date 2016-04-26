@@ -29,9 +29,9 @@ class GameViewController: UIViewController {
         //if let scene = GameScene.level(1) {
             // Configure the view.
             let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            skView.showsPhysics = true
+            //skView.showsFPS = true
+            //skView.showsNodeCount = true
+            //skView.showsPhysics = true
           
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = false
@@ -93,9 +93,6 @@ class GameViewController: UIViewController {
         gameScene = GameScene.level(1)
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(gameScene)
         
@@ -105,9 +102,6 @@ class GameViewController: UIViewController {
         gameScene = GameScene.level(2)
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(gameScene)
         
@@ -117,9 +111,6 @@ class GameViewController: UIViewController {
         gameScene = GameScene.level(3)
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(gameScene)
         
@@ -129,9 +120,6 @@ class GameViewController: UIViewController {
         let scene = LevelSelect.loadSKSFile()
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(scene)
         
@@ -141,9 +129,6 @@ class GameViewController: UIViewController {
         let scene = HowToScene.loadSKSFile()
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         skView.presentScene(scene)
         
@@ -153,9 +138,6 @@ class GameViewController: UIViewController {
         let scene = MainMenuScene(size:CGSize(width: 2048, height: 1536))
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         scene.scaleMode = scaleMode
         
@@ -166,9 +148,6 @@ class GameViewController: UIViewController {
         let scene = GameOverScene(size:CGSize(width: 2048, height: 1536))
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         scene.scaleMode = scaleMode
         
@@ -179,9 +158,6 @@ class GameViewController: UIViewController {
         let scene = CreditsScene.loadSKSFile()
         
         let skView = self.view as! SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsPhysics = true
         skView.ignoresSiblingOrder = false
         
         skView.presentScene(scene)

@@ -167,7 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         levelLabel.fontSize = 80
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-100)
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
         
         
@@ -335,7 +335,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             inGameMessage(msg)
             
-            if (currentLevel < 3) {
+            if (currentLevel < 4) {
                 performSelector("newGame", withObject: nil, afterDelay: 3)
             } else {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
