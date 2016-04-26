@@ -23,6 +23,12 @@ class LevelSelect: SKScene {
         })
         addChild(backBtn)
         
+        let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        levelLabel.text = "Select a Level"
+        levelLabel.fontSize = 150
+        levelLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        self.addChild(levelLabel)
+        
         let lvl1Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
         lvl1Btn.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame))
         lvl1Btn.setNormalStateLabelText("1")
