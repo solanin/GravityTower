@@ -37,7 +37,7 @@ class BlockNode: SKSpriteNode, CustomNodeEvents, InteractiveNode {
         self.startPos = startPos
         self.screen = screen
         super.position = startPos
-        super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
+        super.physicsBody = SKPhysicsBody(texture: self.texture!, size: self.size)
         super.physicsBody?.dynamic = true
         super.physicsBody?.categoryBitMask = PhysicsCategory.Block
         super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge

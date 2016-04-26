@@ -108,9 +108,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             
             tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
-            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
+            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
         }
+    }
+    
+    func randomBetweenNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat{
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
     
     override func didMoveToView(view: SKView) {
@@ -139,7 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // set up pan gesture recognizer
         let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
-        pan.minimumNumberOfTouches = 2
+        pan.minimumNumberOfTouches = 1
         pan.delegate = self
         view.addGestureRecognizer(pan)
         
@@ -150,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         // Background music
-        //SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
+        SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
     
         gameLoopPaused = false
     }
