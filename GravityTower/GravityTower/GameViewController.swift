@@ -125,6 +125,14 @@ class GameViewController: UIViewController {
         
     }
     
+    func loadZenGameScene(){
+        let scene = ZenGameScene.loadSKSFile()
+        
+        let skView = self.view as! SKView
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(scene)
+    }
+    
     func loadInstructionsScene(){
         let scene = HowToScene.loadSKSFile()
         

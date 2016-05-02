@@ -55,5 +55,16 @@ class MainMenuScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadCreditsScene()
         })
         addChild(creditsBtn)
+        
+        let zenBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Orange, highlightedColor: Constants.Color.Blue)
+        zenBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-450.0))
+        zenBtn.setNormalStateLabelText("Zen Mode")
+        zenBtn.setNormalStateLabelFontColor(Constants.Color.White)
+        zenBtn.setAllStatesLabelFontName(Constants.Font.Main)
+        zenBtn.setAllStatesLabelFontSize(40.0)
+        zenBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+            (self.view!.window!.rootViewController as! GameViewController).loadZenGameScene()
+        })
+        addChild(zenBtn)
     }
 }

@@ -44,6 +44,10 @@
 		67C444FD1CC933060079EBA1 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FC1CC933060079EBA1 /* Level3.sks */; };
 		67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */; };
 		67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */; };
+		67DDCE071CD7E74F001C4B36 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE061CD7E74F001C4B36 /* GameUtils.swift */; };
+		67DDCE091CD7E7C9001C4B36 /* ZenGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */; };
+		67DDCE0B1CD7E7FD001C4B36 /* Zen.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67DDCE0A1CD7E7FD001C4B36 /* Zen.sks */; };
+		67DDCE0D1CD7EC48001C4B36 /* ZenGameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */; };
 		9C7F97E81BD2474800C8E15B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */; };
 		9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */; };
 		9C7F97EA1BD2474800C8E15B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DE1BD2474800C8E15B /* CGVector+Extensions.swift */; };
@@ -97,6 +101,10 @@
 		67C444FC1CC933060079EBA1 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HowToSceneContents.sks; sourceTree = "<group>"; };
 		67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsSceneContents.sks; sourceTree = "<group>"; };
+		67DDCE061CD7E74F001C4B36 /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
+		67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZenGameScene.swift; sourceTree = "<group>"; };
+		67DDCE0A1CD7E7FD001C4B36 /* Zen.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Zen.sks; sourceTree = "<group>"; };
+		67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZenGameOverScene.swift; sourceTree = "<group>"; };
 		9C764A341BD237D80012640A /* GravityTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravityTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 				677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */,
 				238DA2911CC8772F00893D9C /* GoalNode.swift */,
 				6753430A1CB822BB0039C864 /* MessageNode.swift */,
+				67DDCE061CD7E74F001C4B36 /* GameUtils.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -145,12 +154,15 @@
 				677A4F911CBD4A01008E5773 /* HowToScene.swift */,
 				677A4F931CBD4D1A008E5773 /* CreditsScene.swift */,
 				67B676491CCEFA2100441286 /* LevelSelect.swift */,
+				67DDCE0A1CD7E7FD001C4B36 /* Zen.sks */,
 				67152EFF1CBFDF050026CC89 /* Level1.sks */,
 				67B676471CCEEFE500441286 /* Level2.sks */,
 				67C444FC1CC933060079EBA1 /* Level3.sks */,
 				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
 				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
 				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
+				67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */,
+				67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -325,6 +337,7 @@
 				67C444FD1CC933060079EBA1 /* Level3.sks in Resources */,
 				23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */,
 				67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */,
+				67DDCE0B1CD7E7FD001C4B36 /* Zen.sks in Resources */,
 				23F768B71CCF9130005F3F37 /* win.wav in Resources */,
 				23FD03751CBD425300F44B4E /* BEBAS___.TTF in Resources */,
 			);
@@ -338,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				677A4F8A1CBD3D44008E5773 /* TWControl+NestedTypes.swift in Sources */,
+				67DDCE0D1CD7EC48001C4B36 /* ZenGameOverScene.swift in Sources */,
 				9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */,
 				9C7F97F11BD2474800C8E15B /* SKTEffects.swift in Sources */,
 				9C7F97EC1BD2474800C8E15B /* SKAction+Extensions.swift in Sources */,
@@ -362,6 +376,8 @@
 				6753431D1CB822BB0039C864 /* GameScene.swift in Sources */,
 				23FD037B1CBD53D400F44B4E /* GameOverScene.swift in Sources */,
 				675343131CB822BB0039C864 /* AppDelegate.swift in Sources */,
+				67DDCE071CD7E74F001C4B36 /* GameUtils.swift in Sources */,
+				67DDCE091CD7E7C9001C4B36 /* ZenGameScene.swift in Sources */,
 				677A4F901CBD47F7008E5773 /* DefaultsManager.swift in Sources */,
 				677A4F811CBD3B45008E5773 /* Constants.swift in Sources */,
 				9C7F97EE1BD2474800C8E15B /* SKColor+Extensions.swift in Sources */,
