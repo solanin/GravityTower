@@ -36,7 +36,7 @@ class OnboardingScene: SKScene {
     
     
     class func loadSKSFile() -> OnboardingScene? {
-        let scene = OnboardingScene(fileNamed: "HowToInteractive")!
+        let scene = OnboardingScene(fileNamed: "Empty")!
         scene.scaleMode = .AspectFill
         return scene
     }

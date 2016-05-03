@@ -142,14 +142,6 @@ class GameViewController: UIViewController {
         
     }
     
-    func loadOnboardingScene(){
-        let scene = OnboardingScene.loadSKSFile()
-        
-        let skView = self.view as! SKView
-        skView.ignoresSiblingOrder = false
-        skView.presentScene(scene)
-    }
-    
     func loadMainScene(){
         let scene = MainMenuScene(size:CGSize(width: 2048, height: 1536))
         

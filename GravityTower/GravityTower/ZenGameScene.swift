@@ -269,7 +269,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     //MARK: SKS Loading
     class func loadSKSFile() -> ZenGameScene? {
-        let scene = ZenGameScene(fileNamed: "Zen")!
+        let scene = ZenGameScene(fileNamed: "Empty")!
         scene.scaleMode = .AspectFill
         return scene
     }

@@ -14,6 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var msgHasSpawned = false
     var stars = 0
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+    let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+    let LAST_LEVEL = 5
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -21,14 +23,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var goal: GoalNode!
     
     //Levels
-    let level1: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
-    let level1Fake: [String] = ["rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    let starCuttoff: [Int] = [2, 3, 7, 6]
     
-    let level2: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
-    let level2Fake: [String] = ["square-fake", "rectangle-fake", "triangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    let level1: [String] = ["square", "rectangle", "triangle"]
+    let level1Fake: [String] = ["square-fake","rectangle-fake", "triangle-fake"]
     
-    let level3: [String] = ["rectangle", "hexagon", "hexagon", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
-    let level3Fake: [String] = ["rectangle-fake", "hexagon-fake", "hexagon-fake", "square-fake", "rectangle-fake", "square-fake", "hexagon-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "hexagon-fake", "triangle-fake"]
+    let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
+    let level2Fake: [String] = ["rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    
+    let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
+    let level3Fake: [String] = ["square-fake", "rectangle-fake", "triangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    
+    let level4: [String] = ["rectangle", "hexagon", "hexagon", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
+    let level4Fake: [String] = ["rectangle-fake", "hexagon-fake", "hexagon-fake", "square-fake", "rectangle-fake", "square-fake", "hexagon-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "hexagon-fake", "triangle-fake"]
     
     var counter = 0         // Keep track of the index on level array
     
@@ -42,16 +49,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if (tempBlock.hasBeenSet) {
             
-            if (currentLevel == 1){
+            switch (currentLevel) {
+            case 1:
                 currentBlock = BlockNode(imageNamed: level1[counter])
-            }
-            if (currentLevel == 2){
+            case 2:
                 currentBlock = BlockNode(imageNamed: level2[counter])
-            }
-            if (currentLevel == 3){
+            case 3:
                 currentBlock = BlockNode(imageNamed: level3[counter])
+            case 4:
+                currentBlock = BlockNode(imageNamed: level4[counter])
+            default:
+                currentBlock = BlockNode(imageNamed: "square")
             }
-            
+    
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
@@ -61,9 +71,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             counter += 1
             
+            if (currentLevel == 1 && counter == 1) {
+                tipLabel.text = "Tap and drag to slide block"
+            } else if (currentLevel == 1 && counter == 2) {
+                tipLabel.text = "Use two fingers to rotate"
+            }
+            
+            
             if (currentLevel == 1 && counter >= level1.count ||
                 currentLevel == 2 && counter >= level2.count ||
-                currentLevel == 3 && counter >= level3.count){
+                currentLevel == 3 && counter >= level3.count ||
+                currentLevel == 4 && counter >= level4.count) {
                 counter = 0
             }
         }
@@ -81,18 +99,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            if (currentLevel == 1){
+            switch (currentLevel) {
+            case 1:
                 tempBlock = FakeBlockNode(imageNamed: level1Fake[counter])
-            }
-            else if (currentLevel == 2){
+            case 2:
                 tempBlock = FakeBlockNode(imageNamed: level2Fake[counter])
-            }
-            else { // (currentLevel == 3){
+            case 3:
                 tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
+            case 4:
+                tempBlock = FakeBlockNode(imageNamed: level4Fake[counter])
+            default:
+                tempBlock = FakeBlockNode(imageNamed: "square-fake")
             }
             
-            //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
-            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+            // Set Up Onboarding
+            if (currentLevel == 1) {
+                switch (counter) {
+                case 0:
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
+                case 1:
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-300, y: (self.frame.height - 250.0)), screen: frame)
+                case 2:
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
+                    tempBlock.zRotation = CGFloat(M_PI)
+                default:
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+                }
+            } else {
+                tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+            }
+            
+            
             addChild(tempBlock)
         }
     }
@@ -103,8 +140,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
-        let maxAspectRatio: CGFloat = 9.0/16.0 // iPhone
-        //let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
+        let maxAspectRatio: CGFloat
+        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+            maxAspectRatio = 3.0/4.0 // iPad
+        } else {
+            maxAspectRatio = 9.0/16.0 // iPhone
+        }
+        
         let maxAspectRatioHeight = size.width / maxAspectRatio
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
         
@@ -141,6 +183,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         levelLabel.horizontalAlignmentMode = .Right
         levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
+        
+        //Tip label
+        if (currentLevel == 1) {
+            tipLabel.text = "Tap to drop block"
+            tipLabel.fontSize = 80
+            tipLabel.verticalAlignmentMode = .Center
+            tipLabel.horizontalAlignmentMode = .Center
+            tipLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+            self.addChild(tipLabel)
+        }
         
         
         // Game Objects
@@ -275,15 +327,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             stars += 1
             
-            if (currentLevel == 1 && allBlocks.count <= 3 ||
-                currentLevel == 2 && allBlocks.count <= 7 ||
-                currentLevel == 3 && allBlocks.count <= 6) {
+            if (allBlocks.count <= starCuttoff[currentLevel]) {
                 stars += 1
             }
             
-            if (currentLevel == 1 && true ||
-                currentLevel == 2 && true ||
-                currentLevel == 3 && true) {
+            if (currentLevel == 2 && true ||
+                currentLevel == 3 && true ||
+                currentLevel == 4 && true) {
                 stars += 1
             }
             
@@ -299,7 +349,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
             DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
             
-            if (currentLevel < 3) {
+            if (currentLevel < LAST_LEVEL) {
                 currentLevel += 1
             }
             
@@ -307,7 +357,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             inGameMessage(msg)
             
-            if (currentLevel < 4) {
+            if (currentLevel < (LAST_LEVEL+1)) {
                 performSelector("newGame", withObject: nil, afterDelay: 3)
             } else {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
