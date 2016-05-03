@@ -16,6 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let LAST_LEVEL = 5
+    var START_POINT:CGFloat = 0.0
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -116,17 +117,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (currentLevel == 1) {
                 switch (counter) {
                 case 0:
-                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: START_POINT), screen: frame)
                 case 1:
-                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-300, y: (self.frame.height - 250.0)), screen: frame)
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-300, y: START_POINT), screen: frame)
                 case 2:
-                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: (self.frame.height - 250.0)), screen: frame)
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: START_POINT), screen: frame)
                     tempBlock.zRotation = CGFloat(M_PI)
                 default:
-                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
                 }
             } else {
-                tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+                tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
             
             
@@ -190,16 +191,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tipLabel.fontSize = 80
             tipLabel.verticalAlignmentMode = .Center
             tipLabel.horizontalAlignmentMode = .Center
-            tipLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+            tipLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) + 300)
             self.addChild(tipLabel)
         }
         
         
-        // Game Objects
-        spawnBlock()
-        
         // set up goal line
         goal = childNodeWithName("//Goal") as! GoalNode
+        
+        START_POINT = goal.position.y + 300.0
+        
+        // Game Objects
+        spawnBlock()
         
         // set up pan gesture recognizer
         let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
