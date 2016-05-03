@@ -65,7 +65,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            currentIndex = 1 //random() //random number between 0 and 6
+            currentIndex = Int(arc4random_uniform(6));
             tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
