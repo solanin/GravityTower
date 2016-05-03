@@ -1,5 +1,6 @@
 //
 //  GameScene.swift
+//
 
 import SpriteKit
 
@@ -102,7 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
-        let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
+        let maxAspectRatio: CGFloat = 9.0/16.0 // iPhone
+        //let maxAspectRatio: CGFloat = 3.0/4.0 // iPad
         let maxAspectRatioHeight = size.width / maxAspectRatio
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
         
@@ -122,7 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         // UI
         let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
         
-        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+200, y: CGRectGetMaxY(self.frame)-100)
+        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+320, y: CGRectGetMaxY(self.frame)-100)
         quitBtn.setNormalStateLabelText("Quit")
         quitBtn.setNormalStateLabelFontColor(Constants.Color.White)
         quitBtn.setAllStatesLabelFontName(Constants.Font.Main)

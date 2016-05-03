@@ -29,10 +29,10 @@ class GameViewController: UIViewController {
         //if let scene = GameScene.level(1) {
             // Configure the view.
             let skView = self.view as! SKView
-            //skView.showsFPS = true
-            //skView.showsNodeCount = true
-            //skView.showsPhysics = true
-          
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            skView.showsPhysics = true
+        
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = false
             
@@ -140,6 +140,14 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = false
         skView.presentScene(scene)
         
+    }
+    
+    func loadOnboardingScene(){
+        let scene = OnboardingScene.loadSKSFile()
+        
+        let skView = self.view as! SKView
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(scene)
     }
     
     func loadMainScene(){

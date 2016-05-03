@@ -11,6 +11,8 @@
 		238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238DA2911CC8772F00893D9C /* GoalNode.swift */; };
 		23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF131CCE6D9B0047ECCD /* drop.wav */; };
 		23B8BF161CCE742F0047ECCD /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF151CCE742F0047ECCD /* fall.wav */; };
+		23CF5D731CD8E844002CB425 /* HowToInteractive.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23CF5D721CD8E844002CB425 /* HowToInteractive.sks */; };
+		23CF5D761CD8EC48002CB425 /* OnboardingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CF5D751CD8EC48002CB425 /* OnboardingScene.swift */; };
 		23F768B41CCF3738005F3F37 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23F768B21CCF3738005F3F37 /* lose.wav */; };
 		23F768B71CCF9130005F3F37 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23F768B61CCF9130005F3F37 /* win.wav */; };
 		23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FD03711CBC16A100F44B4E /* MainMenuScene.swift */; };
@@ -67,6 +69,8 @@
 		238DA2911CC8772F00893D9C /* GoalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
 		23B8BF131CCE6D9B0047ECCD /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
 		23B8BF151CCE742F0047ECCD /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fall.wav; sourceTree = "<group>"; };
+		23CF5D721CD8E844002CB425 /* HowToInteractive.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HowToInteractive.sks; sourceTree = "<group>"; };
+		23CF5D751CD8EC48002CB425 /* OnboardingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingScene.swift; sourceTree = "<group>"; };
 		23F768B21CCF3738005F3F37 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		23F768B61CCF9130005F3F37 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		23FD03711CBC16A100F44B4E /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
 				67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */,
 				67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */,
+				23CF5D721CD8E844002CB425 /* HowToInteractive.sks */,
+				23CF5D751CD8EC48002CB425 /* OnboardingScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -327,6 +333,7 @@
 				67C445011CC93B280079EBA1 /* CreditsSceneContents.sks in Resources */,
 				67B676481CCEEFE500441286 /* Level2.sks in Resources */,
 				675343141CB822BB0039C864 /* Assets.xcassets in Resources */,
+				23CF5D731CD8E844002CB425 /* HowToInteractive.sks in Resources */,
 				23F768B41CCF3738005F3F37 /* lose.wav in Resources */,
 				67B6764C1CCEFA3F00441286 /* LevelSelectContents.sks in Resources */,
 				23B8BF161CCE742F0047ECCD /* fall.wav in Resources */,
@@ -368,6 +375,7 @@
 				9C7F97EB1BD2474800C8E15B /* Int+Extensions.swift in Sources */,
 				677A4F961CBD4F0D008E5773 /* BaseNode.swift in Sources */,
 				675343251CB822BB0039C864 /* MessageNode.swift in Sources */,
+				23CF5D761CD8EC48002CB425 /* OnboardingScene.swift in Sources */,
 				677A4F8B1CBD3D44008E5773 /* TWControl.swift in Sources */,
 				238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */,
 				9C7F97F31BD2474800C8E15B /* Vector3.swift in Sources */,
@@ -504,7 +512,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.590.GravityTower;
 				PRODUCT_NAME = GravityTower;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -519,7 +527,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.590.GravityTower;
 				PRODUCT_NAME = GravityTower;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

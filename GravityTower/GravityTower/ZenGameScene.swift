@@ -100,7 +100,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         // UI
         let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
         
-        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+200, y: CGRectGetMaxY(self.frame)-100)
+        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+320, y: CGRectGetMaxY(self.frame)-100)
         quitBtn.setNormalStateLabelText("Quit")
         quitBtn.setNormalStateLabelFontColor(Constants.Color.White)
         quitBtn.setAllStatesLabelFontName(Constants.Font.Main)

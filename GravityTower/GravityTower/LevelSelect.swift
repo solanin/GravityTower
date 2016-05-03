@@ -13,7 +13,7 @@ class LevelSelect: SKScene {
     
     override func didMoveToView(view: SKView) {
         let backBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
-        backBtn.position = CGPoint(x: 200.0, y:self.frame.height - 150.0)
+        backBtn.position = CGPoint(x:CGRectGetMinX(self.frame) + 320, y: CGRectGetMaxY(self.frame)-100)
         backBtn.setNormalStateLabelText("Back")
         backBtn.setNormalStateLabelFontColor(Constants.Color.White)
         backBtn.setAllStatesLabelFontName(Constants.Font.Main)
