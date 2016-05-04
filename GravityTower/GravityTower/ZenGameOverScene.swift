@@ -10,13 +10,36 @@ import SpriteKit
 
 class ZenGameOverScene: SKScene {
     
+    var score: Int = 0
+    
+    init(size: CGSize, myScore:Int) {
+        super.init(size: size)
+        score = myScore
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMoveToView(view: SKView) {
         let bg = SKSpriteNode(imageNamed: "background")
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)
         
+        
+        let hsLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        if (DefaultsManager.sharedDefaultsManager.getZenHighscore() == score) {
+            hsLabel.text = "High Score!"
+        }
+        else {
+            hsLabel.text = "High Score : \(DefaultsManager.sharedDefaultsManager.getZenHighscore())"
+        }
+        hsLabel.fontSize = 100
+        hsLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+50.0))
+        self.addChild(hsLabel)
+        
         let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        gameOverLabel.text = "You Win!"
+        gameOverLabel.text = "Score: \(score)"
         gameOverLabel.fontSize = 250
         gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
         self.addChild(gameOverLabel)

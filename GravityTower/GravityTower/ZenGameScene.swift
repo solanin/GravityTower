@@ -241,7 +241,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = ZenGameOverScene(size: self.size)
+        let gameOverScene = ZenGameOverScene(size: self.size, myScore: allBlocks.count-1)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -257,8 +257,8 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     func lose() {
         playable = false
         
-        //DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
-        //print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel) / and earned \(stars) stars")
+        DefaultsManager.sharedDefaultsManager.setZenHighscore(allBlocks.count-1)
+        print("SAVING for ZEN : this score \(allBlocks.count-1)")
         
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         
