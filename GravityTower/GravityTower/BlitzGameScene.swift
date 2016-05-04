@@ -1,8 +1,8 @@
 //
-//  ZenGameScene.swift
+//  BlitzGameScene.swift
 //  GravityTower
 //
-//  Created by igmstudent on 5/2/16.
+//  Created by igmstudent on 5/4/16.
 //  Copyright © 2016 Razeware LLC. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 import SpriteKit
 
-class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
+class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     // MARK: Variables
     
@@ -115,7 +115,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         addChild(quitBtn)
         
         //Level label
-        levelLabel.text = "Zen Mode"
+        levelLabel.text = "Blitz Mode"
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
@@ -129,6 +129,14 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         scoreLabel.horizontalAlignmentMode = .Right
         scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-180)
         self.addChild(scoreLabel)
+        
+        //Time Label
+        timeLabel.text = "Time: "
+        timeLabel.fontSize = 50
+        timeLabel.verticalAlignmentMode = .Center
+        timeLabel.horizontalAlignmentMode = .Right
+        timeLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-260)
+        self.addChild(timeLabel)
         
         
         // Game Objects
@@ -220,7 +228,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = ZenGameOverScene(size: self.size)
+        let gameOverScene = BlitzGameOverScene(size: self.size)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -229,7 +237,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ){
                 spawnBlock()
-                scoreLabel.text = "Blocks: \(allBlocks.count)"
+                timeLabel.text = "Time: "
         }
     }
     
@@ -277,9 +285,9 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     }
     
     //MARK: SKS Loading
-    class func loadSKSFile() -> ZenGameScene? {
-        let scene = ZenGameScene(fileNamed: "Empty")!
-        print("SETUP Zen LEVEL")
+    class func loadSKSFile() -> BlitzGameScene? {
+        let scene = BlitzGameScene(fileNamed: "Empty")!
+        print("SETUP Blitz LEVEL")
         scene.scaleMode = .AspectFill
         return scene
     }

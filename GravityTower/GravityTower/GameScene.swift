@@ -15,10 +15,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var tempHasSpawned = false
     var msgHasSpawned = false
     var stars = 0
-    let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-    let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let LAST_LEVEL = 5
     var START_POINT:CGFloat = 0.0
+    
+    // UI
+    let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+    let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+    let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -181,11 +184,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         //Level label
         levelLabel.text = "Level \(self.currentLevel)"
-        levelLabel.fontSize = 80
+        levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
         levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
+        
+        //Score label
+        scoreLabel.text = "★★★"
+        scoreLabel.fontSize = 50
+        scoreLabel.verticalAlignmentMode = .Center
+        scoreLabel.horizontalAlignmentMode = .Right
+        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-180)
+        self.addChild(scoreLabel)
+        
         
         //Tip label
         if (currentLevel == 1) {

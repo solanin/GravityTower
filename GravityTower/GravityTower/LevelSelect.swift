@@ -26,11 +26,11 @@ class LevelSelect: SKScene {
         let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
         levelLabel.text = "Select a Level"
         levelLabel.fontSize = 150
-        levelLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        levelLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+500.0))
         self.addChild(levelLabel)
         
         let lvl1Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
-        lvl1Btn.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame))
+        lvl1Btn.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame)+200)
         lvl1Btn.setNormalStateLabelText("1")
         lvl1Btn.setNormalStateLabelFontColor(Constants.Color.White)
         lvl1Btn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -44,13 +44,13 @@ class LevelSelect: SKScene {
         label1.text = formatStars(DefaultsManager.sharedDefaultsManager.getStarsForLevel(1))
         label1.fontSize = 60
         label1.fontColor = Constants.Color.White
-        label1.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame)-160)
+        label1.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame)+40)
         addChild(label1)
         
         if (DefaultsManager.sharedDefaultsManager.getLvlUnlcok() > 1) {
     
-            let lvl2Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Orange, highlightedColor: Constants.Color.Blue)
-            lvl2Btn.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame))
+            let lvl2Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
+            lvl2Btn.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)+200)
             lvl2Btn.setNormalStateLabelText("2")
             lvl2Btn.setNormalStateLabelFontColor(Constants.Color.White)
             lvl2Btn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -64,14 +64,14 @@ class LevelSelect: SKScene {
             label2.text = formatStars(DefaultsManager.sharedDefaultsManager.getStarsForLevel(2))
             label2.fontSize = 60
             label2.fontColor = Constants.Color.White
-            label2.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)-160)
+            label2.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)+40)
             addChild(label2)
         
         }
         if (DefaultsManager.sharedDefaultsManager.getLvlUnlcok() > 2) {
             
             let lvl3Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
-            lvl3Btn.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame) - 400)
+            lvl3Btn.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame) - 200)
             lvl3Btn.setNormalStateLabelText("3")
             lvl3Btn.setNormalStateLabelFontColor(Constants.Color.White)
             lvl3Btn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -85,14 +85,14 @@ class LevelSelect: SKScene {
             label3.text = formatStars(DefaultsManager.sharedDefaultsManager.getStarsForLevel(3))
             label3.fontSize = 60
             label3.fontColor = Constants.Color.White
-            label3.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame)-560)
+            label3.position = CGPoint(x: CGRectGetMidX(self.frame)-150, y: CGRectGetMidY(self.frame)-360)
             addChild(label3)
         }
         
         if (DefaultsManager.sharedDefaultsManager.getLvlUnlcok() > 3) {
             
-            let lvl4Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
-            lvl4Btn.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame) - 400)
+            let lvl4Btn = TWButton(size: CGSize(width: 200, height: 200), normalColor: Constants.Color.Orange, highlightedColor: Constants.Color.Blue)
+            lvl4Btn.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame) - 200)
             lvl4Btn.setNormalStateLabelText("4")
             lvl4Btn.setNormalStateLabelFontColor(Constants.Color.White)
             lvl4Btn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -106,7 +106,7 @@ class LevelSelect: SKScene {
             label4.text = formatStars(DefaultsManager.sharedDefaultsManager.getStarsForLevel(4))
             label4.fontSize = 60
             label4.fontColor = Constants.Color.White
-            label4.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)-560)
+            label4.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)-360)
             addChild(label4)
         }
         

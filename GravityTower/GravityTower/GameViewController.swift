@@ -115,6 +115,14 @@ class GameViewController: UIViewController {
         skView.presentScene(scene)
     }
     
+    func loadBlitzGameScene(){
+        let scene = BlitzGameScene.loadSKSFile()
+        
+        let skView = self.view as! SKView
+        skView.ignoresSiblingOrder = false
+        skView.presentScene(scene)
+    }
+    
     func loadInstructionsScene(){
         let scene = HowToScene.loadSKSFile()
         
