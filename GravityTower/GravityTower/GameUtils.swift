@@ -37,3 +37,11 @@ protocol InteractiveNode {
 func randomBetweenNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat{
     return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
 }
+
+func formatStars(stars:Int) -> String {
+    if stars < 1 {return "···"}
+    else if stars == 1 {return "★··"}
+    else if stars == 2 {return "★★·"}
+    else {return "★★★"}
+    
+}

@@ -14,7 +14,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
-    var stars = 0
+    var stars = 3
     let LAST_LEVEL = 5
     var START_POINT:CGFloat = 0.0
     
@@ -49,8 +49,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         
-        print("\(currentLevel) : \(allBlocks.count) / \(starCuttoff[currentLevel-1])")
-        
         if !playable{
             return
         }
@@ -73,6 +71,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
+            
+            // Clac Stars
+            if (allBlocks.count > starCuttoff[currentLevel-1]) {
+                stars = 2
+                if (allBlocks.count > starCuttoff[currentLevel-1] + 2) {
+                    stars = 1
+                }
+                scoreLabel.text = formatStars(stars)
+            }
+            print("\(currentLevel) : \(allBlocks.count) / \(starCuttoff[currentLevel-1]) = \(stars)")
+            
+            
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
@@ -137,7 +147,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
             
-            
             addChild(tempBlock)
         }
     }
@@ -191,7 +200,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         self.addChild(levelLabel)
         
         //Score label
-        scoreLabel.text = "★★★"
+        scoreLabel.text = formatStars(stars)
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
@@ -317,7 +326,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
-            currentBlock.physicsBody?.velocity.dy > -1 ){
+            currentBlock.physicsBody?.velocity.dy > -1 ) {
+                
             if currentBlock.position.y >= goal.position.y {
                 win()
             } else {
@@ -332,7 +342,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         counter = 0
         
         DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
-        print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel) / and earned \(stars) stars")
+        print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel)")
         
         SKTAudio.sharedInstance().playSoundEffect("lose.wav")
         
@@ -345,37 +355,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !msgHasSpawned {
             msgHasSpawned = true
             
-            // Star for winning
-            stars += 1
-            
-            // Star for using min amt of blocks
-            if (allBlocks.count < starCuttoff[currentLevel-1]) {
-                stars += 1
-            }
-            
-            // Star for ???
-            if (currentLevel == 1 && true ||
-                currentLevel == 2 && true ||
-                currentLevel == 3 && true ||
-                currentLevel == 4 && true) {
-                stars += 1
-            }
-            
-            var msg = ""
-            if stars < 1 {msg = "···"}
-            else if stars == 1 {msg = "★··"}
-            else if stars == 2 {msg = "★★·"}
-            else {msg = "★★★"}
-            
             playable = false
             counter = 0
             
             DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
             DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
-            print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel+1) / and earned \(stars) stars")
+            print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel+1) and earned \(stars) stars")
 
             runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
             
+            let msg = formatStars(stars)
             inGameMessage(msg)
             
             //INCREASE LEVEL

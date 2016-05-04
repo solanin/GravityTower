@@ -109,21 +109,11 @@ class LevelSelect: SKScene {
             label4.position = CGPoint(x: CGRectGetMidX(self.frame)+150, y: CGRectGetMidY(self.frame)-360)
             addChild(label4)
         }
-        
-        
     }
     
     class func loadSKSFile() -> LevelSelect? {
         let scene = LevelSelect(fileNamed: "LevelSelectContents")!
         scene.scaleMode = .AspectFill
         return scene
-    }
-    
-    func formatStars(stars:Int) -> String {
-        if stars < 1 {return "···"}
-        else if stars == 1 {return "★··"}
-        else if stars == 2 {return "★★·"}
-        else {return "★★★"}
-        
     }
 }
