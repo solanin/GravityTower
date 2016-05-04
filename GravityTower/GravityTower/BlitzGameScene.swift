@@ -94,7 +94,8 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     func spawnNextBlock() {
         nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
         
-        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-50), screen: frame)
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
+        nextBlock.setScale(0.25)
         
         addChild(nextBlock)
     }
