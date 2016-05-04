@@ -33,3 +33,7 @@ protocol CustomNodeEvents {
 protocol InteractiveNode {
     func interact()
 }
+
+func randomBetweenNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat{
+    return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
+}

@@ -6,6 +6,8 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
+    // MARK: Variables
+    
     var playable = true
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
@@ -43,6 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
+        
+        print("\(currentLevel) : \(allBlocks.count) / \(starCuttoff[currentLevel-1])")
         
         if !playable{
             return
@@ -135,9 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    func randomBetweenNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat{
-        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
-    }
+    //MARK: User Interaction Functions
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
@@ -279,6 +281,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
+    // MARK: End game functions
+    
     func inGameMessage(text: String) {
         let message = MessageNode(message: text)
         message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame)-400)
@@ -287,7 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     func newGame() {
         view?.presentScene(GameScene.level(currentLevel))
-        //print("Level \(currentLevel)")
+        print("LOADING Level \(currentLevel)")
         self.levelLabel.text = "Level \(self.currentLevel)"
         msgHasSpawned = false
     }
@@ -316,6 +320,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         counter = 0
         
         DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
+        print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel) / and earned \(stars) stars")
         
         SKTAudio.sharedInstance().playSoundEffect("lose.wav")
         
@@ -328,13 +333,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !msgHasSpawned {
             msgHasSpawned = true
             
+            // Star for winning
             stars += 1
             
-            if (allBlocks.count <= starCuttoff[currentLevel]) {
+            // Star for using min amt of blocks
+            if (allBlocks.count < starCuttoff[currentLevel-1]) {
                 stars += 1
             }
             
-            if (currentLevel == 2 && true ||
+            // Star for ???
+            if (currentLevel == 1 && true ||
+                currentLevel == 2 && true ||
                 currentLevel == 3 && true ||
                 currentLevel == 4 && true) {
                 stars += 1
@@ -351,16 +360,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
             DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
-            
-            if (currentLevel < LAST_LEVEL) {
-                currentLevel += 1
-            }
-            
+            print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel+1) / and earned \(stars) stars")
+
             runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
             
             inGameMessage(msg)
             
-            if (currentLevel < (LAST_LEVEL+1)) {
+            //INCREASE LEVEL
+            currentLevel += 1
+            
+            if (currentLevel < LAST_LEVEL) {
                 performSelector("newGame", withObject: nil, afterDelay: 3)
             } else {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
@@ -372,6 +381,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     class func level(levelNum: Int) -> GameScene? {
         let scene = GameScene(fileNamed: "Level\(levelNum)")!
         scene.currentLevel = levelNum
+        print("SETUP Level \(levelNum)")
         scene.scaleMode = .AspectFill
         return scene
     }

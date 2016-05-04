@@ -13,6 +13,8 @@ import SpriteKit
 
 class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
+    // MARK: Variables
+    
     var playable = true
     var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
@@ -65,7 +67,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            currentIndex = Int(arc4random_uniform(6));
+            currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
             tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
@@ -74,9 +76,8 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         }
     }
     
-    func randomBetweenNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat{
-        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
-    }
+    
+    // MARK: User Interaction Functions
     
     override func didMoveToView(view: SKView) {
         // Calculate playable margin
@@ -196,6 +197,9 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
             lose()
         }
     }
+    
+    
+    // MARK: End game functions
     
     func inGameMessage(text: String) {
         let message = MessageNode(message: text)

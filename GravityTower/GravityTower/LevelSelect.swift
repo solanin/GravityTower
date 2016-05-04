@@ -36,7 +36,7 @@ class LevelSelect: SKScene {
         lvl1Btn.setAllStatesLabelFontName(Constants.Font.Main)
         lvl1Btn.setAllStatesLabelFontSize(60.0)
         lvl1Btn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-            (self.view!.window!.rootViewController as! GameViewController).loadGameSceneOne()
+            (self.view!.window!.rootViewController as! GameViewController).loadGameScene(1)
         })
         addChild(lvl1Btn)
         
@@ -56,7 +56,7 @@ class LevelSelect: SKScene {
             lvl2Btn.setAllStatesLabelFontName(Constants.Font.Main)
             lvl2Btn.setAllStatesLabelFontSize(60.0)
             lvl2Btn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-                (self.view!.window!.rootViewController as! GameViewController).loadGameSceneTwo()
+                (self.view!.window!.rootViewController as! GameViewController).loadGameScene(2)
             })
             addChild(lvl2Btn)
             
@@ -77,7 +77,7 @@ class LevelSelect: SKScene {
             lvl3Btn.setAllStatesLabelFontName(Constants.Font.Main)
             lvl3Btn.setAllStatesLabelFontSize(60.0)
             lvl3Btn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-                (self.view!.window!.rootViewController as! GameViewController).loadGameSceneThree()
+                (self.view!.window!.rootViewController as! GameViewController).loadGameScene(3)
             })
             addChild(lvl3Btn)
             
@@ -98,7 +98,7 @@ class LevelSelect: SKScene {
             lvl4Btn.setAllStatesLabelFontName(Constants.Font.Main)
             lvl4Btn.setAllStatesLabelFontSize(60.0)
             lvl4Btn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-                (self.view!.window!.rootViewController as! GameViewController).loadGameSceneThree()
+                (self.view!.window!.rootViewController as! GameViewController).loadGameScene(4)
             })
             addChild(lvl4Btn)
             

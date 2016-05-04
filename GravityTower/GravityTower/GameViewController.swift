@@ -89,26 +89,8 @@ class GameViewController: UIViewController {
     
     // MARK: - Scene Loading -
     
-    func loadGameSceneOne(){
-        gameScene = GameScene.level(1)
-        
-        let skView = self.view as! SKView
-        skView.ignoresSiblingOrder = false
-        skView.presentScene(gameScene)
-        
-    }
-    
-    func loadGameSceneTwo(){
-        gameScene = GameScene.level(2)
-        
-        let skView = self.view as! SKView
-        skView.ignoresSiblingOrder = false
-        skView.presentScene(gameScene)
-        
-    }
-    
-    func loadGameSceneThree(){
-        gameScene = GameScene.level(3)
+    func loadGameScene(lvl:Int){
+        gameScene = GameScene.level(lvl)
         
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = false
