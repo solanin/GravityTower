@@ -26,6 +26,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
+    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
@@ -35,6 +36,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     let shapesFake: [String] = ["rectangle-fake", "rectangle-fake", "hexagon-fake", "square-fake", "square", "triangle-fake"]
     
     var currentIndex = 0;
+    var nextIndex = -1;
     
     //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -55,6 +57,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
+            nextBlock.removeFromParent()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -70,15 +73,33 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+            
+            if (nextIndex == -1) {
+                currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+            } else {
+                currentIndex = nextIndex
+                nextIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+            }
+            
             tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
+            spawnNextBlock()
         }
     }
     
+    // Spawns the temporary "next" icon block
+    func spawnNextBlock() {
+        
+        nextBlock = FakeBlockNode(imageNamed: shapesFake[nextIndex])
+        
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-50), screen: frame)
+        
+        addChild(nextBlock)
+    }
     
     // MARK: User Interaction Functions
     
@@ -119,7 +140,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100)
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
         
         //Score label
@@ -127,7 +148,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-180)
+        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-180)
         self.addChild(scoreLabel)
         
         

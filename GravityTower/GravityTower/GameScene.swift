@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
+    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
@@ -86,6 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
+            nextBlock.removeFromParent()
             
             counter += 1
             
@@ -148,7 +150,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             
             addChild(tempBlock)
+            
+            spawnNextBlock()
         }
+    }
+    
+    // Spawns the temporary "next" icon block
+    func spawnNextBlock() {
+        
+        if (currentLevel == 1 && counter < level1Fake.count - 1 ||
+            currentLevel == 2 && counter < level2Fake.count - 1 ||
+            currentLevel == 3 && counter < level3Fake.count - 1 ||
+            currentLevel == 4 && counter < level4Fake.count - 1 ) {
+                switch (currentLevel) {
+                case 1:
+                    nextBlock = FakeBlockNode(imageNamed: level1Fake[counter+1])
+                case 2:
+                    nextBlock = FakeBlockNode(imageNamed: level2Fake[counter+1])
+                case 3:
+                    nextBlock = FakeBlockNode(imageNamed: level3Fake[counter+1])
+                case 4:
+                    nextBlock = FakeBlockNode(imageNamed: level4Fake[counter+1])
+                default:
+                    nextBlock = FakeBlockNode(imageNamed: "square-fake")
+                }
+        } else {
+            switch (currentLevel) {
+            case 1:
+                nextBlock = FakeBlockNode(imageNamed: level1Fake[0])
+            case 2:
+                nextBlock = FakeBlockNode(imageNamed: level2Fake[0])
+            case 3:
+                nextBlock = FakeBlockNode(imageNamed: level3Fake[0])
+            case 4:
+                nextBlock = FakeBlockNode(imageNamed: level4Fake[0])
+            default:
+                nextBlock = FakeBlockNode(imageNamed: "square-fake")
+            }
+        }
+        
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-50), screen: frame)
+        
+        addChild(nextBlock)
     }
     
     //MARK: User Interaction Functions
@@ -196,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100)
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
         
         //Score label
@@ -204,7 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-180)
+        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-180)
         self.addChild(scoreLabel)
         
         
