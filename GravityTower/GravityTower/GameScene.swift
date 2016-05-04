@@ -33,16 +33,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let starCuttoff: [Int] = [2, 3, 7, 6]
     
     let level1: [String] = ["square", "rectangle", "triangle"]
-    let level1Fake: [String] = ["square-fake","rectangle-fake", "triangle-fake"]
     
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
-    let level2Fake: [String] = ["rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
-    
+
     let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
-    let level3Fake: [String] = ["square-fake", "rectangle-fake", "triangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
     
     let level4: [String] = ["rectangle", "hexagon", "hexagon", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
-    let level4Fake: [String] = ["rectangle-fake", "hexagon-fake", "hexagon-fake", "square-fake", "rectangle-fake", "square-fake", "hexagon-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "hexagon-fake", "triangle-fake"]
     
     var counter = 0         // Keep track of the index on level array
     
@@ -121,13 +117,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             switch (currentLevel) {
             case 1:
-                tempBlock = FakeBlockNode(imageNamed: level1Fake[counter])
+                tempBlock = FakeBlockNode(imageNamed: level1[counter]+"-fake")
             case 2:
-                tempBlock = FakeBlockNode(imageNamed: level2Fake[counter])
+                tempBlock = FakeBlockNode(imageNamed: level2[counter]+"-fake")
             case 3:
-                tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
+                tempBlock = FakeBlockNode(imageNamed: level3[counter]+"-fake")
             case 4:
-                tempBlock = FakeBlockNode(imageNamed: level4Fake[counter])
+                tempBlock = FakeBlockNode(imageNamed: level4[counter]+"-fake")
             default:
                 tempBlock = FakeBlockNode(imageNamed: "square-fake")
             }
@@ -158,32 +154,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // Spawns the temporary "next" icon block
     func spawnNextBlock() {
         
-        if (currentLevel == 1 && counter < level1Fake.count - 1 ||
-            currentLevel == 2 && counter < level2Fake.count - 1 ||
-            currentLevel == 3 && counter < level3Fake.count - 1 ||
-            currentLevel == 4 && counter < level4Fake.count - 1 ) {
+        if (currentLevel == 1 && counter < level1.count - 1 ||
+            currentLevel == 2 && counter < level2.count - 1 ||
+            currentLevel == 3 && counter < level3.count - 1 ||
+            currentLevel == 4 && counter < level4.count - 1 ) {
                 switch (currentLevel) {
                 case 1:
-                    nextBlock = FakeBlockNode(imageNamed: level1Fake[counter+1])
+                    nextBlock = FakeBlockNode(imageNamed: level1[counter+1]+"-fake")
                 case 2:
-                    nextBlock = FakeBlockNode(imageNamed: level2Fake[counter+1])
+                    nextBlock = FakeBlockNode(imageNamed: level2[counter+1]+"-fake")
                 case 3:
-                    nextBlock = FakeBlockNode(imageNamed: level3Fake[counter+1])
+                    nextBlock = FakeBlockNode(imageNamed: level3[counter+1]+"-fake")
                 case 4:
-                    nextBlock = FakeBlockNode(imageNamed: level4Fake[counter+1])
+                    nextBlock = FakeBlockNode(imageNamed: level4[counter+1]+"-fake")
                 default:
                     nextBlock = FakeBlockNode(imageNamed: "square-fake")
                 }
         } else {
             switch (currentLevel) {
             case 1:
-                nextBlock = FakeBlockNode(imageNamed: level1Fake[0])
+                nextBlock = FakeBlockNode(imageNamed: level1[0]+"-fake")
             case 2:
-                nextBlock = FakeBlockNode(imageNamed: level2Fake[0])
+                nextBlock = FakeBlockNode(imageNamed: level2[0]+"-fake")
             case 3:
-                nextBlock = FakeBlockNode(imageNamed: level3Fake[0])
+                nextBlock = FakeBlockNode(imageNamed: level3[0]+"-fake")
             case 4:
-                nextBlock = FakeBlockNode(imageNamed: level4Fake[0])
+                nextBlock = FakeBlockNode(imageNamed: level4[0]+"-fake")
             default:
                 nextBlock = FakeBlockNode(imageNamed: "square-fake")
             }

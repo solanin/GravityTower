@@ -34,7 +34,6 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     
     //Source
     let shapes: [String] = ["rectangle", "rectangle", "hexagon", "square", "square", "triangle"]
-    let shapesFake: [String] = ["rectangle-fake", "rectangle-fake", "hexagon-fake", "square-fake", "square", "triangle-fake"]
     
     var currentIndex = 0;
     var nextIndex = -1;
@@ -75,14 +74,14 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
             tempHasSpawned = true
             
             if (nextIndex == -1) {
-                currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
-                nextIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+                currentIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
             } else {
                 currentIndex = nextIndex
-                nextIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
             }
             
-            tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
+            tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
@@ -93,7 +92,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     
     // Spawns the temporary "next" icon block
     func spawnNextBlock() {
-        nextBlock = FakeBlockNode(imageNamed: shapesFake[nextIndex])
+        nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
         
         nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-50, y:CGRectGetMaxY(self.frame)-50), screen: frame)
         
