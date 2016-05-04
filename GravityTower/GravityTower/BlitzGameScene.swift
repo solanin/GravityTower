@@ -52,6 +52,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
+            scoreLabel.text = "Blocks: \(allBlocks.count)"
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
@@ -248,8 +249,9 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         //DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
         //print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel) / and earned \(stars) stars")
         
-        runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
+        runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         
+        scoreLabel.text = "Blocks: \(allBlocks.count-1)"
         inGameMessage("Total: \(allBlocks.count-1)")
         performSelector("endGame", withObject: nil, afterDelay: 5)
     }

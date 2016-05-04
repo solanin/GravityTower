@@ -25,7 +25,6 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-    let timeLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
@@ -52,6 +51,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
+            scoreLabel.text = "Blocks: \(allBlocks.count)"
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
@@ -229,7 +229,6 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ){
                 spawnBlock()
-                scoreLabel.text = "Blocks: \(allBlocks.count)"
         }
     }
     
@@ -240,8 +239,9 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         //DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
         //print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel) / and earned \(stars) stars")
         
-        runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
+        runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         
+        scoreLabel.text = "Blocks: \(allBlocks.count-1)"
         inGameMessage("Total: \(allBlocks.count-1)")
         performSelector("endGame", withObject: nil, afterDelay: 5)
     }
