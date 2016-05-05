@@ -33,12 +33,6 @@ class FakeBlockNode: SKSpriteNode, CustomNodeEvents {
         self.screen = screen
         super.position = startPos
         super.zPosition = SpriteLayer.Sprite
-        super.physicsBody = SKPhysicsBody(rectangleOfSize: super.size)
-        super.physicsBody?.dynamic = false
-        super.physicsBody?.mass = 0
-        super.physicsBody?.categoryBitMask = PhysicsCategory.Block
-        super.physicsBody?.contactTestBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
-        super.physicsBody?.collisionBitMask = PhysicsCategory.Base | PhysicsCategory.Block | PhysicsCategory.Edge
         
         hasBeenSet = true
     }
