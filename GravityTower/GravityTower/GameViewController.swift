@@ -12,7 +12,7 @@ import SpriteKit
 class GameViewController: UIViewController {
     
     // MARK: - ivars -
-    var gameScene: GameScene?
+    var gameScene: RegGameScene?
     var skView:SKView!
     let showDebugData = true
     let screenSize = CGSize(width: 1080, height: 1920)
@@ -89,7 +89,7 @@ class GameViewController: UIViewController {
     // MARK: - Scene Loading -
     
     func loadGameScene(lvl:Int){
-        gameScene = GameScene.level(lvl)
+        gameScene = RegGameScene.level(lvl)
         
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = false
