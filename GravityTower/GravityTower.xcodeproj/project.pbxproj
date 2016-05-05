@@ -11,6 +11,9 @@
 		238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238DA2911CC8772F00893D9C /* GoalNode.swift */; };
 		23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF131CCE6D9B0047ECCD /* drop.wav */; };
 		23B8BF161CCE742F0047ECCD /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF151CCE742F0047ECCD /* fall.wav */; };
+		23D5465A1CDABDA600019E5F /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D546591CDABDA600019E5F /* LevelResults.swift */; };
+		23D5465C1CDAF85000019E5F /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23D5465B1CDAF84F00019E5F /* Level5.sks */; };
+		23D5465F1CDAF95800019E5F /* Level6.sks in Resources */ = {isa = PBXBuildFile; fileRef = 23D5465E1CDAF95800019E5F /* Level6.sks */; };
 		23F768B41CCF3738005F3F37 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23F768B21CCF3738005F3F37 /* lose.wav */; };
 		23F768B71CCF9130005F3F37 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23F768B61CCF9130005F3F37 /* win.wav */; };
 		23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FD03711CBC16A100F44B4E /* MainMenuScene.swift */; };
@@ -70,6 +73,9 @@
 		238DA2911CC8772F00893D9C /* GoalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
 		23B8BF131CCE6D9B0047ECCD /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
 		23B8BF151CCE742F0047ECCD /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fall.wav; sourceTree = "<group>"; };
+		23D546591CDABDA600019E5F /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
+		23D5465B1CDAF84F00019E5F /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
+		23D5465E1CDAF95800019E5F /* Level6.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6.sks; sourceTree = "<group>"; };
 		23F768B21CCF3738005F3F37 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
 		23F768B61CCF9130005F3F37 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		23FD03711CBC16A100F44B4E /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
@@ -147,6 +153,7 @@
 				238DA2911CC8772F00893D9C /* GoalNode.swift */,
 				6753430A1CB822BB0039C864 /* MessageNode.swift */,
 				67DDCE061CD7E74F001C4B36 /* GameUtils.swift */,
+				23D546591CDABDA600019E5F /* LevelResults.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -164,16 +171,26 @@
 				23FD037A1CBD53D400F44B4E /* GameOverScene.swift */,
 				67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */,
 				67F924B71CDA689900001A94 /* BlitzGameOverScene.swift */,
+				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
+				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
+				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
+				23D5465D1CDAF86800019E5F /* Levels */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		23D5465D1CDAF86800019E5F /* Levels */ = {
+			isa = PBXGroup;
+			children = (
 				67DDCE0A1CD7E7FD001C4B36 /* Empty.sks */,
 				67E7BB3E1CD9412900F41604 /* Level1.sks */,
 				67152EFF1CBFDF050026CC89 /* Level2.sks */,
 				67B676471CCEEFE500441286 /* Level3.sks */,
 				67C444FC1CC933060079EBA1 /* Level4.sks */,
-				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
-				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
-				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
+				23D5465B1CDAF84F00019E5F /* Level5.sks */,
+				23D5465E1CDAF95800019E5F /* Level6.sks */,
 			);
-			name = Scenes;
+			name = Levels;
 			sourceTree = "<group>";
 		};
 		23F768B51CCF90DD005F3F37 /* Emitter */ = {
@@ -345,6 +362,8 @@
 				675343161CB822BB0039C864 /* Main.storyboard in Resources */,
 				67C444FD1CC933060079EBA1 /* Level4.sks in Resources */,
 				23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */,
+				23D5465C1CDAF85000019E5F /* Level5.sks in Resources */,
+				23D5465F1CDAF95800019E5F /* Level6.sks in Resources */,
 				67C444FF1CC93A270079EBA1 /* HowToSceneContents.sks in Resources */,
 				67DDCE0B1CD7E7FD001C4B36 /* Empty.sks in Resources */,
 				23F768B71CCF9130005F3F37 /* win.wav in Resources */,
@@ -377,6 +396,7 @@
 				23FD03721CBC16A100F44B4E /* MainMenuScene.swift in Sources */,
 				9C7F97EB1BD2474800C8E15B /* Int+Extensions.swift in Sources */,
 				677A4F961CBD4F0D008E5773 /* BaseNode.swift in Sources */,
+				23D5465A1CDABDA600019E5F /* LevelResults.swift in Sources */,
 				675343251CB822BB0039C864 /* MessageNode.swift in Sources */,
 				677A4F8B1CBD3D44008E5773 /* TWControl.swift in Sources */,
 				238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */,

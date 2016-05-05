@@ -14,29 +14,31 @@ import SpriteKit
 class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     // MARK: Variables
-    
     var playable = true
-    var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
+    
+    let results: LevelResults = LevelResults(level: 0, score: 0, numBlocks: 0)
+    var timer = NSTimer()
+    var counter = 60
     
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let timeLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
-    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     
-    //Source
-    let shapes: [String] = ["rectangle", "rectangle", "hexagon", "square", "square", "triangle"]
-    
+    //Shapes
+    let shapes: [String] = ["rectangle", "rectangle", "hexagon", "square", "square", "rectangle", "square", "rectangle", "hexagon", "rectangle", "hexagon"]
+    let shapesFake: [String] = ["rectangle-fake", "rectangle-fake", "hexagon-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "hexagon-fake", "rectangle-fake", "hexagon-fake"]
+    // Shapes Array index
     var currentIndex = 0;
-    var nextIndex = -1;
+    
     
     //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -47,7 +49,6 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         }
         
         if (tempBlock.hasBeenSet) {
-            
             currentBlock = BlockNode(imageNamed: shapes[currentIndex])
             
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
@@ -57,7 +58,6 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
-            nextBlock.removeFromParent()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -73,31 +73,13 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            if (nextIndex == -1) {
-                currentIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
-                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
-            } else {
-                currentIndex = nextIndex
-                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
-            }
-            
-            tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
+            currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
+            tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
-            spawnNextBlock()
         }
-    }
-    
-    // Spawns the temporary "next" icon block
-    func spawnNextBlock() {
-        nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
-        
-        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
-        nextBlock.setScale(0.25)
-        
-        addChild(nextBlock)
     }
     
     
@@ -110,7 +92,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
         
         let playableRect = CGRect(x: 0, y: playableMargin,
-            width: size.width, height: size.height-playableMargin*2)
+                                  width: size.width, height: size.height-playableMargin*2)
         
         physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
         physicsWorld.contactDelegate = self
@@ -121,6 +103,11 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
                 customNode.didMoveToScene()
             }
         })
+        
+        // Start Timer
+        timer.invalidate()
+        counter = 30
+        startTimer()
         
         // UI
         let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
@@ -140,23 +127,23 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-100)
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
         
         //Score label
-        scoreLabel.text = "Blocks: 0"
+        scoreLabel.text = "Blocks: \(allBlocks.count)"
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-180)
+        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-180)
         self.addChild(scoreLabel)
         
         //Time Label
-        timeLabel.text = "Time: "
+        timeLabel.text = "Time: \(counter)"
         timeLabel.fontSize = 50
         timeLabel.verticalAlignmentMode = .Center
         timeLabel.horizontalAlignmentMode = .Right
-        timeLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-260)
+        timeLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-260)
         self.addChild(timeLabel)
         
         
@@ -181,6 +168,30 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         gameLoopPaused = false
     }
     
+    
+    // MARK: Timer
+    func startTimer(){
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
+    }
+    
+    func pauseTimer() {
+        timer.invalidate()
+    }
+    
+    func updateCounter() {
+        if playable {
+            guard counter > 0 else {
+                lose()
+                return
+            }
+            
+            counter -= 1
+            
+            timeLabel.text = "Time: \(counter)"
+        }
+    }
+    
+    //MARK: Gestures
     func panDetected(sender:UIPanGestureRecognizer) {
         // retrieve pan movement along the x-axis of the view since the gesture began
         let currentPanX = sender.translationInView(view).x
@@ -234,6 +245,9 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
             runAction(SKAction.sequence([
                 SKAction.playSoundFileNamed("fall.wav", waitForCompletion: false)
                 ]))
+            results.numBlocks = allBlocks.count-1
+            pauseTimer()
+            scoreLabel.text = "Blocks: \(results.numBlocks)"
             lose()
         }
     }
@@ -249,7 +263,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = BlitzGameOverScene(size: self.size, myScore: allBlocks.count-1)
+        let gameOverScene = BlitzGameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -257,7 +271,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ){
-                spawnBlock()
+            spawnBlock()
         }
     }
     
@@ -265,13 +279,10 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     func lose() {
         playable = false
         
-        DefaultsManager.sharedDefaultsManager.setBlitzHighscore(allBlocks.count-1)
-        print("SAVING for BLITZ : this score \(allBlocks.count-1)")
-        
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
+        results.numBlocks = allBlocks.count - 1
+        inGameMessage("Total: \(results.numBlocks)")
         
-        scoreLabel.text = "Blocks: \(allBlocks.count-1)"
-        inGameMessage("Total: \(allBlocks.count-1)")
         performSelector("endGame", withObject: nil, afterDelay: 5)
     }
     
@@ -308,7 +319,6 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     //MARK: SKS Loading
     class func loadSKSFile() -> BlitzGameScene? {
         let scene = BlitzGameScene(fileNamed: "Empty")!
-        print("SETUP Blitz LEVEL")
         scene.scaleMode = .AspectFill
         return scene
     }

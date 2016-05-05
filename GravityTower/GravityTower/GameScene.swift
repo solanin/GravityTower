@@ -15,7 +15,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var tempHasSpawned = false
     var msgHasSpawned = false
     var stars = 3
-    let LAST_LEVEL = 5
+    let LAST_LEVEL = 7
     var START_POINT:CGFloat = 0.0
     
     // UI
@@ -23,22 +23,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
-    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     var goal: GoalNode!
     
     //Levels
-    let starCuttoff: [Int] = [2, 3, 7, 6]
+    let starCuttoff: [Int] = [2, 3, 7, 6, 10, 10]
     
     let level1: [String] = ["square", "rectangle", "triangle"]
+    let level1Fake: [String] = ["square-fake","rectangle-fake", "triangle-fake"]
     
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
-
-    let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
+    let level2Fake: [String] = ["rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
     
-    let level4: [String] = ["rectangle", "hexagon", "hexagon", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
+    let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
+    let level3Fake: [String] = ["square-fake", "rectangle-fake", "triangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "triangle-fake", "rectangle-fake", "square-fake", "square-fake", "square-fake"]
+    
+    let level4: [String] = ["rectangle", "hexagon", "hexagon", "rectangle", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
+    let level4Fake: [String] = ["rectangle-fake", "hexagon-fake", "hexagon-fake", "rectangle-fake", "square-fake", "rectangle-fake", "square-fake", "hexagon-fake", "rectangle-fake", "square-fake", "square-fake", "rectangle-fake", "hexagon-fake", "triangle-fake"]
+    
+    let level5: [String] = ["rectangle", "square", "rectangle", "square","rectangle", "square","rectangle", "square","rectangle", "square"]
+    let level5Fake: [String] = ["rectangle-fake", "square-fake", "rectangle-fake", "square-fake","rectangle-fake", "square-fake","rectangle-fake", "square-fake","rectangle-fake", "square-fake"]
+    
+    let level6: [String] = ["rectangle", "square", "rectangle", "square","rectangle", "square","rectangle", "square","rectangle", "square"]
+    let level6Fake: [String] = ["rectangle-fake", "square-fake", "rectangle-fake", "square-fake","rectangle-fake", "square-fake","rectangle-fake", "square-fake","rectangle-fake", "square-fake"]
     
     var counter = 0         // Keep track of the index on level array
     
@@ -61,10 +70,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                 currentBlock = BlockNode(imageNamed: level3[counter])
             case 4:
                 currentBlock = BlockNode(imageNamed: level4[counter])
+            case 5:
+                currentBlock = BlockNode(imageNamed: level5[counter])
+            case 6:
+                currentBlock = BlockNode(imageNamed: level6[counter])
             default:
                 currentBlock = BlockNode(imageNamed: "square")
             }
-    
+            
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             allBlocks.append(currentBlock)
             addChild(currentBlock)
@@ -83,12 +96,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
-            nextBlock.removeFromParent()
             
             counter += 1
             
             if (currentLevel == 1 && counter == 1) {
-                tipLabel.text = "Tap and drag to slide block"
+                tipLabel.text = "Drag to slide block"
             } else if (currentLevel == 1 && counter == 2) {
                 tipLabel.text = "Use two fingers to rotate"
             }
@@ -97,7 +109,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (currentLevel == 1 && counter >= level1.count ||
                 currentLevel == 2 && counter >= level2.count ||
                 currentLevel == 3 && counter >= level3.count ||
-                currentLevel == 4 && counter >= level4.count) {
+                currentLevel == 4 && counter >= level4.count ||
+                currentLevel == 5 && counter >= level5.count ||
+                currentLevel == 6 && counter >= level6.count) {
                 counter = 0
             }
         }
@@ -117,13 +131,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             switch (currentLevel) {
             case 1:
-                tempBlock = FakeBlockNode(imageNamed: level1[counter]+"-fake")
+                tempBlock = FakeBlockNode(imageNamed: level1Fake[counter])
             case 2:
-                tempBlock = FakeBlockNode(imageNamed: level2[counter]+"-fake")
+                tempBlock = FakeBlockNode(imageNamed: level2Fake[counter])
             case 3:
-                tempBlock = FakeBlockNode(imageNamed: level3[counter]+"-fake")
+                tempBlock = FakeBlockNode(imageNamed: level3Fake[counter])
             case 4:
-                tempBlock = FakeBlockNode(imageNamed: level4[counter]+"-fake")
+                tempBlock = FakeBlockNode(imageNamed: level4Fake[counter])
+            case 5:
+                tempBlock = FakeBlockNode(imageNamed: level5Fake[counter])
+            case 6:
+                tempBlock = FakeBlockNode(imageNamed: level6Fake[counter])
             default:
                 tempBlock = FakeBlockNode(imageNamed: "square-fake")
             }
@@ -146,49 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             
             addChild(tempBlock)
-            
-            spawnNextBlock()
         }
-    }
-    
-    // Spawns the temporary "next" icon block
-    func spawnNextBlock() {
-        
-        if (currentLevel == 1 && counter < level1.count - 1 ||
-            currentLevel == 2 && counter < level2.count - 1 ||
-            currentLevel == 3 && counter < level3.count - 1 ||
-            currentLevel == 4 && counter < level4.count - 1 ) {
-                switch (currentLevel) {
-                case 1:
-                    nextBlock = FakeBlockNode(imageNamed: level1[counter+1]+"-fake")
-                case 2:
-                    nextBlock = FakeBlockNode(imageNamed: level2[counter+1]+"-fake")
-                case 3:
-                    nextBlock = FakeBlockNode(imageNamed: level3[counter+1]+"-fake")
-                case 4:
-                    nextBlock = FakeBlockNode(imageNamed: level4[counter+1]+"-fake")
-                default:
-                    nextBlock = FakeBlockNode(imageNamed: "square-fake")
-                }
-        } else {
-            switch (currentLevel) {
-            case 1:
-                nextBlock = FakeBlockNode(imageNamed: level1[0]+"-fake")
-            case 2:
-                nextBlock = FakeBlockNode(imageNamed: level2[0]+"-fake")
-            case 3:
-                nextBlock = FakeBlockNode(imageNamed: level3[0]+"-fake")
-            case 4:
-                nextBlock = FakeBlockNode(imageNamed: level4[0]+"-fake")
-            default:
-                nextBlock = FakeBlockNode(imageNamed: "square-fake")
-            }
-        }
-        
-        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
-        nextBlock.setScale(0.25)
-        
-        addChild(nextBlock)
     }
     
     //MARK: User Interaction Functions
@@ -236,7 +212,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-100)
+        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-100)
         self.addChild(levelLabel)
         
         //Score label
@@ -244,7 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-200, y:CGRectGetMaxY(self.frame)-180)
+        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-180)
         self.addChild(scoreLabel)
         
         
@@ -367,7 +343,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ) {
-                
+            
             if currentBlock.position.y >= goal.position.y {
                 win()
             } else {
@@ -401,7 +377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
             DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
             print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel+1) and earned \(stars) stars")
-
+            
             runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
             
             let msg = formatStars(stars)
