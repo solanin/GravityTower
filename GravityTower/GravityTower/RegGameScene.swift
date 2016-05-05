@@ -4,34 +4,20 @@
 
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
+class RegGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     // MARK: Variables
-    
-    var playable = true
-    var previousPanX:CGFloat = 0.0
-    var previousRotation:CGFloat = 0.0
-    var tempHasSpawned = false
-    var msgHasSpawned = false
-    let LAST_LEVEL = 7
     var START_POINT:CGFloat = 0.0
     
     let results: LevelResults = LevelResults(level: 0, stars: 3, numBlocks: 0)
     
     // UI
-    let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-    let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-    
-    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
-    var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
-    var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
-    var allBlocks:[BlockNode] = []
     var goal: GoalNode!
     
     //Levels
+    let LAST_LEVEL = 7
     let starCuttoff: [Int] = [2, 3, 7, 6, 10, 10]
-    
     let level1: [String] = ["square", "rectangle", "triangle"]
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
     let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
@@ -202,60 +188,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //MARK: User Interaction Functions
     
     override func didMoveToView(view: SKView) {
-        // Calculate playable margin
-        let maxAspectRatio: CGFloat
-        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
-            maxAspectRatio = 3.0/4.0 // iPad
-        } else {
-            maxAspectRatio = 9.0/16.0 // iPhone
-        }
-        
-        let maxAspectRatioHeight = size.width / maxAspectRatio
-        let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
-        
-        let playableRect = CGRect(x: 0, y: playableMargin,
-                                  width: size.width, height: size.height-playableMargin*2)
-        
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
-        physicsWorld.contactDelegate = self
-        physicsBody!.categoryBitMask = PhysicsCategory.Edge
-        
-        enumerateChildNodesWithName("//*", usingBlock: {node, _ in
-            if let customNode = node as? CustomNodeEvents {
-                customNode.didMoveToScene()
-            }
-        })
-        
-        // UI
-        let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
-        
-        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+320, y: CGRectGetMaxY(self.frame)-100)
-        quitBtn.setNormalStateLabelText("Quit")
-        quitBtn.setNormalStateLabelFontColor(Constants.Color.White)
-        quitBtn.setAllStatesLabelFontName(Constants.Font.Main)
-        quitBtn.setAllStatesLabelFontSize(50.0)
-        quitBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-            (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
-        })
-        addChild(quitBtn)
-        
-        //Level label
-        levelLabel.text = "Level \(results.level)"
-        levelLabel.fontSize = 60
-        levelLabel.verticalAlignmentMode = .Center
-        levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-100)
-        self.addChild(levelLabel)
-        
-        //Score label
-        scoreLabel.text = formatStars(results.stars)
-        scoreLabel.fontSize = 50
-        scoreLabel.verticalAlignmentMode = .Center
-        scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-180)
-        self.addChild(scoreLabel)
-        
-        
         //Tip label
         if (results.level == 1) {
             tipLabel.text = "Tap to drop block"
@@ -269,64 +201,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         // set up goal line
         goal = childNodeWithName("//Goal") as! GoalNode
-        
         START_POINT = goal.position.y + 300.0
-        
-        // Game Objects
-        spawnBlock()
-        
-        // set up pan gesture recognizer
-        let pan = UIPanGestureRecognizer(target: self, action: "panDetected:")
-        pan.minimumNumberOfTouches = 1
-        pan.delegate = self
-        view.addGestureRecognizer(pan)
-        
-        // set up rotate gesture recognizer
-        let rotate = UIRotationGestureRecognizer(target: self, action: "rotationDetected:")
-        rotate.delegate = self
-        view.addGestureRecognizer(rotate)
-        
-        
-        // Background music
-        SKTAudio.sharedInstance().playBackgroundMusic("backgroundMusic.mp3")
-        
-        gameLoopPaused = false
     }
-    
-    func panDetected(sender:UIPanGestureRecognizer) {
-        // retrieve pan movement along the x-axis of the view since the gesture began
-        let currentPanX = sender.translationInView(view).x
-        
-        // calculate deltaX since last measurement
-        let deltaX = currentPanX - previousPanX
-        
-        tempBlock.position = CGPointMake(tempBlock.position.x + deltaX, tempBlock.position.y)
-        
-        // if the gesture has completed
-        if sender.state == .Ended {
-            previousPanX = 0
-        } else {
-            previousPanX = currentPanX
-        }
-    }
-    
-    func rotationDetected(sender:UIRotationGestureRecognizer){
-        // retrieve rotation value since the gesture began
-        let currentRotation = sender.rotation
-        
-        // calculate deltaRotation since last measurement
-        let deltaRotation = currentRotation - previousRotation
-        
-        tempBlock.zRotation -= deltaRotation
-        
-        // if the gesture has completed
-        if sender.state == .Ended {
-            previousRotation = 0
-        } else {
-            previousRotation = currentRotation
-        }
-    }
-    
     
     func didBeginContact(contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
@@ -352,14 +228,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     // MARK: End game functions
     
-    func inGameMessage(text: String) {
-        let message = MessageNode(message: text)
-        message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame)-400)
-        addChild(message)
-    }
-    
     func newGame() {
-        view?.presentScene(GameScene.level(results.level))
+        view?.presentScene(RegGameScene.level(results.level))
         print("LOADING Level \(results.level)")
         self.levelLabel.text = "Level \(results.level)"
         msgHasSpawned = false
@@ -426,42 +296,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    
-    class func level(levelNum: Int) -> GameScene? {
-        let scene = GameScene(fileNamed: "Level\(levelNum)")!
+    //MARK: SKS Loading
+    class func level(levelNum: Int) -> RegGameScene? {
+        let scene = RegGameScene(fileNamed: "Level\(levelNum)")!
         scene.results.level = levelNum
         print("SETUP Level \(levelNum)")
         scene.scaleMode = .AspectFill
         return scene
-    }
-    
-    //MARK: Pause Actions
-    var gameLoopPaused:Bool = true {
-        didSet{
-            //print("gameLoopPaused=\(gameLoopPaused)")
-            if gameLoopPaused {
-                runPauseAction()
-            } else {
-                runUnpauseAction()
-            }
-        }
-    }
-    
-    func runUnpauseAction() {
-        self.view?.paused = false
-        let unPauseAction = SKAction.sequence([
-            SKAction.fadeInWithDuration(1.5),
-            SKAction.runBlock({
-                self.physicsWorld.speed = 1.0
-            })
-            ])
-        unPauseAction.timingMode = .EaseIn
-        runAction(unPauseAction)
-    }
-    
-    func runPauseAction(){
-        scene?.alpha = 0.50
-        physicsWorld.speed = 0.0
-        self.view?.paused = true
     }
 }
