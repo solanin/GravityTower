@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class ZenGameOverScene: SKScene {
+class ModeGameOverScene: SKScene {
     
     let results: LevelResults
     
@@ -28,17 +28,33 @@ class ZenGameOverScene: SKScene {
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)
         
-        let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        gameOverLabel.text = "Zen Mode"
-        gameOverLabel.fontSize = 250
-        gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300))
-        self.addChild(gameOverLabel)
+        let hsLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        if results.level == -1 {
+            if (DefaultsManager.sharedDefaultsManager.getZenHighscore() == results.numBlocks) {
+                hsLabel.text = "High Score!"
+            }
+            else {
+                hsLabel.text = "High Score : \(DefaultsManager.sharedDefaultsManager.getZenHighscore())"
+            }
+        } else if results.level == -2 {
+            if (DefaultsManager.sharedDefaultsManager.getBlitzHighscore() == results.numBlocks) {
+                hsLabel.text = "High Score!"
+            }
+            else {
+                hsLabel.text = "High Score : \(DefaultsManager.sharedDefaultsManager.getBlitzHighscore())"
+            }
+        }
+        hsLabel.fontSize = 100
+        hsLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+50.0))
+        self.addChild(hsLabel)
         
-        let blocksLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        blocksLabel.text = "Blocks Stacked: \(self.results.numBlocks)"
-        blocksLabel.fontSize = 100
-        blocksLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+100))
-        self.addChild(blocksLabel)
+        
+        
+        let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        gameOverLabel.text = "Score: \(results.numBlocks)"
+        gameOverLabel.fontSize = 250
+        gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        self.addChild(gameOverLabel)
         
         let playBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Red, highlightedColor: Constants.Color.Blue)
         playBtn.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)-100))
@@ -46,9 +62,16 @@ class ZenGameOverScene: SKScene {
         playBtn.setNormalStateLabelFontColor(Constants.Color.White)
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
         playBtn.setAllStatesLabelFontSize(40.0)
-        playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
-            (self.view!.window!.rootViewController as! GameViewController).loadZenGameScene()
-        })
+        
+        if results.level == -1 {
+            playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+                (self.view!.window!.rootViewController as! GameViewController).loadZenGameScene()
+            })
+        } else if results.level == -2 {
+            playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
+                (self.view!.window!.rootViewController as! GameViewController).loadBlitzGameScene()
+            })
+        }
         addChild(playBtn)
         
         let mainMenuBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Yellow, highlightedColor: Constants.Color.Blue)
@@ -61,12 +84,6 @@ class ZenGameOverScene: SKScene {
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })
         addChild(mainMenuBtn)
-        
-        let highScoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        highScoreLabel.text = "High Score: "
-        highScoreLabel.fontSize = 80
-        highScoreLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)-600))
-        self.addChild(highScoreLabel)
         
         let emitterNode = SKEmitterNode(fileNamed: "MyParticle")!
         emitterNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)+400))

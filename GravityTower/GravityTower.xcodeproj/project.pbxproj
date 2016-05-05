@@ -50,10 +50,9 @@
 		67DDCE071CD7E74F001C4B36 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE061CD7E74F001C4B36 /* GameUtils.swift */; };
 		67DDCE091CD7E7C9001C4B36 /* ZenGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */; };
 		67DDCE0B1CD7E7FD001C4B36 /* Empty.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67DDCE0A1CD7E7FD001C4B36 /* Empty.sks */; };
-		67DDCE0D1CD7EC48001C4B36 /* ZenGameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */; };
+		67DDCE0D1CD7EC48001C4B36 /* ModeGameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DDCE0C1CD7EC48001C4B36 /* ModeGameOverScene.swift */; };
 		67E7BB411CD9412900F41604 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67E7BB3E1CD9412900F41604 /* Level1.sks */; };
 		67F924B61CDA681200001A94 /* BlitzGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F924B51CDA681200001A94 /* BlitzGameScene.swift */; };
-		67F924B81CDA689900001A94 /* BlitzGameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F924B71CDA689900001A94 /* BlitzGameOverScene.swift */; };
 		9C7F97E81BD2474800C8E15B /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */; };
 		9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */; };
 		9C7F97EA1BD2474800C8E15B /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7F97DE1BD2474800C8E15B /* CGVector+Extensions.swift */; };
@@ -113,10 +112,9 @@
 		67DDCE061CD7E74F001C4B36 /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUtils.swift; sourceTree = "<group>"; };
 		67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZenGameScene.swift; sourceTree = "<group>"; };
 		67DDCE0A1CD7E7FD001C4B36 /* Empty.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Empty.sks; sourceTree = "<group>"; };
-		67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZenGameOverScene.swift; sourceTree = "<group>"; };
+		67DDCE0C1CD7EC48001C4B36 /* ModeGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeGameOverScene.swift; sourceTree = "<group>"; };
 		67E7BB3E1CD9412900F41604 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		67F924B51CDA681200001A94 /* BlitzGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlitzGameScene.swift; sourceTree = "<group>"; };
-		67F924B71CDA689900001A94 /* BlitzGameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlitzGameOverScene.swift; sourceTree = "<group>"; };
 		9C764A341BD237D80012640A /* GravityTower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GravityTower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C7F97DC1BD2474800C8E15B /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		9C7F97DD1BD2474800C8E15B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -169,8 +167,7 @@
 				67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */,
 				67F924B51CDA681200001A94 /* BlitzGameScene.swift */,
 				23FD037A1CBD53D400F44B4E /* GameOverScene.swift */,
-				67DDCE0C1CD7EC48001C4B36 /* ZenGameOverScene.swift */,
-				67F924B71CDA689900001A94 /* BlitzGameOverScene.swift */,
+				67DDCE0C1CD7EC48001C4B36 /* ModeGameOverScene.swift */,
 				67C444FE1CC93A270079EBA1 /* HowToSceneContents.sks */,
 				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
 				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
@@ -380,7 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				677A4F8A1CBD3D44008E5773 /* TWControl+NestedTypes.swift in Sources */,
-				67DDCE0D1CD7EC48001C4B36 /* ZenGameOverScene.swift in Sources */,
+				67DDCE0D1CD7EC48001C4B36 /* ModeGameOverScene.swift in Sources */,
 				9C7F97E91BD2474800C8E15B /* CGPoint+Extensions.swift in Sources */,
 				9C7F97F11BD2474800C8E15B /* SKTEffects.swift in Sources */,
 				9C7F97EC1BD2474800C8E15B /* SKAction+Extensions.swift in Sources */,
@@ -403,7 +400,6 @@
 				9C7F97F31BD2474800C8E15B /* Vector3.swift in Sources */,
 				677A4F941CBD4D1A008E5773 /* CreditsScene.swift in Sources */,
 				677A4F881CBD3D44008E5773 /* TWButton.swift in Sources */,
-				67F924B81CDA689900001A94 /* BlitzGameOverScene.swift in Sources */,
 				6753431D1CB822BB0039C864 /* GameScene.swift in Sources */,
 				67F924B61CDA681200001A94 /* BlitzGameScene.swift in Sources */,
 				23FD037B1CBD53D400F44B4E /* GameOverScene.swift in Sources */,

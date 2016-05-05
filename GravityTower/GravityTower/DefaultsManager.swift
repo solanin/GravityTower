@@ -15,6 +15,12 @@ class DefaultsManager{
     let LVL_1_STARS = "lvl1"
     let LVL_2_STARS = "lvl2"
     let LVL_3_STARS = "lvl3"
+    let LVL_4_STARS = "lvl4"
+    let LVL_5_STARS = "lvl5"
+    let LVL_6_STARS = "lvl6"
+    let HIGHEST_SCORE_ZEN = "zenScore"
+    let HIGHEST_SCORE_BLITZ = "blitzScore"
+
     let defaults = NSUserDefaults.standardUserDefaults()
     
     // This prevents others from using the default initializer for this class.
@@ -34,12 +40,35 @@ class DefaultsManager{
         var KEY = LVL_1_STARS
         if (lvl == 2) {KEY = LVL_2_STARS}
         if (lvl == 3) {KEY = LVL_3_STARS}
+        if (lvl == 4) {KEY = LVL_4_STARS}
+        if (lvl == 5) {KEY = LVL_5_STARS}
+        if (lvl == 6) {KEY = LVL_6_STARS}
 
         if let stars:Int? = defaults.integerForKey(KEY){
             //print("value for \(KEY) found = \(stars)")
             return stars!
         }else{
             //print("no value for \(KEY) found")
+            return 0
+        }
+    }
+    
+    func getZenHighscore()->Int{
+        if let zenScore:Int? = defaults.integerForKey(HIGHEST_SCORE_ZEN){
+            //print("value for HIGHEST_SCORE_ZEN found = \(zenScore)")
+            return zenScore!
+        }else{
+            //print("no value for HIGHEST_SCORE_ZEN found")
+            return 0
+        }
+    }
+    
+    func getBlitzHighscore()->Int{
+        if let blitzScore:Int? = defaults.integerForKey(HIGHEST_SCORE_BLITZ){
+            //print("value for HIGHEST_SCORE_BLITZ found = \(blitzScore)")
+            return blitzScore!
+        }else{
+            //print("no value for HIGHEST_SCORE_BLITZ found")
             return 0
         }
     }
@@ -57,10 +86,29 @@ class DefaultsManager{
             var KEY = LVL_1_STARS
             if (lvl == 2) {KEY = LVL_2_STARS}
             if (lvl == 3) {KEY = LVL_3_STARS}
+            if (lvl == 4) {KEY = LVL_4_STARS}
+            if (lvl == 5) {KEY = LVL_5_STARS}
+            if (lvl == 6) {KEY = LVL_6_STARS}
         
             defaults.setInteger(stars, forKey: KEY)
             defaults.synchronize()
             //print("setting value for \(KEY)) = \(stars)")
+        }
+    }
+    
+    func setZenHighscore(score:Int){
+        if (getZenHighscore() < score) {
+            defaults.setInteger(score, forKey: HIGHEST_SCORE_ZEN)
+            defaults.synchronize()
+            //print("setting value for HIGHEST_SCORE_ZEN = \(score)")
+        }
+    }
+    
+    func setBlitzHighscore(score:Int){
+        if (getBlitzHighscore() < score) {
+            defaults.setInteger(score, forKey: HIGHEST_SCORE_BLITZ)
+            defaults.synchronize()
+            //print("setting value for HIGHEST_SCORE_BLITZ = \(score)")
         }
     }
     

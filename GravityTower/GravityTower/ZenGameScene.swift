@@ -22,21 +22,22 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     var tempHasSpawned = false
     var msgHasSpawned = false
     
-    let results: LevelResults = LevelResults(level: 0, score: 0, numBlocks: 0)
+    let results: LevelResults = LevelResults(level: -1, score: 0, numBlocks: 0)
     
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
+    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     
     //Source
     let shapes: [String] = ["rectangle", "rectangle", "hexagon", "square", "square", "triangle"]
-    let shapesFake: [String] = ["rectangle-fake", "rectangle-fake", "hexagon-fake", "square-fake", "square", "triangle-fake"]
     
     var currentIndex = 0;
+    var nextIndex = -1;
     
     //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -57,6 +58,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
+            nextBlock.removeFromParent()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -72,15 +74,34 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
-            tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
+            if (nextIndex == -1) {
+                currentIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            } else {
+                currentIndex = nextIndex
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            }
+            
+            tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
+
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
+            spawnNextBlock()
         }
     }
     
+    // Spawns the temporary "next" icon block
+    func spawnNextBlock() {
+        
+        nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
+        
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
+        nextBlock.setScale(0.25)
+        
+        addChild(nextBlock)
+    }
     
     // MARK: User Interaction Functions
     
@@ -224,7 +245,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = ZenGameOverScene(size: self.size, results: results)
+        let gameOverScene = ModeGameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -239,6 +260,9 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     //MARK: Lose conditions
     func lose() {
         playable = false
+        
+        DefaultsManager.sharedDefaultsManager.setZenHighscore(allBlocks.count-1)
+        print("SAVING for ZEN : this score \(allBlocks.count-1)")
         
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         

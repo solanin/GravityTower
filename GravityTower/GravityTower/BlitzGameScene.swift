@@ -20,7 +20,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     var tempHasSpawned = false
     var msgHasSpawned = false
     
-    let results: LevelResults = LevelResults(level: 0, score: 0, numBlocks: 0)
+    let results: LevelResults = LevelResults(level: -2, score: 0, numBlocks: 0)
     var timer = NSTimer()
     var counter = 60
     
@@ -29,16 +29,17 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     let scoreLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     let timeLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     
+    var nextBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var tempBlock:FakeBlockNode = FakeBlockNode(imageNamed: "rectangle-fake")
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     
     //Shapes
     let shapes: [String] = ["rectangle", "rectangle", "hexagon", "square", "square", "rectangle", "square", "rectangle", "hexagon", "rectangle", "hexagon"]
-    let shapesFake: [String] = ["rectangle-fake", "rectangle-fake", "hexagon-fake", "square-fake", "square-fake", "rectangle-fake", "square-fake", "rectangle-fake", "hexagon-fake", "rectangle-fake", "hexagon-fake"]
+
     // Shapes Array index
     var currentIndex = 0;
-    
+    var nextIndex = -1;
     
     //MARK: Spawn real block from the fake block
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -58,6 +59,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
             tempBlock.hasBeenSet = false
             tempHasSpawned = false
             tempBlock.removeFromParent()
+            nextBlock.removeFromParent()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
             checkFinished()
@@ -73,15 +75,33 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            currentIndex = Int(arc4random_uniform(6)); // randomBetweenNumbers
-            tempBlock = FakeBlockNode(imageNamed: shapesFake[currentIndex])
+            if (nextIndex == -1) {
+                currentIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            } else {
+                currentIndex = nextIndex
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            }
+            
+            tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
+
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
             addChild(tempBlock)
+            spawnNextBlock()
         }
     }
     
+    // Spawns the temporary "next" icon block
+    func spawnNextBlock() {
+        nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
+        
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
+        nextBlock.setScale(0.25)
+        
+        addChild(nextBlock)
+    }
     
     // MARK: User Interaction Functions
     
@@ -263,7 +283,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = BlitzGameOverScene(size: self.size, results: results)
+        let gameOverScene = ModeGameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -278,6 +298,9 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     //MARK: Lose conditions
     func lose() {
         playable = false
+        
+        DefaultsManager.sharedDefaultsManager.setBlitzHighscore(allBlocks.count-1)
+        print("SAVING for BLITZ : this score \(allBlocks.count-1)")
         
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         results.numBlocks = allBlocks.count - 1
@@ -319,6 +342,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     //MARK: SKS Loading
     class func loadSKSFile() -> BlitzGameScene? {
         let scene = BlitzGameScene(fileNamed: "Empty")!
+        print("SETUP Blitz LEVEL")
         scene.scaleMode = .AspectFill
         return scene
     }
