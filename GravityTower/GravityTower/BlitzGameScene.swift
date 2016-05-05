@@ -20,7 +20,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     var tempHasSpawned = false
     var msgHasSpawned = false
     
-    let results: LevelResults = LevelResults(level: -2, score: 0, numBlocks: 0)
+    let results: LevelResults = LevelResults(level: -2, stars: 0, numBlocks: 0)
     var timer = NSTimer()
     var counter = 60
     
@@ -283,7 +283,7 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = ModeGameOverScene(size: self.size, results: results)
+        let gameOverScene = GameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -299,8 +299,8 @@ class BlitzGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDele
     func lose() {
         playable = false
         
-        DefaultsManager.sharedDefaultsManager.setBlitzHighscore(allBlocks.count-1)
-        print("SAVING for BLITZ : this score \(allBlocks.count-1)")
+        DefaultsManager.sharedDefaultsManager.setBlitzHighscore(results.numBlocks)
+        print("SAVING for BLITZ : this score \(results.numBlocks)")
         
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         results.numBlocks = allBlocks.count - 1

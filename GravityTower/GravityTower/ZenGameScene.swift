@@ -16,13 +16,12 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     // MARK: Variables
     
     var playable = true
-    var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
     
-    let results: LevelResults = LevelResults(level: -1, score: 0, numBlocks: 0)
+    let results: LevelResults = LevelResults(level: -1, stars: 0, numBlocks: 0)
     
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
@@ -245,7 +244,7 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = ModeGameOverScene(size: self.size, results: results)
+        let gameOverScene = GameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -261,8 +260,8 @@ class ZenGameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelega
     func lose() {
         playable = false
         
-        DefaultsManager.sharedDefaultsManager.setZenHighscore(allBlocks.count-1)
-        print("SAVING for ZEN : this score \(allBlocks.count-1)")
+        DefaultsManager.sharedDefaultsManager.setZenHighscore(results.numBlocks)
+        print("SAVING for ZEN : this score \(results.numBlocks)")
         
         runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
         

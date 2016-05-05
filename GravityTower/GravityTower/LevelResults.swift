@@ -8,14 +8,14 @@
 
 class LevelResults
 {
-    var level: Int
-    var score: Int
+    var level: Int //-1 = Zen -2 = Blitz
+    var stars: Int
     var numBlocks: Int
     
-    init(level: Int, score: Int, numBlocks: Int)
+    init(level: Int, stars: Int, numBlocks: Int)
     {
         self.level = level
-        self.score = score
+        self.stars = stars
         self.numBlocks = numBlocks
     }
 }

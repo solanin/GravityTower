@@ -9,14 +9,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // MARK: Variables
     
     var playable = true
-    var currentLevel: Int = 0
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
-    var stars = 3
     let LAST_LEVEL = 7
     var START_POINT:CGFloat = 0.0
+    
+    let results: LevelResults = LevelResults(level: 0, stars: 3, numBlocks: 0)
     
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if (tempBlock.hasBeenSet) {
             
-            switch (currentLevel) {
+            switch (results.level) {
             case 1:
                 currentBlock = BlockNode(imageNamed: level1[counter])
             case 2:
@@ -73,14 +73,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             addChild(currentBlock)
             
             // Clac Stars
-            if (allBlocks.count > starCuttoff[currentLevel-1]) {
-                stars = 2
-                if (allBlocks.count > starCuttoff[currentLevel-1] + 2) {
-                    stars = 1
+            if (allBlocks.count > starCuttoff[results.level-1]) {
+                results.stars = 2
+                if (allBlocks.count > starCuttoff[results.level-1] + 2) {
+                    results.stars = 1
                 }
-                scoreLabel.text = formatStars(stars)
+                scoreLabel.text = formatStars(results.stars)
             }
-            print("\(currentLevel) : \(allBlocks.count) / \(starCuttoff[currentLevel-1]) = \(stars)")
+            print("\(results.level) : \(allBlocks.count) / \(starCuttoff[results.level-1]) = \(results.stars)")
             
             
             tempBlock.hasBeenSet = false
@@ -90,19 +90,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
 
             counter += 1
             
-            if (currentLevel == 1 && counter == 1) {
+            if (results.level == 1 && counter == 1) {
                 tipLabel.text = "Drag to slide block"
-            } else if (currentLevel == 1 && counter == 2) {
+            } else if (results.level == 1 && counter == 2) {
                 tipLabel.text = "Use two fingers to rotate"
             }
             
             
-            if (currentLevel == 1 && counter >= level1.count ||
-                currentLevel == 2 && counter >= level2.count ||
-                currentLevel == 3 && counter >= level3.count ||
-                currentLevel == 4 && counter >= level4.count ||
-                currentLevel == 5 && counter >= level5.count ||
-                currentLevel == 6 && counter >= level6.count) {
+            if (results.level == 1 && counter >= level1.count ||
+                results.level == 2 && counter >= level2.count ||
+                results.level == 3 && counter >= level3.count ||
+                results.level == 4 && counter >= level4.count ||
+                results.level == 5 && counter >= level5.count ||
+                results.level == 6 && counter >= level6.count) {
                 counter = 0
             }
         }
@@ -120,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if !tempHasSpawned { // Spawn temporary block
             tempHasSpawned = true
             
-            switch (currentLevel) {
+            switch (results.level) {
             case 1:
                 tempBlock = FakeBlockNode(imageNamed: level1[counter]+"-fake")
             case 2:
@@ -138,7 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
             
             // Set Up Onboarding
-            if (currentLevel == 1) {
+            if (results.level == 1) {
                 switch (counter) {
                 case 0:
                     tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: START_POINT), screen: frame)
@@ -162,11 +162,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // Spawns the temporary "next" icon block
     func spawnNextBlock() {
         
-        if (currentLevel == 1 && counter < level1.count - 1 ||
-            currentLevel == 2 && counter < level2.count - 1 ||
-            currentLevel == 3 && counter < level3.count - 1 ||
-            currentLevel == 4 && counter < level4.count - 1 ) {
-                switch (currentLevel) {
+        if (results.level == 1 && counter < level1.count - 1 ||
+            results.level == 2 && counter < level2.count - 1 ||
+            results.level == 3 && counter < level3.count - 1 ||
+            results.level == 4 && counter < level4.count - 1 ) {
+                switch (results.level) {
                 case 1:
                     nextBlock = FakeBlockNode(imageNamed: level1[counter+1]+"-fake")
                 case 2:
@@ -179,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
                     nextBlock = FakeBlockNode(imageNamed: "square-fake")
                 }
         } else {
-            switch (currentLevel) {
+            switch (results.level) {
             case 1:
                 nextBlock = FakeBlockNode(imageNamed: level1[0]+"-fake")
             case 2:
@@ -240,7 +240,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         addChild(quitBtn)
         
         //Level label
-        levelLabel.text = "Level \(self.currentLevel)"
+        levelLabel.text = "Level \(results.level)"
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
@@ -248,7 +248,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         self.addChild(levelLabel)
         
         //Score label
-        scoreLabel.text = formatStars(stars)
+        scoreLabel.text = formatStars(results.stars)
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
@@ -257,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         //Tip label
-        if (currentLevel == 1) {
+        if (results.level == 1) {
             tipLabel.text = "Tap to drop block"
             tipLabel.fontSize = 80
             tipLabel.verticalAlignmentMode = .Center
@@ -359,15 +359,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func newGame() {
-        view?.presentScene(GameScene.level(currentLevel))
-        print("LOADING Level \(currentLevel)")
-        self.levelLabel.text = "Level \(self.currentLevel)"
+        view?.presentScene(GameScene.level(results.level))
+        print("LOADING Level \(results.level)")
+        self.levelLabel.text = "Level \(results.level)"
         msgHasSpawned = false
     }
     
     func endGame() {
         //print("Finished Game")
-        let gameOverScene = GameOverScene(size: self.size)
+        let gameOverScene = GameOverScene(size: self.size, results: results)
         self.view?.presentScene(gameOverScene)
         msgHasSpawned = false
     }
@@ -389,8 +389,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         playable = false
         counter = 0
         
-        DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel)
-        print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel)")
+        DefaultsManager.sharedDefaultsManager.setLvlUnlock(results.level)
+        print("SAVING for LEVEL \(results.level) : unlocked lvl \(results.level)")
         
         SKTAudio.sharedInstance().playSoundEffect("lose.wav")
         
@@ -406,19 +406,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             playable = false
             counter = 0
             
-            DefaultsManager.sharedDefaultsManager.setLvlUnlock(currentLevel+1)
-            DefaultsManager.sharedDefaultsManager.setStars(stars, lvl: currentLevel)
-            print("SAVING for LEVEL \(currentLevel) : unlocked lvl \(currentLevel+1) and earned \(stars) stars")
+            DefaultsManager.sharedDefaultsManager.setLvlUnlock(results.level+1)
+            DefaultsManager.sharedDefaultsManager.setStars(results.stars, lvl: results.level)
+            print("SAVING for LEVEL \(results.level) : unlocked lvl \(results.level+1) and earned \(results.stars) stars")
             
             runAction(SKAction.playSoundFileNamed("win.wav", waitForCompletion: false))
             
-            let msg = formatStars(stars)
+            let msg = formatStars(results.stars)
             inGameMessage(msg)
             
             //INCREASE LEVEL
-            currentLevel += 1
+            results.level += 1
             
-            if (currentLevel < LAST_LEVEL) {
+            if (results.level < LAST_LEVEL) {
                 performSelector("newGame", withObject: nil, afterDelay: 3)
             } else {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
@@ -429,7 +429,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     class func level(levelNum: Int) -> GameScene? {
         let scene = GameScene(fileNamed: "Level\(levelNum)")!
-        scene.currentLevel = levelNum
+        scene.results.level = levelNum
         print("SETUP Level \(levelNum)")
         scene.scaleMode = .AspectFill
         return scene
