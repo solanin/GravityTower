@@ -163,6 +163,7 @@
 				677A4F931CBD4D1A008E5773 /* CreditsScene.swift */,
 				677A4F911CBD4A01008E5773 /* HowToScene.swift */,
 				67B676491CCEFA2100441286 /* LevelSelect.swift */,
+				6780F02D1CDB969800E1A9BC /* GameScene.swift */,
 				675343021CB822BB0039C864 /* RegGameScene.swift */,
 				67DDCE081CD7E7C9001C4B36 /* ZenGameScene.swift */,
 				67F924B51CDA681200001A94 /* BlitzGameScene.swift */,
@@ -171,7 +172,6 @@
 				67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */,
 				67C445001CC93B280079EBA1 /* CreditsSceneContents.sks */,
 				23D5465D1CDAF86800019E5F /* Levels */,
-				6780F02D1CDB969800E1A9BC /* GameScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";

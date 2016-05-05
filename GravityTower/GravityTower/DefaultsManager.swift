@@ -92,6 +92,7 @@ class DefaultsManager{
         
             defaults.setInteger(stars, forKey: KEY)
             defaults.synchronize()
+            print("You earned more stars than before")
             //print("setting value for \(KEY)) = \(stars)")
         }
     }

@@ -13,6 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // MARK: Variables
     
     // Game Var
+    var results: LevelResults = LevelResults(level: 0, stars: 0, numBlocks: 0)
     var playable = true
     var previousPanX:CGFloat = 0.0
     var previousRotation:CGFloat = 0.0
@@ -29,7 +30,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var allBlocks:[BlockNode] = []
     
     // Levels
+    var shapes: [String] = []
     var currentIndex = 0;
+    var nextIndex = -1;
     
     // MARK: Start Game Functions
     override func didMoveToView(view: SKView) {
@@ -107,11 +110,142 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         gameLoopPaused = false
     }
     
-    // MARK: End game Functions
+    // MARK: Spawn Functions
+    
+    // Spawns the Real Block
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
+        
+        if !playable{
+            return
+        }
+        
+        if (tempBlock.hasBeenSet) {
+            
+            currentBlock = BlockNode(imageNamed: shapes[currentIndex])
+            
+            currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
+            allBlocks.append(currentBlock)
+            addChild(currentBlock)
+            
+            tempBlock.hasBeenSet = false
+            tempHasSpawned = false
+            tempBlock.removeFromParent()
+            nextBlock.removeFromParent()
+            
+            calcShowScore()
+        }
+        else if playable && currentBlock.position != currentBlock.startPos {
+            checkFinished()
+        }
+    }
+    
+    func calcShowScore () {
+        results.numBlocks = allBlocks.count
+        scoreLabel.text = "Blocks: \(results.numBlocks)"
+    }
+    
+    // Set up temporary block
+    func spawnBlock() {
+        if !playable{
+            return
+        }
+        
+        if !tempHasSpawned { // Spawn temporary block
+            tempHasSpawned = true
+            
+            if (nextIndex == -1 || (currentIndex > shapes.count || currentIndex < 0)) {
+                currentIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            } else {
+                currentIndex = nextIndex
+                nextIndex = Int(arc4random_uniform(UInt32(shapes.count))); // randomBetweenNumbers
+            }
+            
+            tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
+            
+            
+            //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
+            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
+            addChild(tempBlock)
+            spawnNextBlock()
+        }
+    }
+    
+    // Spawns the temporary "next" icon block
+    func spawnNextBlock() {
+        
+        nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
+        
+        nextBlock.setup(CGPoint(x: CGRectGetMaxX(self.frame)-100, y:CGRectGetMaxY(self.frame)-100), screen: frame)
+        nextBlock.setScale(0.25)
+        
+        addChild(nextBlock)
+    }
+    
+    // MARK: Collision
+    func didBeginContact(contact: SKPhysicsContact) {
+        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if !playable {
+            return
+        }
+        
+        if collision == PhysicsCategory.Block | PhysicsCategory.Base || collision == PhysicsCategory.Block | PhysicsCategory.Block{
+            //Block landed
+            runAction(SKAction.sequence([
+                SKAction.playSoundFileNamed("drop.wav", waitForCompletion: false)
+                ]))
+            performSelector("checkFinished", withObject: nil, afterDelay: 1)
+        } else if collision == PhysicsCategory.Block | PhysicsCategory.Edge {
+            //Block Fell
+            blockFell()
+        }
+    }
+    
+    func blockFell() {
+        runAction(SKAction.sequence([
+            SKAction.playSoundFileNamed("fall.wav", waitForCompletion: false)
+            ]))
+        results.numBlocks = allBlocks.count - 1
+        scoreLabel.text = "Blocks: \(results.numBlocks)"
+        lose()
+    }
+    
+    // MARK: End Game Functions
     func inGameMessage(text: String) {
         let message = MessageNode(message: text)
         message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame)-400)
         addChild(message)
+    }
+    
+    func endGame() {
+        //print("Finished Game")
+        let gameOverScene = GameOverScene(size: self.size, results: results)
+        self.view?.presentScene(gameOverScene)
+        msgHasSpawned = false
+    }
+    
+    func checkFinished() {
+        if (currentBlock.physicsBody?.velocity.dy < 1 &&
+            currentBlock.physicsBody?.velocity.dy > -1 ){
+                spawnBlock()
+        }
+    }
+    
+    func lose() {
+        playable = false
+        
+        runAction(SKAction.playSoundFileNamed("lose.wav", waitForCompletion: false))
+        
+        save()
+        
+        inGameMessage("Total: \(results.numBlocks)")
+        performSelector("endGame", withObject: nil, afterDelay: 5)
+    }
+    
+    func save () {
+        print("SAVING")
     }
     
     //MARK: Gestures
