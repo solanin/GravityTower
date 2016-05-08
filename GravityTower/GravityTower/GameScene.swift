@@ -208,7 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func spawnNextBlock() {
         nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
         
-        nextBlock.setup(CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-260), screen: frame)
+        nextBlock.setup(CGPoint(x:CGRectGetMaxX(self.frame)-290, y:CGRectGetMaxY(self.frame)-260), screen: frame)
         nextBlock.setScale(0.25)
         
         addChild(nextBlock)
