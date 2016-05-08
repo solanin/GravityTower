@@ -18,8 +18,8 @@ class RegGameScene: GameScene {
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
     let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
     let level4: [String] = ["rectangle", "hexagon", "hexagon", "rectangle", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
-    let level5: [String] = ["rectangle", "triangle", "triangle", "rectangle", "hexagon", "square", "rectangle", "square", "square", "rectangle"]
-    let level6: [String] = ["rectangle", "square", "rectangle", "square","rectangle", "square","rectangle", "square","rectangle", "square"]
+    let level5: [String] = ["rectangle", "triangle", "triangle", "rectangle", "hexagon", "square", "rectangle", "square", "square", "rectangle", "hexagon"]
+    let level6: [String] = ["square", "square", "hexagon", "rectangle", "rectangle", "hexagon", "rectangle", "square", "rectangle", "rectangle", "hexagon", "square", "rectangle", "triangle"]
     
     // MARK: Start Game Functions
     override func didMoveToView(view: SKView) {
@@ -205,6 +205,12 @@ class RegGameScene: GameScene {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
             }
         }
+    }
+    
+    override func inGameMessage(text: String) {
+        let message = MessageNode(message: text)
+        message.position = CGPoint(x: CGRectGetMidX(frame), y: START_POINT)
+        addChild(message)
     }
     
     //MARK: SKS Loading

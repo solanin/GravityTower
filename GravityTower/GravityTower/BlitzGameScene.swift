@@ -22,7 +22,7 @@ class BlitzGameScene: GameScene {
     override func didMoveToView(view: SKView) {
         // Set up level
         results = LevelResults(level: -2, stars: 0, numBlocks: 0)
-        shapes = ["rectangle", "rectangle", "hexagon", "square", "square", "rectangle", "square", "rectangle", "hexagon", "rectangle", "hexagon"]
+        shapes = ["rectangle", "hexagon", "square"]
         
         // Set up Scene
         super.didMoveToView(view)

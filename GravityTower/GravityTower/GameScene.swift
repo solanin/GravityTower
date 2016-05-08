@@ -355,9 +355,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (block == "current") {
                 currentBlock.setScale(0.8)
             }
-            if (block == "all") {
-                scene?.childNodeWithName("//*")?.setScale(0.8)
-            }
         }
         if (self.results.level == 6){
             if (block == "temp") {
@@ -366,8 +363,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (block == "current") {
                 currentBlock.setScale(0.7)
             }
-            if (block == "all") {
-                scene?.childNodeWithName("//*")?.setScale(0.7)
+        }
+        if (self.results.level == -1){
+            if (block == "temp") {
+                tempBlock.setScale(0.85)
+            }
+            if (block == "current") {
+                currentBlock.setScale(0.85)
             }
         }
     }
