@@ -13,12 +13,12 @@ class RegGameScene: GameScene {
     
     //Levels
     let LAST_LEVEL = 7
-    let starCuttoff: [Int] = [2, 3, 7, 6, 10, 10]
-    let level1: [String] = ["square", "rectangle", "triangle"]
+    let starCuttoff: [Int] = [4, 3, 6, 5, 9, 10]
+    let level1: [String] = ["square", "rectangle", "hexagon", "triangle"]
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
-    let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
+    let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
     let level4: [String] = ["rectangle", "hexagon", "hexagon", "rectangle", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
-    let level5: [String] = ["rectangle", "square", "rectangle", "square","rectangle", "square","rectangle", "square","rectangle", "square"]
+    let level5: [String] = ["rectangle", "triangle", "triangle", "rectangle", "hexagon", "square", "rectangle", "square", "square", "rectangle"]
     let level6: [String] = ["rectangle", "square", "rectangle", "square","rectangle", "square","rectangle", "square","rectangle", "square"]
     
     // MARK: Start Game Functions
@@ -81,12 +81,15 @@ class RegGameScene: GameScene {
         } else if (results.level == 1 && currentIndex == 2) {
             tipLabel.text = "Use two fingers to rotate"
         }
+        else if (results.level == 1 && currentIndex == 3) {
+            tipLabel.text = "Pass the goal line to beat the level"
+        }
         
         if (currentIndex >= shapes.count) {
             currentIndex = 0
         }
     }
-
+    
     // Set up temporary block in stage mode
     override func spawnBlock() {
         if !playable{
@@ -107,6 +110,9 @@ class RegGameScene: GameScene {
                     tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-300, y: START_POINT), screen: frame)
                 case 2:
                     tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame), y: START_POINT), screen: frame)
+                    tempBlock.zRotation = CGFloat(M_PI_2)
+                case 3:
+                    tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)+200, y: START_POINT), screen: frame)
                     tempBlock.zRotation = CGFloat(M_PI)
                 default:
                     tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
@@ -114,6 +120,8 @@ class RegGameScene: GameScene {
             } else {
                 tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
+            
+            shapeSize("temp")
             
             addChild(tempBlock)
             spawnNextBlock()
@@ -139,7 +147,7 @@ class RegGameScene: GameScene {
             ]))
         lose()
     }
-
+    
     // MARK: End Game functions
     func newGame() {
         view?.presentScene(RegGameScene.level(results.level))
@@ -147,7 +155,7 @@ class RegGameScene: GameScene {
         self.levelLabel.text = "Level \(results.level)"
         msgHasSpawned = false
     }
-
+    
     override func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ) {
@@ -158,7 +166,7 @@ class RegGameScene: GameScene {
             }
         }
     }
-
+    
     override func lose() {
         playable = false
         currentIndex = 0
@@ -171,7 +179,7 @@ class RegGameScene: GameScene {
         inGameMessage("Try again...")
         performSelector("newGame", withObject: nil, afterDelay: 5)
     }
-
+    
     func win() {
         if !msgHasSpawned {
             msgHasSpawned = true

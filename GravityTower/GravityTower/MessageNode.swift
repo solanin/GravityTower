@@ -33,7 +33,6 @@ class MessageNode: SKLabelNode {
     physicsBody!.restitution = 0.7
   }
   
-  //chapter 10 challenge 1
   private var bounceCount = 0
   
   func didBounce() {

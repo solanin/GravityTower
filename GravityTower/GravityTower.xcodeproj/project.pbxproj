@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2348EDCF1CCE900B00A0C2D7 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2348EDCE1CCE900B00A0C2D7 /* backgroundMusic.mp3 */; };
 		238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238DA2911CC8772F00893D9C /* GoalNode.swift */; };
+		23B50C771CDD190100AAA283 /* HeroNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B50C761CDD190100AAA283 /* HeroNode.swift */; };
 		23B8BF141CCE6D9B0047ECCD /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF131CCE6D9B0047ECCD /* drop.wav */; };
 		23B8BF161CCE742F0047ECCD /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 23B8BF151CCE742F0047ECCD /* fall.wav */; };
 		23D5465A1CDABDA600019E5F /* LevelResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D546591CDABDA600019E5F /* LevelResults.swift */; };
@@ -70,6 +71,7 @@
 /* Begin PBXFileReference section */
 		2348EDCE1CCE900B00A0C2D7 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
 		238DA2911CC8772F00893D9C /* GoalNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNode.swift; sourceTree = "<group>"; };
+		23B50C761CDD190100AAA283 /* HeroNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroNode.swift; sourceTree = "<group>"; };
 		23B8BF131CCE6D9B0047ECCD /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
 		23B8BF151CCE742F0047ECCD /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fall.wav; sourceTree = "<group>"; };
 		23D546591CDABDA600019E5F /* LevelResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelResults.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				6753430A1CB822BB0039C864 /* MessageNode.swift */,
 				67DDCE061CD7E74F001C4B36 /* GameUtils.swift */,
 				23D546591CDABDA600019E5F /* LevelResults.swift */,
+				23B50C761CDD190100AAA283 /* HeroNode.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				677A4F881CBD3D44008E5773 /* TWButton.swift in Sources */,
 				6753431D1CB822BB0039C864 /* RegGameScene.swift in Sources */,
 				67F924B61CDA681200001A94 /* BlitzGameScene.swift in Sources */,
+				23B50C771CDD190100AAA283 /* HeroNode.swift in Sources */,
 				6780F02E1CDB969800E1A9BC /* GameScene.swift in Sources */,
 				23FD037B1CBD53D400F44B4E /* GameOverScene.swift in Sources */,
 				675343131CB822BB0039C864 /* AppDelegate.swift in Sources */,

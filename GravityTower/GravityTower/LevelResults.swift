@@ -6,14 +6,12 @@
 //  Copyright © 2016 Razeware LLC. All rights reserved.
 //
 
-class LevelResults
-{
+class LevelResults {
     var level: Int //-1 = Zen -2 = Blitz
     var stars: Int
     var numBlocks: Int
     
-    init(level: Int, stars: Int, numBlocks: Int)
-    {
+    init(level: Int, stars: Int, numBlocks: Int) {
         self.level = level
         self.stars = stars
         self.numBlocks = numBlocks
