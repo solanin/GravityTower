@@ -12,6 +12,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     // MARK: - Variables -
     
+    // Playable
+    var maxAspectRatio:CGFloat = 0.0
+    var maxAspectRatioHeight:CGFloat = 0.0
+    var playableMargin:CGFloat = 0.0
+    var playableRect = CGRect()
+    
     // Game Var
     var results: LevelResults = LevelResults(level: 0, stars: 0, numBlocks: 0)
     var playable = true
@@ -58,24 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         hero.setup(CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)))
         
         // Calculate playable margin
-        let maxAspectRatio: CGFloat
-        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
-            maxAspectRatio = 3.0/4.0 // iPad
-        } else {
-            maxAspectRatio = 9.0/16.0 // iPhone
-        }
-        
-        let maxAspectRatioHeight = size.width / maxAspectRatio
-        let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
-        
-        let playableRect = CGRect(x: 0, y: playableMargin,
-            width: size.width, height: size.height-playableMargin*2)
-        
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
-        physicsWorld.contactDelegate = self
-        //physicsBody!.categoryBitMask = PhysicsCategory.Edge
-        // TO DO: RECALCULATE AND MOVE WITH CAMERA
-        
+        calcPlayableMargin()
         enumerateChildNodesWithName("//*", usingBlock: {node, _ in
             if let customNode = node as? CustomNodeEvents {
                 customNode.didMoveToScene()
@@ -151,6 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let moveObj = SKAction.runBlock({
             //self.hero.position = (self.allBlocks.last?.position)!
             self.hero2.position = self.theCamera.position
+            self.calcPlayableMargin()
         })
         if (allBlocks.count > 0) {
             if (hero.position.y + offset < (allBlocks.last?.position.y)!){
@@ -367,6 +357,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         scene?.alpha = 0.50
         physicsWorld.speed = 0.0
         self.view?.paused = true
+    }
+    
+    // MARK: Playspace
+    
+    func calcPlayableMargin(){
+        if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
+            maxAspectRatio = 3.0/4.0 // iPad
+        } else {
+            maxAspectRatio = 9.0/16.0 // iPhone
+        }        
+        
+        let z = theCamera.position.x - frame.midX
+        let w = theCamera.position.x + frame.midX
+        let h = theCamera.position.y + frame.midY
+            
+        maxAspectRatioHeight = w / maxAspectRatio
+        playableMargin = (h - maxAspectRatioHeight)/2
+        
+        playableRect = CGRect(x: z, y: playableMargin,
+            width: w, height: h-playableMargin*2)
+        
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
+        physicsWorld.contactDelegate = self
+        physicsBody!.categoryBitMask = PhysicsCategory.Edge
     }
     
 }

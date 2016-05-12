@@ -17,7 +17,7 @@ class ZenGameScene: GameScene {
     override func didMoveToView(view: SKView) {
         // Set up level
         results = LevelResults(level: -1, stars: 0, numBlocks: 0)
-        shapes = ["rectangle"]//, "hexagon", "square"]
+        shapes = ["rectangle", "hexagon", "square"]
         
         // Set up Scene
         super.didMoveToView(view)
