@@ -21,6 +21,8 @@ struct Constants{
     struct HUD{
         static let FontSize = CGFloat(50.0)
         static let Margin = CGFloat(10.0)
+        static let x_offset = CGFloat(600)
+        static let y_offset = CGFloat(900)
     }
     
     struct Label{

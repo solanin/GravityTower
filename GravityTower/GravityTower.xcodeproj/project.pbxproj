@@ -40,7 +40,7 @@
 		677A4F941CBD4D1A008E5773 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F931CBD4D1A008E5773 /* CreditsScene.swift */; };
 		677A4F961CBD4F0D008E5773 /* BaseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F951CBD4F0D008E5773 /* BaseNode.swift */; };
 		677A4F9C1CBD6631008E5773 /* FakeBlockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A4F9B1CBD6631008E5773 /* FakeBlockNode.swift */; };
-		6780F02E1CDB969800E1A9BC /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780F02D1CDB969800E1A9BC /* GameScene.swift */; };
+		6795C7241CE4E094008A5D79 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6780F02D1CDB969800E1A9BC /* GameScene.swift */; };
 		67B676481CCEEFE500441286 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B676471CCEEFE500441286 /* Level3.sks */; };
 		67B6764A1CCEFA2100441286 /* LevelSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B676491CCEFA2100441286 /* LevelSelect.swift */; };
 		67B6764C1CCEFA3F00441286 /* LevelSelectContents.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67B6764B1CCEFA3F00441286 /* LevelSelectContents.sks */; };
@@ -399,13 +399,13 @@
 				675343251CB822BB0039C864 /* MessageNode.swift in Sources */,
 				677A4F8B1CBD3D44008E5773 /* TWControl.swift in Sources */,
 				238DA2921CC8772F00893D9C /* GoalNode.swift in Sources */,
+				6795C7241CE4E094008A5D79 /* GameScene.swift in Sources */,
 				9C7F97F31BD2474800C8E15B /* Vector3.swift in Sources */,
 				677A4F941CBD4D1A008E5773 /* CreditsScene.swift in Sources */,
 				677A4F881CBD3D44008E5773 /* TWButton.swift in Sources */,
 				6753431D1CB822BB0039C864 /* RegGameScene.swift in Sources */,
 				67F924B61CDA681200001A94 /* BlitzGameScene.swift in Sources */,
 				23B50C771CDD190100AAA283 /* HeroNode.swift in Sources */,
-				6780F02E1CDB969800E1A9BC /* GameScene.swift in Sources */,
 				23FD037B1CBD53D400F44B4E /* GameOverScene.swift in Sources */,
 				675343131CB822BB0039C864 /* AppDelegate.swift in Sources */,
 				67DDCE071CD7E74F001C4B36 /* GameUtils.swift in Sources */,

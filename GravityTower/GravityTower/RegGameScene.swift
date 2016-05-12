@@ -4,10 +4,9 @@
 
 import SpriteKit
 
-class RegGameScene: GameScene {
+class RegGameScene : GameScene {
     
     // MARK: Variables
-    var START_POINT:CGFloat = 0.0
     let tipLabel = SKLabelNode(fontNamed: Constants.Font.Main)
     var goal: GoalNode!
     
@@ -48,13 +47,12 @@ class RegGameScene: GameScene {
             tipLabel.fontSize = 80
             tipLabel.verticalAlignmentMode = .Center
             tipLabel.horizontalAlignmentMode = .Center
-            tipLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) + 300)
-            self.addChild(tipLabel)
+            tipLabel.position = CGPoint(x: 0, y: 450)
+            theCamera.addChild(tipLabel)
         }
         
         // set up goal line
         goal = childNodeWithName("//Goal") as! GoalNode
-        START_POINT = goal.position.y + 300.0
         
         // Set up Scene
         super.didMoveToView(view)
@@ -101,6 +99,10 @@ class RegGameScene: GameScene {
             
             tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
             
+            // Camera
+            START_POINT = theCamera.position.y + 300.0
+            if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
+            
             // Set Up Onboarding
             if (results.level == 1) {
                 switch (currentIndex) {
@@ -120,8 +122,6 @@ class RegGameScene: GameScene {
             } else {
                 tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
-            
-            shapeSize("temp")
             
             addChild(tempBlock)
             spawnNextBlock()
@@ -205,12 +205,6 @@ class RegGameScene: GameScene {
                 performSelector("endGame", withObject: nil, afterDelay: 3)
             }
         }
-    }
-    
-    override func inGameMessage(text: String) {
-        let message = MessageNode(message: text)
-        message.position = CGPoint(x: CGRectGetMidX(frame), y: START_POINT)
-        addChild(message)
     }
     
     //MARK: SKS Loading

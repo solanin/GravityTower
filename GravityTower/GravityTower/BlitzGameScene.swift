@@ -39,8 +39,8 @@ class BlitzGameScene: GameScene {
         timeLabel.fontSize = 50
         timeLabel.verticalAlignmentMode = .Center
         timeLabel.horizontalAlignmentMode = .Right
-        timeLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-260)
-        self.addChild(timeLabel)
+        timeLabel.position = CGPoint(x: Constants.HUD.x_offset, y: Constants.HUD.y_offset-160)
+        theCamera.addChild(timeLabel)
     }
     
     // MARK: Timer
@@ -65,6 +65,8 @@ class BlitzGameScene: GameScene {
         }
     }
     
+    // MARK: Spawn Functions
+    
     //Force drop block
     func forceDrop(){
         pauseTimer()
@@ -73,8 +75,6 @@ class BlitzGameScene: GameScene {
             currentBlock = BlockNode(imageNamed: shapes[currentIndex])
             
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
-            
-            shapeSize("current")
             
             allBlocks.append(currentBlock)
             addChild(currentBlock)
@@ -87,7 +87,6 @@ class BlitzGameScene: GameScene {
             calcShowScore()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
-            shapeSize("current")
             checkFinished()
         }
         
@@ -98,10 +97,10 @@ class BlitzGameScene: GameScene {
     override func spawnNextBlock() {
         nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
         
-        nextBlock.setup(CGPoint(x:CGRectGetMaxX(self.frame)-290, y:CGRectGetMaxY(self.frame)-320), screen: frame)
+        nextBlock.setup(CGPoint(x: Constants.HUD.x_offset-50, y: Constants.HUD.y_offset-240), screen: frame)
         nextBlock.setScale(0.25)
         
-        addChild(nextBlock)
+        theCamera.addChild(nextBlock)
     }
     
     // MARK: Collision

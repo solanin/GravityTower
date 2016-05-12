@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
-    // MARK: Variables
+    // MARK: - Variables -
     
     // Game Var
     var results: LevelResults = LevelResults(level: 0, stars: 0, numBlocks: 0)
@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var previousRotation:CGFloat = 0.0
     var tempHasSpawned = false
     var msgHasSpawned = false
+    var START_POINT:CGFloat = 0.0
     
     // UI
     let levelLabel = SKLabelNode(fontNamed: Constants.Font.Main)
@@ -29,7 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentBlock:BlockNode = BlockNode(imageNamed: "rectangle")
     var allBlocks:[BlockNode] = []
     
-    var hero:HeroNode?
+    var hero:HeroNode = HeroNode() // Tracks height of tower
+    var hero2:HeroNode = HeroNode() // Tracks camera
     let theCamera: SKCameraNode = SKCameraNode()
     
     // Levels
@@ -37,8 +39,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var currentIndex = 0;
     var nextIndex = -1;
     
+    // MARK: - Funcions -
+    
     // MARK: Start Game Functions
     override func didMoveToView(view: SKView) {
+        
+        // Camera
+        self.camera = theCamera
+        self.anchorPoint = CGPoint(x: 0, y: 0)
+        theCamera.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        addChild(theCamera)
+        hero2 = HeroNode(imageNamed: "mute")
+        hero2.setup(CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)))
+        hero2.position = theCamera.position
+        
+        // Target
+        hero = HeroNode()
+        hero.setup(CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)))
+        
         // Calculate playable margin
         let maxAspectRatio: CGFloat
         if (UIDevice.currentDevice().userInterfaceIdiom == .Pad) {
@@ -51,11 +69,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight)/2
         
         let playableRect = CGRect(x: 0, y: playableMargin,
-                                  width: size.width, height: size.height-playableMargin*2)
+            width: size.width, height: size.height-playableMargin*2)
         
         physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
         physicsWorld.contactDelegate = self
-        physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        //physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        // TO DO: RECALCULATE AND MOVE WITH CAMERA
         
         enumerateChildNodesWithName("//*", usingBlock: {node, _ in
             if let customNode = node as? CustomNodeEvents {
@@ -63,19 +82,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         })
         
-        //        self.camera = theCamera
-        //        self.anchorPoint = CGPoint(x: 0, y: 0)
-        //        self.addChild(theCamera)
-        //        theCamera.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        //
-        //        hero = childNodeWithName("hero") as? HeroNode
-        //        hero?.setup(CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)))
+        // DROP POINT
+        START_POINT = theCamera.position.y + 300.0
         
+        // BG
+        let bg = childNodeWithName("//Background") as! SKSpriteNode
+        bg.removeFromParent()
+        bg.position = CGPoint(x: -CGRectGetMidX(self.frame), y: -CGRectGetMidY(self.frame))
+        theCamera.addChild(bg)
         
         // UI
         let quitBtn = TWButton(size: CGSize(width: 250, height: 100), normalColor: Constants.Color.Green, highlightedColor: Constants.Color.Blue)
         
-        quitBtn.position = CGPoint(x: CGRectGetMinX(self.frame)+320, y: CGRectGetMaxY(self.frame)-100)
+        quitBtn.position = CGPoint(x: -Constants.HUD.x_offset+125, y: Constants.HUD.y_offset)
         quitBtn.setNormalStateLabelText("Quit")
         quitBtn.setNormalStateLabelFontColor(Constants.Color.White)
         quitBtn.setAllStatesLabelFontName(Constants.Font.Main)
@@ -83,23 +102,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         quitBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
             (self.view!.window!.rootViewController as! GameViewController).loadMainScene()
         })
-        addChild(quitBtn)
+        theCamera.addChild(quitBtn)
         
         //Level label
         levelLabel.text = "Level \(results.level)"
         levelLabel.fontSize = 60
         levelLabel.verticalAlignmentMode = .Center
         levelLabel.horizontalAlignmentMode = .Right
-        levelLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-100)
-        self.addChild(levelLabel)
+        levelLabel.position = CGPoint(x: Constants.HUD.x_offset, y: Constants.HUD.y_offset)
+        theCamera.addChild(levelLabel)
         
         //Score label
         scoreLabel.text = formatStars(results.stars)
         scoreLabel.fontSize = 50
         scoreLabel.verticalAlignmentMode = .Center
         scoreLabel.horizontalAlignmentMode = .Right
-        scoreLabel.position = CGPoint(x:CGRectGetMaxX(self.frame)-250, y:CGRectGetMaxY(self.frame)-180)
-        self.addChild(scoreLabel)
+        scoreLabel.position = CGPoint(x: Constants.HUD.x_offset, y: Constants.HUD.y_offset-80)
+        theCamera.addChild(scoreLabel)
         
         // Game Objects
         spawnBlock()
@@ -121,12 +140,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         gameLoopPaused = false
     }
     
+    // MARK: Camera
     override func update(currentTime: CFTimeInterval) {
-        //        let action = SKAction.moveTo((hero?.position)!, duration: 0.25)
-        //        if (hero?.position.y < goalLine?.position.y){
-        //            theCamera.runAction(action)
-        //            print("pass hero, move camera")
-        //        }
+        let offset = CGFloat(300.0)
+        var target = CGPoint(x: frame.midX, y: hero.position.y + offset)
+        if (hero.position.y + offset < frame.midY) {
+            target = CGPoint(x: frame.midX, y: frame.midY)
+        }
+        let action = SKAction.moveTo(target, duration: 0.25)
+        let moveObj = SKAction.runBlock({
+            //self.hero.position = (self.allBlocks.last?.position)!
+            self.hero2.position = self.theCamera.position
+        })
+        if (allBlocks.count > 0) {
+            if (hero.position.y + offset < (allBlocks.last?.position.y)!){
+                theCamera.runAction(SKAction.sequence([action, moveObj]))
+            }
+        }
     }
     
     // MARK: Spawn Functions
@@ -144,8 +174,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             currentBlock.setup(CGPoint(x: tempBlock.position.x, y: tempBlock.position.y), rotation:tempBlock.zRotation, screen: frame)
             
-            shapeSize("current")
-            
+            if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
             allBlocks.append(currentBlock)
             addChild(currentBlock)
             
@@ -157,14 +186,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             calcShowScore()
         }
         else if playable && currentBlock.position != currentBlock.startPos {
-            shapeSize("current")
             checkFinished()
-            
-            //hero?.position = currentBlock.position
         }
-        
-        //hero?.position = currentBlock.position
-        
     }
     
     func calcShowScore () {
@@ -192,11 +215,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
             
+            // Camera
+            START_POINT = theCamera.position.y + 300.0
+            if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
             
             //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
-            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: (self.frame.height - 250.0)), screen: frame)
-            
-            shapeSize("temp")
+            tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             
             addChild(tempBlock)
             
@@ -208,10 +232,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func spawnNextBlock() {
         nextBlock = FakeBlockNode(imageNamed: shapes[nextIndex]+"-fake")
         
-        nextBlock.setup(CGPoint(x:CGRectGetMaxX(self.frame)-290, y:CGRectGetMaxY(self.frame)-260), screen: frame)
+        nextBlock.setup(CGPoint(x: Constants.HUD.x_offset-50, y: Constants.HUD.y_offset-160), screen: frame)
         nextBlock.setScale(0.25)
         
-        addChild(nextBlock)
+        theCamera.addChild(nextBlock)
     }
     
     // MARK: Collision
@@ -224,7 +248,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if collision == PhysicsCategory.Block | PhysicsCategory.Base || collision == PhysicsCategory.Block | PhysicsCategory.Block{
             //Block landed
-            shapeSize("current")
             runAction(SKAction.sequence([
                 SKAction.playSoundFileNamed("drop.wav", waitForCompletion: false)
                 ]))
@@ -248,7 +271,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     // MARK: End Game Functions
     func inGameMessage(text: String) {
         let message = MessageNode(message: text)
-        message.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMaxY(frame)-400)
+        message.position = CGPoint(x: CGRectGetMidX(frame), y: START_POINT)
         addChild(message)
     }
     
@@ -262,7 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ){
-            spawnBlock()
+                spawnBlock()
         }
     }
     
@@ -346,31 +369,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         self.view?.paused = true
     }
     
-    //MARK: Decrease Shape size based on level
-    func shapeSize(block: String){
-        if (self.results.level == 5){
-            if (block == "temp") {
-                currentBlock.setScale(0.8)
-            }
-            if (block == "current") {
-                currentBlock.setScale(0.8)
-            }
-        }
-        if (self.results.level == 6){
-            if (block == "temp") {
-                tempBlock.setScale(0.7)
-            }
-            if (block == "current") {
-                currentBlock.setScale(0.7)
-            }
-        }
-        if (self.results.level == -1){
-            if (block == "temp") {
-                tempBlock.setScale(0.85)
-            }
-            if (block == "current") {
-                currentBlock.setScale(0.85)
-            }
-        }
-    }
 }
