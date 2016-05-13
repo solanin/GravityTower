@@ -60,6 +60,18 @@ class BlitzGameScene: GameScene {
                 return
             }
             
+            if(counter < 3){
+                timeLabel.fontColor = Constants.Color.Red;
+                let blink:SKAction = SKAction.sequence([
+                    SKAction.fadeOutWithDuration(0.25),
+                    SKAction.fadeInWithDuration(0.25)
+                    ])
+                timeLabel.runAction(SKAction.repeatAction(blink, count: 2))
+            }
+            else{
+                timeLabel.fontColor = Constants.Color.White;
+            }
+            
             counter -= 1
             timeLabel.text = "Time: \(counter)"
         }

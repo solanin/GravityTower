@@ -159,7 +159,7 @@ class RegGameScene : GameScene {
     override func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ) {
-            if currentBlock.position.y >= goal.position.y {
+            if currentBlock.position.y + currentBlock.size.height >= goal.position.y {
                 win()
             } else {
                 spawnBlock()
