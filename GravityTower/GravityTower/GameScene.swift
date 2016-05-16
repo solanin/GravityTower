@@ -64,12 +64,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         hero.setup(CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame)))
         
         // Calculate playable margin
-        calcPlayableMargin()
         enumerateChildNodesWithName("//*", usingBlock: {node, _ in
             if let customNode = node as? CustomNodeEvents {
                 customNode.didMoveToScene()
             }
         })
+        
+        // Edges
+        physicsWorld.contactDelegate = self
+        
+        let leftEdgeSize = CGSize(width: 10.0, height: frame.height*2)
+        let leftEdge = SKSpriteNode(color: Constants.Color.Blue, size: leftEdgeSize)
+        leftEdge.position = CGPoint(x:CGRectGetMidX(self.frame) - 5.0, y:0.0)
+        leftEdge.physicsBody = SKPhysicsBody(rectangleOfSize: leftEdgeSize)
+        leftEdge.physicsBody?.dynamic = false
+        leftEdge.physicsBody?.allowsRotation = false
+        leftEdge.physicsBody?.categoryBitMask = PhysicsCategory.Edge
+        theCamera.addChild(leftEdge)
+        
+        let rightEdgeSize = CGSize(width: 10.0, height: frame.height*2)
+        let rightEdge = SKSpriteNode(color: Constants.Color.Blue, size: rightEdgeSize)
+        rightEdge.position = CGPoint(x:-CGRectGetMidX(self.frame) + 25.0, y:0.0)
+        rightEdge.physicsBody = SKPhysicsBody(rectangleOfSize: rightEdgeSize)
+        rightEdge.physicsBody?.dynamic = false
+        rightEdge.physicsBody?.allowsRotation = false
+        rightEdge.physicsBody?.categoryBitMask = PhysicsCategory.Edge
+        theCamera.addChild(rightEdge)
+        
+        let bottomEdgeSize = CGSize(width: frame.width, height: 10.0)
+        let bottomEdge = SKSpriteNode(color: Constants.Color.Blue, size: bottomEdgeSize)
+        bottomEdge.position = CGPoint(x:CGRectGetMidX(self.frame), y:5.0)
+        bottomEdge.physicsBody = SKPhysicsBody(rectangleOfSize: bottomEdgeSize)
+        bottomEdge.physicsBody?.dynamic = false
+        bottomEdge.physicsBody?.allowsRotation = false
+        bottomEdge.physicsBody?.categoryBitMask = PhysicsCategory.Edge
+        addChild(bottomEdge)
         
         // DROP POINT
         START_POINT = theCamera.position.y + 300.0
@@ -140,7 +169,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let moveObj = SKAction.runBlock({
             //self.hero.position = (self.allBlocks.last?.position)!
             self.hero2.position = self.theCamera.position
-            self.calcPlayableMargin()
         })
         if (allBlocks.count > 0) {
             if (hero.position.y + offset < (allBlocks.last?.position.y)!){
@@ -376,7 +404,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         playableMargin = (h - maxAspectRatioHeight)/2
         
         playableRect = CGRect(x: z, y: playableMargin,
-            width: w, height: h-playableMargin*2)
+            width: w, height: (h-playableMargin*2)*2)
         
         physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
         physicsWorld.contactDelegate = self
