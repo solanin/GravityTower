@@ -16,6 +16,7 @@ struct PhysicsCategory {
     static let Base:  UInt32 = 0b100 // 4
     static let Label: UInt32 = 0b1000 // 8
     static let Goal:  UInt32 = 0b10000 // 16
+    static let FakeBlock: UInt32 = 0b100000 // 32
 }
 
 struct SpriteLayer {

@@ -29,11 +29,23 @@ class GameOverScene: SKScene {
         bg.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         self.addChild(bg)
         
+        let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+        gameOverLabel.fontSize = 250
+        gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        
+        let emitterNode = SKEmitterNode(fileNamed: "MyParticle")!
+        emitterNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)+400))
+        
+        // Blitz or Zen
         if results.level < 0 {
             let hsLabel = SKLabelNode(fontNamed: Constants.Font.Main)
+            
+            gameOverLabel.text = "Score: \(results.numBlocks)"
+            
             if results.level == -1 {
                 if (DefaultsManager.sharedDefaultsManager.getZenHighscore() == results.numBlocks) {
                     hsLabel.text = "High Score!"
+                    addChild(emitterNode)
                 }
                 else {
                     hsLabel.text = "High Score : \(DefaultsManager.sharedDefaultsManager.getZenHighscore())"
@@ -41,24 +53,21 @@ class GameOverScene: SKScene {
             } else if results.level == -2 {
                 if (DefaultsManager.sharedDefaultsManager.getBlitzHighscore() == results.numBlocks) {
                     hsLabel.text = "High Score!"
+                    addChild(emitterNode)
                 }
                 else {
                     hsLabel.text = "High Score : \(DefaultsManager.sharedDefaultsManager.getBlitzHighscore())"
                 }
             }
+            
             hsLabel.fontSize = 100
             hsLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+50.0))
             self.addChild(hsLabel)
-        }
-    
-        let gameOverLabel = SKLabelNode(fontNamed: Constants.Font.Main)
-        if results.level < 0 {
-            gameOverLabel.text = "Score: \(results.numBlocks)"
-        } else {
+        } else { // Levels 
             gameOverLabel.text = "You Win!"
+            addChild(emitterNode)
         }
-        gameOverLabel.fontSize = 250
-        gameOverLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:(CGRectGetMidY(self.frame)+300.0))
+        
         self.addChild(gameOverLabel)
         
         
@@ -69,11 +78,11 @@ class GameOverScene: SKScene {
         playBtn.setAllStatesLabelFontName(Constants.Font.Main)
         playBtn.setAllStatesLabelFontSize(40.0)
         
-        if results.level == -1 {
+        if results.level == -1 { // Zen mode
             playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
                 (self.view!.window!.rootViewController as! GameViewController).loadZenGameScene()
             })
-        } else if results.level == -2 {
+        } else if results.level == -2 { //Blitz mode
             playBtn.addClosure(.TouchUpInside, target: self, closure: { (scene, sender) -> () in
                 (self.view!.window!.rootViewController as! GameViewController).loadBlitzGameScene()
             })
@@ -91,9 +100,6 @@ class GameOverScene: SKScene {
         })
         addChild(mainMenuBtn)
         
-        let emitterNode = SKEmitterNode(fileNamed: "MyParticle")!
-        emitterNode.position = CGPoint(x: CGRectGetMidX(self.frame), y: (CGRectGetMidY(self.frame)+400))
-        addChild(emitterNode)
     }
-
+    
 }
