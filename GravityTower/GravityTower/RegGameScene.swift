@@ -16,7 +16,7 @@ class RegGameScene : GameScene {
     let level1: [String] = ["square", "rectangle", "hexagon", "triangle"]
     let level2: [String] = ["rectangle", "square", "square", "rectangle", "square", "rectangle", "rectangle", "square", "square", "square"]
     let level3: [String] = ["square", "rectangle", "triangle", "triangle", "rectangle", "rectangle", "square", "square", "rectangle", "triangle", "rectangle", "square", "square", "square"]
-    let level4: [String] = ["rectangle", "hexagon", "hexagon", "rectangle", "square", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle"]
+    let level4: [String] = ["rectangle", "hexagon", "hexagon", "square", "rectangle", "rectangle", "square", "hexagon", "rectangle", "square", "square", "rectangle", "hexagon", "triangle", "square"]
     let level5: [String] = ["rectangle", "triangle", "triangle", "rectangle", "hexagon", "square", "rectangle", "square", "square", "rectangle", "hexagon"]
     let level6: [String] = ["square", "square", "hexagon", "rectangle", "rectangle", "hexagon", "rectangle", "square", "rectangle", "rectangle", "hexagon", "square", "rectangle", "triangle"]
     
@@ -100,7 +100,7 @@ class RegGameScene : GameScene {
             tempBlock = FakeBlockNode(imageNamed: shapes[currentIndex]+"-fake")
             
             // Camera
-            START_POINT = theCamera.position.y + 300.0
+            START_POINT = theCamera.position.y + 350.0
             if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
             
             // Set Up Onboarding
@@ -120,6 +120,11 @@ class RegGameScene : GameScene {
                     tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
                 }
             } else {
+                // Start with block rotated with levels > 4
+                if (results.level > 4){
+                    tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
+                }
+                
                 tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
             
@@ -159,7 +164,7 @@ class RegGameScene : GameScene {
     override func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ) {
-            if currentBlock.position.y + currentBlock.size.height >= goal.position.y {
+            if currentBlock.position.y + currentBlock.size.height/2 >= goal.position.y {
                 win()
             } else {
                 spawnBlock()

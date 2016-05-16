@@ -237,7 +237,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             START_POINT = theCamera.position.y + 300.0
             if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
             
-            //tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
+            // Start the block with rotation for zen and blitz mode
+            if (results.level < 0){
+                tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
+            }
+            
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             
             addChild(tempBlock)
@@ -303,7 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func checkFinished() {
         if (currentBlock.physicsBody?.velocity.dy < 1 &&
             currentBlock.physicsBody?.velocity.dy > -1 ){
-                spawnBlock()
+            spawnBlock()
         }
     }
     
@@ -394,17 +398,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             maxAspectRatio = 3.0/4.0 // iPad
         } else {
             maxAspectRatio = 9.0/16.0 // iPhone
-        }        
+        }
         
         let z = theCamera.position.x - frame.midX
         let w = theCamera.position.x + frame.midX
         let h = theCamera.position.y + frame.midY
-            
+        
         maxAspectRatioHeight = w / maxAspectRatio
         playableMargin = (h - maxAspectRatioHeight)/2
         
         playableRect = CGRect(x: z, y: playableMargin,
-            width: w, height: (h-playableMargin*2))
+                              width: w, height: (h-playableMargin*2))
         
         physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
         physicsWorld.contactDelegate = self

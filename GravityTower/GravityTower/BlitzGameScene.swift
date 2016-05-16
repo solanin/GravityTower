@@ -45,7 +45,7 @@ class BlitzGameScene: GameScene {
     
     // MARK: Timer
     func startTimer(){
-        counter = 5
+        counter = 6
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateCounter"), userInfo: nil, repeats: true)
     }
     
@@ -60,13 +60,13 @@ class BlitzGameScene: GameScene {
                 return
             }
             
-            if(counter < 3){
+            if(counter < 4){
                 timeLabel.fontColor = Constants.Color.Red;
                 let blink:SKAction = SKAction.sequence([
                     SKAction.fadeOutWithDuration(0.25),
                     SKAction.fadeInWithDuration(0.25)
                     ])
-                timeLabel.runAction(SKAction.repeatAction(blink, count: 2))
+                timeLabel.runAction(SKAction.repeatAction(blink, count: 3))
             }
             else{
                 timeLabel.fontColor = Constants.Color.White;
