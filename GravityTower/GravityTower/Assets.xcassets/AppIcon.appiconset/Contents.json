@@ -27,13 +27,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "gravitytower_icon60x2.png",
+      "filename" : "gravitytower_icon40x3-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "gravitytower_icon60x3.png",
+      "filename" : "gravitytower_icon180.png",
       "scale" : "3x"
     },
     {
@@ -75,7 +75,7 @@
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "gravitytower_icon83.5x2.png",
+      "filename" : "gravitytower_icon835x2.png",
       "scale" : "2x"
     }
   ],

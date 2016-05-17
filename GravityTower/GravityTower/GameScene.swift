@@ -239,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
             // Start the block with rotation for zen and blitz mode
             if (results.level < 0){
-                tempBlock.zRotation = CGFloat(Int(arc4random()) % 100)
+                tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
             }
             
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
