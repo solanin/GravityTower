@@ -121,10 +121,9 @@ class RegGameScene : GameScene {
                 }
             } else {
                 // Start with block rotated with levels > 4
-                if (results.level > 4){
-                    tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
-                }
-                
+                //if (results.level > 4){
+                //tempBlock.zRotation = CGFloat(Int(arc4random()) % 360)
+                //}
                 tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             }
             

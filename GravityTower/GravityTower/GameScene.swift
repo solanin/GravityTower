@@ -101,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         addChild(bottomEdge)
         
         // DROP POINT
-        START_POINT = theCamera.position.y + 300.0
+        START_POINT = theCamera.position.y + 400.0
         
         // BG
         let bg = childNodeWithName("//Background") as! SKSpriteNode
@@ -160,7 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     // MARK: Camera
     override func update(currentTime: CFTimeInterval) {
-        let offset = CGFloat(300.0)
+        let offset = CGFloat(400.0)
         var target = CGPoint(x: frame.midX, y: hero.position.y + offset)
         if (hero.position.y + offset < frame.midY) {
             target = CGPoint(x: frame.midX, y: frame.midY)
@@ -238,9 +238,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (allBlocks.count > 0 ) { hero.position = (allBlocks.last?.position)! }
             
             // Start the block with rotation for zen and blitz mode
-            if (results.level < 0){
-                tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
-            }
+            //if (results.level < 0){
+            //    tempBlock.zRotation = CGFloat(Int(arc4random()) % 80)
+            //}
             
             tempBlock.setup(CGPoint(x: CGRectGetMidX(self.frame)-randomBetweenNumbers(-200, secondNum: 200), y: START_POINT), screen: frame)
             
